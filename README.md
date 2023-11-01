@@ -1,1 +1,1 @@
-# SPTech | Projeto individual - SOTChub
+# SPTech | Projeto individual - ColossiHub 
