@@ -1,0 +1,10 @@
+{
+  "name": "colossihub",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./colossihub/app.js",
+    "dev": "cd colossihub && npm run dev",
+    "postinstall": "cd colossihub && npm install"
+  }
+}
