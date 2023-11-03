@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Caslon Antique', 'Segoe UI', Arial, Helvetica, sans-serif;
+  font-size: 12.5px;
+  background-color: rgb(227, 227, 227);
+}
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  height: 100%;
+
+}
+
+:root {
+ 
+}

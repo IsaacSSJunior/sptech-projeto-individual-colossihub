@@ -8,12 +8,11 @@ var PORTA = process.env.AMBIENTE_PROCESSO == "desenvolvimento" ? 3333 : 8080;
 
 var app = express();
 
-var indexRouter = require("./src/routes/index");
-var usuarioRouter = require("./src/routes/usuarios");
-var avisosRouter = require("./src/routes/avisos");
-var medidasRouter = require("./src/routes/medidas");
-var aquariosRouter = require("./src/routes/aquarios");
-var empresasRouter = require("./src/routes/empresas");
+var indexRouter = require("./src/routes/index.script");
+var usuarioRouter = require("./src/routes/usuario.script");
+var forumRouter = require('./src/routes/forum.script')
+var topicoRouter = require('./src/routes/topico.script')
+var comentarioRouter = require('./src/routes/comentario.script')
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -23,10 +22,9 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
-app.use("/avisos", avisosRouter);
-app.use("/medidas", medidasRouter);
-app.use("/aquarios", aquariosRouter);
-app.use("/empresas", empresasRouter);
+app.use("/forum",forumRouter);
+app.use("/topico",topicoRouter);
+app.use("/comentario", comentarioRouter);
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n
