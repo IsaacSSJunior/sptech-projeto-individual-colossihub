@@ -12,10 +12,11 @@ imagemForum VARCHAR (225)
 DESCRIBE TbForum;
 
 INSERT INTO TbForum (nomeForum,descricaoForum,imagemForum) VALUES 
-	('Guias & Dicas', 'Macetes sensacionais para quem joga SOTC.', 'IMG1'),
-    ('Teorias sobre SOTC', 'Teorias da comunidade de SOTC', 'IMG2');
+	('Guias & Dicas', 'Macetes sensacionais para quem joga SOTC.', './assets/img/"'),
+    ('Teorias sobre SOTC', 'Teorias da comunidade de SOTC', './assets/img/"');
 
-SELECT * FROm TbForum;
+SELECT * FROM TbForum;
+
 
 CREATE TABLE TbUsuario (
 idUsuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -75,8 +76,8 @@ DESCRIBE TbComentario;
 
 INSERT INTO TbComentario VALUES 
 	(1 , 1 , 1, 1, 2, 'Utiliza a estrategia do RyanRed, ele joga pra krl', current_timestamp()),
-    (2 , 1 , 1, 1, 1,  'VLW mn, fui lá pesquisar, consigui passar ksksks', current_timestamp()),
-    (3 , 1 , 1, 1, 2, 'Muito foda ele man, passa o link de outros cara aí dps', current_timestamp());
+    (2 , 2 , 1, 1, 1,  'VLW mn, fui lá pesquisar, consigui passar ksksks', current_timestamp()),
+    (3 , 2 , 1, 1, 2, 'Muito foda ele man, passa o link de outros cara aí dps', current_timestamp());
 	
 SELECT * FROM TbComentario;
 

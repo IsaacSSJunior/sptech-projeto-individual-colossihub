@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,23 +11,66 @@
 
   <!-- Scripts -->
   <script src="./js/sessao.js"></script>
+  <script src="https://kit.fontawesome.com/eb311d3d23.js" crossorigin="anonymous"></script>
 
   <title>ColossiHub | Página Inicial</title>
   <link rel="icon" href="./assets/icon/favicon2.ico">
 </head>
+
 <body>
   <header>
+    <div class="header__container">
 
+      <span onclick="location.reload();" class="header__boxLogo">
+        <img src="./assets/img/logo-light-colossihub.png" alt="img_logo">
+      </span>
+
+      <nav class="header__nav">
+        <ul class="header__ulLinks ul--header">
+          <li>
+            <a class="header__linkPage" href="javascript:void(0);" onclick="location.reload();">
+              Overview
+            </a>
+          </li>
+          <i class="fa-solid fa-circle fa-2xs" style="color: var(--white-dark);"></i>
+          <li>
+            <a class="header__linkPage" href="./foruns.html">
+              Fóruns
+            </a>
+          </li>
+          <i class="fa-solid fa-circle fa-2xs" style="color: #ffffff;"></i>
+          <li>
+            <a class="header__linkPage" href="#sobre-nos">
+              Sobre
+            </a>
+          </li>
+        </ul>
+        <ul class="header__ulBtns ul--header">
+          <li>
+            <a href="sign-in.html">
+              <button class="header_btnSignIn btns--header" type="button">Entrar</button>
+            </a>
+          </li>
+          <li>
+            <a href="sign-up.html">
+              <button class="header_btnSignUp btns--header" type="button">Cadastrar</button>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+
+    </div>
   </header>
-
+  <div class="header__bgMessage"></div>
   <main>
 
   </main>
-
   <footer>
 
   </footer>
 </body>
+
 </html>
 <script>
 
