@@ -8,7 +8,7 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="./css/index.style.css">
- <link rel="shortcut icon" href="./assets/img/logo-light-colossihub.png" type="image/x-icon">
+  <link rel="shortcut icon" href="./assets/img/logo-light-colossihub.png" type="image/x-icon">
 
   <!-- Scripts -->
   <script src="./js/sessao.js"></script>
@@ -30,31 +30,35 @@
         <ul class="header__ulLinks ul--header">
           <li>
             <a class="header__linkPage" href="javascript:void(0);" onclick="location.reload();">
-              Overview
+              Forums
             </a>
           </li>
-          <i class="fa-solid fa-circle fa-2xs" style="color: var(--white-dark);"></i>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="header__point">
+            <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"></path>
+          </svg>
           <li>
             <a class="header__linkPage" href="./foruns.html">
-              Fóruns
+              O que há de novo?
             </a>
           </li>
-          <i class="fa-solid fa-circle fa-2xs" style="color: #ffffff;"></i>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="header__point">
+            <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"></path>
+          </svg>
           <li>
             <a class="header__linkPage" href="#sobre-nos">
-              Sobre
+              Sobre "ColossiHub"
             </a>
           </li>
         </ul>
         <ul class="header__ulBtns ul--header">
           <li>
             <a href="sign-in.html">
-              <button class="header_btnSignIn btns--header" type="button">Entrar</button>
+              <button class="header_btnSignIn btns--header header--box--btns" type="button">Entrar</button>
             </a>
           </li>
           <li>
             <a href="sign-up.html">
-              <button class="header_btnSignUp btns--header" type="button">Cadastrar</button>
+              <button class="header_btnSignUp btns--header header--box--btns" type="button">Cadastrar</button>
             </a>
           </li>
         </ul>
@@ -63,14 +67,42 @@
 
     </div>
   </header>
-  <div class="header__bgMessage">
-    <div class="header__mandalaBgMessage">
-      Bem vindo ao <u>ColossiHub - Fórum</u>
-    </div>
-    <div class="header__bgMandala"></div>
-  </div>
-  <main>
+  <article class="bgMessage">
+    <div class="bgMessage__bgMandala"></div>
 
+    <div class="bgMessage__container">
+      <p class="bgMessage__title">Seja Bem vindo(a) ao nosso lar. <u>ColossiHub - Fórum!</u></p>
+      <br>
+      <p class="bgMessage__subTitle">Junte-se às discussões com outros fãs de SOTC agora!</p>
+    </div>
+  </article>
+
+  <main>
+    <section class="sectionForums">
+      <div class="sectionForums__title"><!-- Título sessão-->
+        <div class="sectionForums__leftMandala">
+          <img src="./assets/img/mandala-left-titles.png" alt="">
+        </div>
+        <span class="sectionForums__span">FÓRUNS</span>
+        <div class="sectionForums__rightMandala">
+          <img src="./assets/img/mandala-right-titles.png" alt="">
+        </div>
+      </div>
+      <table class="sectionForums__articleCards" border="1"><!-- container - cards, 'sobre nós'-->
+        <tbody>
+          <tr>
+            <td>
+              Forum1
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Forum2
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   </main>
   <footer>
 

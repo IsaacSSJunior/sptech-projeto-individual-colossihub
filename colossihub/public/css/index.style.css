@@ -62,14 +62,14 @@ header::before {
 .header__boxLogo {
   cursor: pointer;
   height: 100%;
-  width: 15%;
+  width: 21.5%;
   display: flex;
   justify-content: center;
 }
 
 .header__nav {
   height: 100%;
-  width: 85%;
+  width: 78.5%;
   display: flex;
 }
 
@@ -87,9 +87,16 @@ header::before {
 }
 
 .header__linkPage{
-  font-size: 1.75rem;
+  font-size: 1.60rem;
   text-decoration: none;
   color: var(--white-dark);
+}
+
+.header__point{
+  width: auto;
+  height: 5.5%;
+  cursor: pointer;
+  fill: var(--white-dark)
 }
 
 .header__linkPage:hover{
@@ -101,9 +108,13 @@ header::before {
   column-gap: 10px;
 }
 
+.header--box--btns{
+  width: 100%;
+}
+
 .btns--header{
   cursor: pointer;
-  height: 40px;
+  height: 35px;
   width: 120px;
   font-weight: 500;
   font-size: 1.70rem;
@@ -136,28 +147,82 @@ header::before {
   background-color: var(--hover-very-white-dark);
 }
 
-.header__bgMessage{
+.bgMessage{
+  position: relative;
+  padding-top: 120px;
   height: 380px;
-  background-image: url('../assets/img/bg-removebg.png');
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  background-image: url('../assets/img/bg-removebg.png');
 
    
 }
-
-.header__mandalaBgMessage, .header__mandalaBgMessage u{
-  font-size: 4.2rem;
+.bgMessage__container{
+  margin: 0 auto;
+  width: 1128px;
+  text-align: center;
+  padding: 0 20px;
+  
 }
 
-.header__bgMandala{
+.bgMessage__title, .bgMessage__title u{
+  font-size: 2.85rem;
+}
+
+.bgMessage__subTitle{
+  font-size: 2rem;
+  color: var(--hover-white-dark);
+}
+
+.bgMessage__bgMandala{
   position: absolute;
-  top: 135px;
-  height: 200px;
-  width: 400px;
+  top: 170px;
+  height: 150px;
+  width: 300px;
   background-image: url('../assets/img/mandala-bg-message.png');
   background-repeat: no-repeat;
   background-position-x: center;
+  background-size: cover;
 
 
+
+}
+
+main{
+  margin: 0 auto;
+  max-width: 1128px;
+  padding-top: 80px;
+}
+
+.sectionForums{
+  display: flex;
+  flex-direction: column;
+  row-gap: 45px;
+}
+
+.sectionForums__title{
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.sectionForums__leftMandala{
+  flex-grow: 2;
+}
+
+.sectionForums__leftMandala img, .sectionForums__rightMandala img{
+  width: 100%;
+}
+
+.sectionForums__span{
+  font-size: 3rem;
+}
+
+.sectionForums__rightMandala{
+  flex-grow: 2;
+}
+
+.sectionForums__articleCards{
+  width: 100%;
 }
