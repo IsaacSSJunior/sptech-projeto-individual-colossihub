@@ -1,0 +1,304 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Caslon Antique', 'Segoe UI', Arial, Helvetica, sans-serif;
+    font-size: 12.5px;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    height: 100%;
+  }
+  
+  body {
+    overflow-x: hidden;
+    height: 100%;
+    background-color: #F3F3F3;
+  
+  }
+  
+  :root {
+    --trasparent: #00000011;
+    --white: #ffffff;
+    --black: #000000;
+    --white-dark: #F3F3F3;
+    --dark-Grey: #202020;
+    --light-gray: #2A2A2A;
+    --very-light-gray: rgb(66, 66, 66);
+    --hover-white-dark:#acabab;
+    --hover-very-white-dark: #d6d3d3;
+  }
+  
+  header {
+    position: fixed;
+    z-index: 2;
+    padding: 18.5px 25px;
+    width: 100vw;
+    height: 120px;
+    background-image: url('../assets/img/texture-head.png');
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.01), 0 10px 10px rgba(0, 0, 0, 0.08);
+    
+  }
+  
+  header::before {
+    content: ''; /*conteúdo vazio para o pseudoelemento */
+    display: block; /*pseudoelemento um elemento de bloco */
+    position: absolute; /*pseudoelemento em posição absoluta */
+    top: 125px;
+    left: -10px;
+    right: -10px;
+    border: 3.5px solid var(--dark-Grey);
+  
+  }
+  
+  
+  .header__container {
+    margin: 0 auto;
+    height: 100%;
+    width: 1128px;
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+  }
+  
+  .header__boxLogo {
+    cursor: pointer;
+    height: 100%;
+    width: 21.5%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .header__nav {
+    height: 100%;
+    width: 78.5%;
+    display: flex;
+  }
+  
+  .ul--header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+  }
+  
+  .header__ulLinks {
+    width: 70%;
+    column-gap: 20px;
+    list-style: none;
+  }
+  
+  .header__linkPage{
+    font-size: 1.60rem;
+    text-decoration: none;
+    color: var(--white-dark);
+  }
+  
+  .active{
+    text-decoration: underline;
+  }
+  
+  .header__point{
+    width: auto;
+    height: 5.5%;
+    cursor: pointer;
+    fill: var(--white-dark)
+  }
+  
+  .header__linkPage:hover{
+    text-decoration: underline;
+  }
+  
+  .header__ulBtns {
+    width: 30%;
+    column-gap: 10px;
+  }
+  
+  .header--box--btns{
+    width: 100%;
+  }
+  
+  .btns--header{
+    cursor: pointer;
+    height: 35px;
+    width: 120px;
+    font-weight: 500;
+    font-size: 1.70rem;
+  
+  }
+  
+  /* botão de login*/
+  .header_btnSignIn{
+    background-color: transparent;
+    border: 1px solid var(--white-dark);
+    color: var(--white-dark);
+  }
+  
+  /* Hover, botão de login*/
+  .header_btnSignIn:hover{
+      background-color: var(--white-dark);
+      border: none;
+      color: var(--very-light-gray);
+  }
+  
+  /* botão de 'cadastrar'*/
+  .header_btnSignUp{
+    background-color: var(--white-dark);
+    border: none;
+    color: var(--very-light-gray);
+  }
+  
+  /* Hover, botão de 'cadastrar'*/
+  .header_btnSignUp:hover{
+    background-color: var(--hover-very-white-dark);
+  }
+  
+  .bgMessage{
+    position: relative;
+    padding-top: 120px;
+    height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../assets/img/bg-removebg.png');
+  
+     
+  }
+  .bgMessage__container{
+    margin: 0 auto;
+    width: 1128px;
+    text-align: center;
+    padding: 0 20px;
+    
+  }
+  
+  .bgMessage__title, .bgMessage__title u{
+    font-size: 2.85rem;
+  }
+  
+  .bgMessage__subTitle{
+    font-size: 2rem;
+    color: var(--hover-white-dark);
+  }
+  
+  .bgMessage__bgMandala{
+    position: absolute;
+    top: 170px;
+    height: 150px;
+    width: 300px;
+    background-image: url('../assets/img/mandala-bg-message.png');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-size: cover;
+  
+  
+  
+  }
+
+  .sectionSignIn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .sectionSignIn__formContainer, .sectionSignIn__linkBtnsContainer{
+    width: 500px;
+  }
+
+  .sectionSignIn__formContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    row-gap: 20px;
+  }
+
+  .sectionSignIn__emailContainer, .sectionSignIn__passwordContainer{
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+  }
+
+  .sectionSignIn__emailLabel, .sectionSignIn__passwordLabel{
+    font-size: 2rem;
+  }
+
+  .sectionSignIn__emailInput, .sectionSignIn__passwordInput{
+    height: 40px;
+    border: 1px solid var(--hover-white-dark);
+  }
+
+  .sectionSignIn__inputPasswordContainer{
+    display: flex;
+
+  }
+
+  .sectionSignIn__passwordInput{
+    flex-grow: 10;
+  }
+
+  .sectionSignIn__ContainerPasswordBtn{
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--white);
+    border-left: 0;
+    border-top: 1px;
+    border-right: 1px;
+    border-bottom: 1px;
+    border-style:solid;
+    border-color: var(--hover-white-dark);
+  }
+
+
+
+  .bgFooter{
+    position: relative;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../assets/img/bg-footer.png');
+
+  
+     
+  }
+  
+
+  main{
+    margin: 0 auto;
+    max-width: 1128px;
+    padding: 80px 20px 0;
+  }
+  
+  .sectionSignIn{
+    display: flex;
+    flex-direction: column;
+    row-gap: 45px;
+  }
+  
+  .sectionSignIn__title{
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+  }
+  
+  .sectionSignIn__leftMandala{
+    flex-grow: 2;
+  }
+  
+  .sectionSignIn__leftMandala img, .sectionSignIn__rightMandala img{
+    width: 100%;
+  }
+  
+  .sectionSignIn__span{
+    font-size: 3rem;
+  }
+  
+  .sectionSignIn__rightMandala{
+    flex-grow: 2;
+  }
+
+
+  

@@ -8,28 +8,26 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="./css/index.style.css">
-  <link rel="shortcut icon" href="./assets/img/logo-light-colossihub.png" type="image/x-icon">
+  <link rel="shortcut icon" href="./assets/img/shortcut-icon.png" type="image/x-icon">
 
   <!-- Scripts -->
   <script src="./js/sessao.js"></script>
   <script src="https://kit.fontawesome.com/eb311d3d23.js" crossorigin="anonymous"></script>
 
-  <title>ColossiHub | Página Inicial</title>
+  <title> COLOSSIHUB | Fóruns </title>
   <link rel="icon" href="./assets/icon/favicon2.ico">
 </head>
 
-<body>
+<body onload="Listar()">
   <header>
     <div class="header__container">
-
       <span onclick="location.reload();" class="header__boxLogo">
         <img src="./assets/img/logo-light-colossihub.png" alt="img_logo">
       </span>
-
       <nav class="header__nav">
         <ul class="header__ulLinks ul--header">
           <li>
-            <a class="header__linkPage" href="javascript:void(0);" onclick="location.reload();">
+            <a class="header__linkPage active" href="./index.html">
               Forums
             </a>
           </li>
@@ -37,36 +35,35 @@
             <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"></path>
           </svg>
           <li>
-            <a class="header__linkPage" href="./foruns.html">
-              O que há de novo?
+            <a class="header__linkPage" href="./ultimasInteracoes.html">
+              Últimas interações
             </a>
           </li>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="header__point">
             <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"></path>
           </svg>
           <li>
-            <a class="header__linkPage" href="#sobre-nos">
+            <a class="header__linkPage" href="./sobreColossiHub.html">
               Sobre "ColossiHub"
             </a>
           </li>
         </ul>
         <ul class="header__ulBtns ul--header">
           <li>
-            <a href="sign-in.html">
-              <button class="header_btnSignIn btns--header header--box--btns" type="button">Entrar</button>
+            <a href="acessar.html">
+              <button class="header_btnSignIn btns--header header--box--btns" type="button">Acessar</button>
             </a>
           </li>
           <li>
-            <a href="sign-up.html">
+            <a href="cadastrar.html">
               <button class="header_btnSignUp btns--header header--box--btns" type="button">Cadastrar</button>
             </a>
           </li>
         </ul>
       </nav>
-
-
     </div>
   </header>
+
   <article class="bgMessage">
     <div class="bgMessage__bgMandala"></div>
 
@@ -88,18 +85,8 @@
           <img src="./assets/img/mandala-right-titles.png" alt="">
         </div>
       </div>
-      <table class="sectionForums__articleCards" border="1"><!-- container - cards, 'sobre nós'-->
-        <tbody>
-          <tr>
-            <td>
-              Forum1
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Forum2
-            </td>
-          </tr>
+      <table class="sectionForums__tableCards"><!-- container - cards, 'sobre nós'-->
+        <tbody id="tbody">
         </tbody>
       </table>
     </section>
@@ -111,5 +98,108 @@
 
 </html>
 <script>
+
+  function Listar() {
+
+    fetch("/forum/listar", {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        resposta.json().then((foruns) => {
+          const resultados = [];
+
+          // Mapeia os fóruns e cria uma promessa para obter comentários e tópicos de cada fórum
+          const promessasComentariosETopicos = foruns.map((forum) => {
+            const resultado = {
+              idForum: forum.idForum,
+              nomeForum: forum.nomeForum,
+              descricaoForum: forum.descricaoForum,
+              imagemForum: forum.imagemForum,
+              numeroComentarios: 0,
+              numeroTopicos: 0,
+            };
+
+            resultados.push(resultado);
+
+            // Retorna a promessa da obtenção de comentários e tópicos
+            return Promise.all([
+              obterComentarios(forum.idForum, resultado),
+              obterTopicos(forum.idForum, resultado),
+            ]);
+          });
+
+          // Espera todas as promessas serem resolvidas
+          Promise.all(promessasComentariosETopicos)
+            .then(() => {
+              // Atualiza o HTML após o término do loop
+              atualizarHTML(resultados);
+            })
+            .catch((erro) => {
+              console.error(`Erro ao obter comentários e tópicos: ${erro}`);
+            });
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+
+    function obterComentarios(idForum, resultado) {
+      return fetch(`/comentario/listar/${idForum}`, {
+        method: "GET",
+      })
+        .then((respostaComentarios) => respostaComentarios.json())
+
+        .then((comentarios) => {
+          resultado.numeroComentarios = comentarios.length;
+        });
+    }
+
+    function obterTopicos(idForum, resultado) {
+      return fetch(`/topico/listar/${idForum}`, {
+        method: "GET",
+      })
+        .then((respostaTopicos) => respostaTopicos.json())
+
+        .then((topicos) => {
+          resultado.numeroTopicos = topicos.length;
+        });
+    }
+
+    function atualizarHTML(resultados) {
+      const tbody = document.querySelector('#tbody');
+
+      resultados.forEach((resultado) => {
+        tbody.innerHTML += `
+      <tr>
+        <td>
+          <a class="sectionForums_hrefForum" href="foruns.html/?idForum=${resultado.idForum}">
+            <div class="sectionForums__card" style="background-image: url('${resultado.imagemForum}');">
+              <div class="sectionForums__imgCard"></div>
+              <div class="sectionForums__leftSideCard">
+                <span class="sectionForums__nameForum">${resultado.nomeForum}</span>
+                <hr class="sectionForums__hr">
+                <span class="sectionForums__descForum">${resultado.descricaoForum}</span>
+              </div>
+              <div class="sectionForums__rightSideCard">
+                <div class="sectionForums__containerTopics text--config-data-forums">
+                  <span class="sectionForums__spanTopics text--config-data-forums">Tópicos</span>
+                  <u class="sectionForums_numberTopics text--config-data-forums">${resultado.numeroTopicos}</u>
+                </div>
+                <div class="sectionForums__containerPost text--config-data-forums">
+                  <span class="sectionForums__spanPost text--config-data-forums">Comentários</span>
+                  <u class="sectionForums_numberPost text--config-data-forums">${resultado.numeroComentarios}</u>
+                </div>
+              </div>
+            </div>
+          </a>
+        </td>
+      </tr>
+      <tr>`;
+      });
+    }
+
+  }
+
+
 
 </script>

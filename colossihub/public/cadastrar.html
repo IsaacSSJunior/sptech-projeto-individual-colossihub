@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/cadastrar.style.css">
+    <link rel="shortcut icon" href="./assets/img/shortcut-icon.png" type="image/x-icon">
+
+    <!-- Scripts -->
+    <script src="./js/sessao.js"></script>
+    <script src="https://kit.fontawesome.com/eb311d3d23.js" crossorigin="anonymous"></script>
+
+    <title> COLOSSIHUB | Cadastrar </title>
+    <link rel="icon" href="./assets/icon/favicon2.ico">
+</head>
+
+<body onload="MudaFrase()">
+    <header>
+        <div class="header__container">
+            <span onclick="location.reload();" class="header__boxLogo">
+                <img src="./assets/img/logo-light-colossihub.png" alt="img_logo">
+            </span>
+            <nav class="header__nav">
+                <ul class="header__ulLinks ul--header">
+                    <li>
+                        <a class="header__linkPage" href="./index.html">
+                            Forums
+                        </a>
+                    </li>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="header__point">
+                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"></path>
+                    </svg>
+                    <li>
+                        <a class="header__linkPage" href="./ultimasInteracoes.html">
+                            Últimas interações
+                        </a>
+                    </li>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="header__point">
+                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"></path>
+                    </svg>
+                    <li>
+                        <a class="header__linkPage" href="./sobreColossiHub.html">
+                            Sobre "ColossiHub"
+                        </a>
+                    </li>
+                </ul>
+                <ul class="header__ulBtns ul--header">
+                    <li>
+                        <a href="acessar.html">
+                            <button class="header_btnSignIn btns--header header--box--btns"
+                                type="button">Acessar</button>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="cadastrar.html">
+                            <button class="header_btnSignUp btns--header header--box--btns"
+                                type="button">Cadastrar</button>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <article class="bgMessage">
+        <div class="bgMessage__bgMandala"></div>
+
+        <div class="bgMessage__container">
+            <p class="bgMessage__title">Seja Bem vindo(a). <u>Cadastre-se no ColossiHub!</u></p>
+            <br>
+            <p class="bgMessage__subTitle" id="p_fraseHTML"></p>
+        </div>
+    </article>
+
+    <main>
+
+    </main>
+    <footer>
+
+    </footer>
+</body>
+
+</html>
+<script>
+
+    function MudaFrase() {
+        const frases = [
+
+            "Registre-se e torne-se parte da saga dos colossos.",
+            "Crie sua conta e inicie sua jornada lendária.",
+            "O cadastro é o primeiro passo para a grande aventura.",
+            "Entre para a comunidade dos corajosos caçadores de titãs.",
+            "Cada cadastro é uma promessa de coragem e destemor.",
+            "Faça parte do reino dos colossos, registre-se agora.",
+            "Seu nome será ecoado nas terras proibidas. Cadastre-se.",
+            "A inscrição é a chave para desbloquear o caminho dos heróis.",
+            "O herói começa sua jornada com um simples cadastro.",
+            "Junte-se à resistência. Registre-se e lute contra as sombras.",
+            "A inscrição é o portal para a redenção nas terras esquecidas.",
+            "Sua lenda começa a ser escrita com um simples cadastro.",
+            "Crie sua conta e faça história nos confins proibidos.",
+            "O cadastro é a porta de entrada para a bravura sem limites.",
+            "Seja parte do épico. Registre-se e faça a diferença.",
+            "A terra dos colossos aguarda seu nome. Cadastre-se agora.",
+            "Cada novo membro fortalece a resistência contra as trevas.",
+            "Registre-se para desafiar os gigantes e escrever sua saga.",
+            "Faça sua inscrição e torne-se uma lenda na Terra Proibida.",
+            "A aventura começa com seu cadastro. Torne-se parte da história."
+
+        ]
+        var indiceAleatorio = Math.floor(Math.random() * frases.length)
+        const fraseHTML = document.getElementById('p_fraseHTML')
+        fraseHTML.innerHTML = `"${frases[indiceAleatorio]}"`
+
+
+
+    }
+
+
+
+
+
+</script>

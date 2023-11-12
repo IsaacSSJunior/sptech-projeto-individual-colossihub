@@ -2,4 +2,9 @@ var express = require('express')
 var router = express.Router()
 var topicoController = require("../controllers/topicoController.script");
 
-module.exports = router
+router.get("/listar/:idForum", function (req,res){
+    topicoController.listar(req,res);
+});
+
+module.exports = router;
+

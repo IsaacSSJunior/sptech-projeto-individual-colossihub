@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./css/acessar.style.css">
+  <link rel="shortcut icon" href="./assets/img/shortcut-icon.png" type="image/x-icon">
+
+  <!-- Scripts -->
+  <script src="./js/sessao.js"></script>
+  <script src="https://kit.fontawesome.com/eb311d3d23.js" crossorigin="anonymous"></script>
+
+  <title> COLOSSIHUB | Acessar </title>
+  <link rel="icon" href="./assets/icon/favicon2.ico">
+</head>
+
+<body onload="MudaFrase()">
+  <header>
+    <div class="header__container">
+      <span onclick="location.reload();" class="header__boxLogo">
+        <img src="./assets/img/logo-light-colossihub.png" alt="img_logo">
+      </span>
+      <nav class="header__nav">
+        <ul class="header__ulLinks ul--header">
+          <li>
+            <a class="header__linkPage" href="./index.html">
+              Forums
+            </a>
+          </li>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="header__point">
+            <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"></path>
+          </svg>
+          <li>
+            <a class="header__linkPage" href="./ultimasInteracoes.html">
+              Últimas interações
+            </a>
+          </li>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="header__point">
+            <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"></path>
+          </svg>
+          <li>
+            <a class="header__linkPage" href="./sobreColossiHub.html">
+              Sobre "ColossiHub"
+            </a>
+          </li>
+        </ul>
+        <ul class="header__ulBtns ul--header">
+          <li>
+            <a href="acessar.html">
+              <button class="header_btnSignIn btns--header header--box--btns" type="button">Acessar</button>
+            </a>
+          </li>
+          <li>
+            <a href="cadastrar.html">
+              <button class="header_btnSignUp btns--header header--box--btns" type="button">Cadastrar</button>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <article class="bgMessage">
+    <div class="bgMessage__bgMandala"></div>
+
+    <div class="bgMessage__container">
+      <p class="bgMessage__title">Seja Bem vindo(a) novamente. <u>Acesse o ColossiHub!</u></p>
+      <br>
+      <p class="bgMessage__subTitle" id="p_fraseHTML"></p>
+    </div>
+  </article>
+
+  <main>
+    <section class="sectionSignIn">
+      <div class="sectionSignIn__title"><!-- Título sessão-->
+        <div class="sectionSignIn__leftMandala">
+          <img src="./assets/img/mandala-left-titles.png" alt="">
+        </div>
+        <span class="sectionSignIn__span">ACESSAR</span>
+        <div class="sectionSignIn__rightMandala">
+          <img src="./assets/img/mandala-right-titles.png" alt="">
+        </div>
+      </div>
+      <div class="sectionSignIn__formContainer">
+        <div class="sectionSignIn__emailContainer">
+          <label class="sectionSignIn__emailLabel">Endereço de e-mail:</label>
+          <input type="email" class="sectionSignIn__emailInput">
+        </div>
+        <div class="sectionSignIn__passwordContainer">
+          <label class="sectionSignIn__passwordLabel">Senha:</label>
+          <div class="sectionSignIn__inputPasswordContainer">
+            <input type="password" class="sectionSignIn__passwordInput">
+            <div class="sectionSignIn__ContainerPasswordBtn">
+              <button onclick="" class="sectionSignIn__PasswordBtn">
+                <img src="" alt="" class="sectionSignIn__imgBtn">
+              </button>
+            </div>
+          </div>
+        </div>
+        <a href="" class="sectionSignIn__linkForgotPassword">Esqueceu sua senha?</a>
+      </div>
+      <div class="sectionSignIn__linkBtnsContainer">
+        <button class="sectionSignIn__btnSignIn">ENTRAR NA CONTA</button>
+        <a href="" class="sectionSignIn__linkNotAccount">Não tem uma conta? <u>Criar Conta</u></a>
+        <div class="sectionSignIn__orContainer">
+          <div class="sectionSignIn__leftLineOr"></div>
+          <span class="sectionSignIn__spanOr">OU</span>
+          <div class="sectionSignIn__rightLineOr"></div>
+        </div>
+        <button class="sectionSignIn__btnSignInGoogle">ENTRAR COM GOOGLE</button>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <article class="bgFooter"></article>
+  </footer>
+</body>
+
+</html>
+<script>
+
+  function MudaFrase() {
+    const frases = [
+
+      "Desafie os titãs e entre na lenda.",
+      "No reino dos colossos, sua jornada começa.",
+      "Bem-vindo de volta, valente caçador de colossos.",
+      "Sob o sol proibido, sua saga continua.",
+      "A solidão do herói é preenchida pelo eco dos colossos.",
+      "Seu destino está entrelaçado com as sombras gigantes.",
+      "A coragem molda o caminho do verdadeiro guerreiro.",
+      "Desbrave as terras esquecidas e faça história.",
+      "Cada vitória contra os colossos é uma conquista única.",
+      "O eco das batalhas ressoa em seu retorno.",
+      "Na fronteira do impossível, sua jornada se renova.",
+      "Os colossos aguardam. Você está pronto para enfrentá-los?",
+      "Sob o manto dos gigantes, a bravura é sua guia.",
+      "O despertar do herói começa com cada login.",
+      "Cada tela de login é um portal para a grandeza.",
+      "Bem-vindo de volta à Terra Proibida, herói destemido.",
+      "A busca pela redenção continua a cada clique.",
+      "A coragem não conhece limites na terra dos colossos.",
+      "A lenda se desenrola a cada acesso. Prepare-se.",
+      "Sua história se entrelaça com as sombras dos gigantes."
+
+    ]
+    var indiceAleatorio = Math.floor(Math.random() * frases.length)
+    const fraseHTML = document.getElementById('p_fraseHTML')
+    fraseHTML.innerHTML = `"${frases[indiceAleatorio]}"`
+
+
+
+  }
+
+
+
+
+
+</script>

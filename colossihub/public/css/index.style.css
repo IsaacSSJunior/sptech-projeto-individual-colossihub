@@ -19,10 +19,13 @@ body {
 }
 
 :root {
+  --trasparent: #00000011;
+  --white: #ffffff;
+  --black: #000000;
   --white-dark: #F3F3F3;
   --dark-Grey: #202020;
   --light-gray: #2A2A2A;
-  --very-light-gray: #2A2A2A;
+  --very-light-gray: rgb(66, 66, 66);
   --hover-white-dark:#acabab;
   --hover-very-white-dark: #d6d3d3;
 }
@@ -90,6 +93,10 @@ header::before {
   font-size: 1.60rem;
   text-decoration: none;
   color: var(--white-dark);
+}
+
+.active{
+  text-decoration: underline;
 }
 
 .header__point{
@@ -192,7 +199,7 @@ header::before {
 main{
   margin: 0 auto;
   max-width: 1128px;
-  padding-top: 80px;
+  padding: 80px 20px 0;
 }
 
 .sectionForums{
@@ -223,6 +230,93 @@ main{
   flex-grow: 2;
 }
 
-.sectionForums__articleCards{
+.sectionForums__tableCards{
   width: 100%;
 }
+
+.sectionForums_hrefForum{
+  text-decoration: none;
+}
+
+.sectionForums__card{
+  position: relative;
+  margin: 20px;
+  padding: 30px 20px;
+  height: 250px;
+  border: 1.5px solid var(--light-gray) ;
+  background-size: cover;
+  background-position: center;
+  background-attachment:fixed;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.sectionForums__card:hover .sectionForums__imgCard {
+  height: 250px;
+  transition: all 0.35s;
+  opacity: 1;
+  
+}
+
+.sectionForums__imgCard{
+  z-index: 0;
+  position: absolute;
+  height: 250px;
+  width: 100%;
+  background: linear-gradient(to right, var(--black), var(--trasparent) ) ;
+  opacity: 0.65;
+  left: 50%;
+  transform: translate(-50%);
+  transition: all 0.35s;
+}
+
+.sectionForums__nameForum{
+  font-size: 4rem;
+  color: var(--white);
+}
+
+.sectionForums__hr{
+  border: 0;
+  height: 1px;
+  background: linear-gradient(to right, var(--white), var(--trasparent) ) ;
+}
+
+.sectionForums__leftSideCard, .sectionForums__rightSideCard{
+  z-index: 1;
+}
+
+.sectionForums__leftSideCard{
+  flex-grow: 2;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.sectionForums__descForum{
+  font-size: 1.5rem;
+  color: var(--white);
+}
+
+.sectionForums__rightSideCard{
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  column-gap: 25px;
+}
+
+.sectionForums__containerTopics, .sectionForums__containerPost {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 5px;
+}
+
+
+.text--config-data-forums{
+  color: var(--white-dark);
+  font-size: 1.8rem;
+}
+
+
