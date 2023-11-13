@@ -9,6 +9,7 @@
   html {
     scroll-behavior: smooth;
     height: 100%;
+    cursor: url("../assets/img/cursor-alt-pointer-mouse.svg"), auto;
   }
   
   body {
@@ -28,6 +29,7 @@
     --very-light-gray: rgb(66, 66, 66);
     --hover-white-dark:#acabab;
     --hover-very-white-dark: #d6d3d3;
+    --gray: #e4e0e0;
   }
   
   header {
@@ -192,15 +194,43 @@
     background-position-x: center;
     background-size: cover;
   
-  
-  
+  }
+
+  main{
+    margin: 0 auto;
+    max-width: 1128px;
+    padding: 80px 20px 0;
   }
 
   .sectionSignIn{
     display: flex;
     flex-direction: column;
     align-items: center;
+    row-gap: 40px;
   }
+
+  .sectionSignIn__title{
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+  }
+  
+  .sectionSignIn__leftMandala img, .sectionSignIn__rightMandala img{
+    width: 100%;
+  }
+
+  .sectionSignIn__leftMandala{
+    flex-grow: 2;
+  }
+  
+  .sectionSignIn__span{
+    font-size: 3rem;
+  }
+  
+  .sectionSignIn__rightMandala{
+    flex-grow: 2;
+  }
+
   
   .sectionSignIn__formContainer, .sectionSignIn__linkBtnsContainer{
     width: 500px;
@@ -218,7 +248,7 @@
     flex-direction: column;
     row-gap: 5px;
   }
-
+  
   .sectionSignIn__emailLabel, .sectionSignIn__passwordLabel{
     font-size: 2rem;
   }
@@ -226,7 +256,18 @@
   .sectionSignIn__emailInput, .sectionSignIn__passwordInput{
     height: 40px;
     border: 1px solid var(--hover-white-dark);
+    font-size: 1.50rem;
+    padding: 10px;
+    transition: all 0.20s;
   }
+
+  .sectionSignIn__emailInput:focus, .sectionSignIn__passwordInput:focus{
+    outline: var(--hover-very-white-dark);
+    background-color: var(--gray);
+    transition: all 0.20s;
+  }
+
+
 
   .sectionSignIn__inputPasswordContainer{
     display: flex;
@@ -235,6 +276,10 @@
 
   .sectionSignIn__passwordInput{
     flex-grow: 10;
+  }
+
+  .sectionSignIn__emailInput{
+
   }
 
   .sectionSignIn__ContainerPasswordBtn{
@@ -265,40 +310,25 @@
      
   }
   
+  
+  .sectionSignIn__PasswordBtn{
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
 
-  main{
-    margin: 0 auto;
-    max-width: 1128px;
-    padding: 80px 20px 0;
+  .sectionSignIn__linkForgotPassword{
+    width: fit-content;
+    font-size: 1.8rem;
+    color: var(--hover-white-dark);
   }
-  
-  .sectionSignIn{
+
+  .sectionSignIn__linkBtnsContainer{
     display: flex;
-    flex-direction: column;
-    row-gap: 45px;
+    flex-direction: column; 
   }
-  
-  .sectionSignIn__title{
-    display: flex;
-    align-items: center;
-    column-gap: 20px;
-  }
-  
-  .sectionSignIn__leftMandala{
-    flex-grow: 2;
-  }
-  
-  .sectionSignIn__leftMandala img, .sectionSignIn__rightMandala img{
-    width: 100%;
-  }
-  
-  .sectionSignIn__span{
-    font-size: 3rem;
-  }
-  
-  .sectionSignIn__rightMandala{
-    flex-grow: 2;
-  }
+
+
 
 
   

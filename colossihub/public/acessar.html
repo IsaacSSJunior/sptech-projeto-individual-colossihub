@@ -88,15 +88,15 @@
       <div class="sectionSignIn__formContainer">
         <div class="sectionSignIn__emailContainer">
           <label class="sectionSignIn__emailLabel">Endereço de e-mail:</label>
-          <input type="email" class="sectionSignIn__emailInput">
+          <input type="email" class="sectionSignIn__emailInput" placeholder="Digite seu email...">
         </div>
         <div class="sectionSignIn__passwordContainer">
           <label class="sectionSignIn__passwordLabel">Senha:</label>
           <div class="sectionSignIn__inputPasswordContainer">
-            <input type="password" class="sectionSignIn__passwordInput">
+            <input type="password" class="sectionSignIn__passwordInput" id="input_senha" placeholder="Digite sua senha...">
             <div class="sectionSignIn__ContainerPasswordBtn">
-              <button onclick="" class="sectionSignIn__PasswordBtn">
-                <img src="" alt="" class="sectionSignIn__imgBtn">
+              <button onclick="MostraEscondeSenha()" class="sectionSignIn__PasswordBtn" id="btn_senha">
+                <i class="fa-regular fa-eye fa-xl" style="color: var(--hover-white-dark);"></i>
               </button>
             </div>
           </div>
@@ -122,6 +122,20 @@
 
 </html>
 <script>
+
+  function MostraEscondeSenha(){
+    var input = input_senha
+    var btn = btn_senha
+
+    if(input.type == "password"){
+      input.type = 'text'
+      btn.innerHTML = '<i class="fa-regular fa-eye-slash fa-xl" style="color: var(--hover-white-dark);"></i>'
+    }else{
+      input.type = 'password'
+      btn.innerHTML = '<i class="fa-regular fa-eye fa-xl" style="color: var(--hover-white-dark);"></i>'
+
+    }
+  }
 
   function MudaFrase() {
     const frases = [
