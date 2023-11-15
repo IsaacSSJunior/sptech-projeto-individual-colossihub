@@ -11,7 +11,7 @@
   <link rel="shortcut icon" href="./assets/img/shortcut-icon.png" type="image/x-icon">
 
   <!-- Scripts -->
-  <script src="./js/sessao.js"></script>
+  <script src="./js/sessao.script.js"></script>
   <script src="https://kit.fontawesome.com/eb311d3d23.js" crossorigin="anonymous"></script>
 
   <title> COLOSSIHUB | Fóruns </title>
@@ -98,6 +98,14 @@
 
 </html>
 <script>
+
+function ConfiguracaoLayoutSessao(){
+    var ul = document.getElementById('ul_btns')
+
+    if(sessionStorage.ID_USUARIO != null && sessionStorage.EMAIL_USUARIO != null && sessionStorage.NOME_USUARIO != null  ){
+      ul.innerHTML = `LOGADO`
+    }
+  }
 
   function Listar() {
 

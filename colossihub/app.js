@@ -8,8 +8,8 @@ const PORTA = process.env.AMBIENTE_PROCESSO == "desenvolvimento" ? 3333 : 8080;
 
 var app = express();
 
-var indexRouter = require("./src/routes/index.script");
-var usuarioRouter = require("./src/routes/usuario.script");
+var indexRouter = require('./src/routes/index.script');
+var usuarioRouter = require('./src/routes/usuarios.script');
 var forumRouter = require('./src/routes/forum.script')
 var topicoRouter = require('./src/routes/topico.script')
 var comentarioRouter = require('./src/routes/comentario.script')

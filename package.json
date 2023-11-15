@@ -6,5 +6,8 @@
     "start": "node ./colossihub/app.js",
     "dev": "cd colossihub && npm run dev",
     "postinstall": "cd colossihub && npm install"
+  },
+  "dependencies": {
+    "jwt-decode": "^4.0.0"
   }
 }

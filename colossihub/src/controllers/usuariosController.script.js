@@ -1,4 +1,4 @@
-var usuarioModel = require("../models/usuarioModel.script");
+var usuarioModel = require("../models/usuariosModel.script");
 
 function autenticar(req, res) {
     var email = req.body.emailServer;
@@ -11,24 +11,26 @@ function autenticar(req, res) {
     } else {
 
         usuarioModel.autenticar(email, senha)
-            .then(
-                function (resultadoAutenticar) {
-                    console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
 
-                    if (resultadoAutenticar.length == 1) {
-                        console.log(resultadoAutenticar);
+            .then(function (resultadoAutenticar) {
+                console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
+                console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
 
-                    } else if (resultadoAutenticar.length == 0) {
+                if (resultadoAutenticar.length == 1) {
 
-                        res.status(403).send("Email e/ou senha inválido(s)");
+                    res.json({
+                        id: resultadoAutenticar.idUsuario,
+                        email: resultadoAutenticar.emailUsuario,
+                        nome: resultadoAutenticar.nomeUsuario,
+                    });
+                    
 
-                    } else {
-
-                        res.status(403).send("Mais de um usuário com o mesmo login e senha!");
-                        
-                    }
+                } else if (resultadoAutenticar.length == 0) {
+                    res.status(403).send("Email e/ou senha inválido(s)");
+                } else {
+                    res.status(403).send("Mais de um usuário com o mesmo login e senha!");
                 }
+            }
             ).catch(
                 function (erro) {
                     console.log(erro);
@@ -46,7 +48,7 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    var empresaId = req.body.empresaServer;
+
 
     // Faça as validações dos valores
 
@@ -56,18 +58,17 @@ function cadastrar(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    } else if (empresaId == undefined) {
-        res.status(400).send("Sua empresa está undefined!");
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, senha, empresaId)
+        usuarioModel.cadastrar(nome, email, senha)
+        
             .then(
                 function (resultado) {
                     res.json(resultado);
                 }
             )
-            
+
             .catch(
                 function (erro) {
                     console.log(erro);

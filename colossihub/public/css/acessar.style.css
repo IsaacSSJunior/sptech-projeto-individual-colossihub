@@ -28,8 +28,10 @@
     --light-gray: #2A2A2A;
     --very-light-gray: rgb(66, 66, 66);
     --hover-white-dark:#acabab;
+    --hover-white-dark-light:rgb(142, 142, 142);
     --hover-very-white-dark: #d6d3d3;
     --gray: #e4e0e0;
+    --red: rgb(253, 90, 90);
   }
   
   header {
@@ -131,30 +133,34 @@
   }
   
   /* botão de login*/
-  .header_btnSignIn{
-    background-color: transparent;
-    border: 1px solid var(--white-dark);
-    color: var(--white-dark);
-  }
-  
-  /* Hover, botão de login*/
-  .header_btnSignIn:hover{
-      background-color: var(--white-dark);
-      border: none;
-      color: var(--very-light-gray);
-  }
-  
-  /* botão de 'cadastrar'*/
-  .header_btnSignUp{
+.header_btnSignIn{
+  background-color: transparent;
+  border: 1px solid var(--white-dark);
+  color: var(--white-dark);
+  transition: all 0.3s;
+}
+
+/* Hover, botão de login*/
+.header_btnSignIn:hover{
     background-color: var(--white-dark);
     border: none;
     color: var(--very-light-gray);
-  }
-  
-  /* Hover, botão de 'cadastrar'*/
-  .header_btnSignUp:hover{
-    background-color: var(--hover-very-white-dark);
-  }
+    transition: all 0.3s;
+}
+
+/* botão de 'cadastrar'*/
+.header_btnSignUp{
+  background-color: var(--white-dark);
+  border: none;
+  color: var(--very-light-gray);
+  transition: all 0.3s;
+}
+
+/* Hover, botão de 'cadastrar'*/
+.header_btnSignUp:hover{
+  background-color: var(--hover-very-white-dark);
+  transition: all 0.3s;
+}
   
   .bgMessage{
     position: relative;
@@ -206,7 +212,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    row-gap: 40px;
+    row-gap: 35px;
   }
 
   .sectionSignIn__title{
@@ -233,7 +239,7 @@
 
   
   .sectionSignIn__formContainer, .sectionSignIn__linkBtnsContainer{
-    width: 500px;
+    width: 400px;
   }
 
   .sectionSignIn__formContainer{
@@ -243,17 +249,22 @@
     row-gap: 20px;
   }
 
-  .sectionSignIn__emailContainer, .sectionSignIn__passwordContainer{
+  .container--input--basis{
     display: flex;
     flex-direction: column;
     row-gap: 5px;
   }
   
-  .sectionSignIn__emailLabel, .sectionSignIn__passwordLabel{
+  .sectionSignIn__emailSpan, .sectionSignIn__passwordSpan{
     font-size: 2rem;
   }
 
-  .sectionSignIn__emailInput, .sectionSignIn__passwordInput{
+  .sectionSignIn__passwordSpan{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .input--basis{
     height: 40px;
     border: 1px solid var(--hover-white-dark);
     font-size: 1.50rem;
@@ -261,25 +272,18 @@
     transition: all 0.20s;
   }
 
-  .sectionSignIn__emailInput:focus, .sectionSignIn__passwordInput:focus{
+  .input--basis:focus{
     outline: var(--hover-very-white-dark);
     background-color: var(--gray);
     transition: all 0.20s;
   }
 
-
-
   .sectionSignIn__inputPasswordContainer{
     display: flex;
 
   }
-
   .sectionSignIn__passwordInput{
     flex-grow: 10;
-  }
-
-  .sectionSignIn__emailInput{
-
   }
 
   .sectionSignIn__ContainerPasswordBtn{
@@ -296,6 +300,175 @@
     border-color: var(--hover-white-dark);
   }
 
+  
+  .sectionSignIn__PasswordBtn{
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+
+  .sectionSignIn__linkForgotPassword{
+    width: fit-content;
+    font-size: 1.8rem;
+    color: var(--hover-white-dark);
+    transition: all 0.2s;
+  }
+
+  .sectionSignIn__linkForgotPassword:hover{
+    color: var(--black);
+    transition: all 0.2s;
+  }
+
+  .sectionSignIn__linkBtnsContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    row-gap: 15px;
+  }
+
+  .btn--basis{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 40px;
+    font-size: 1.50rem;
+  }
+
+  .sectionSignIn__btnSignIn{
+    color:  var(--white);
+    background-color: var(--dark-Grey);
+    border: none;
+    transition: all 0.2s;
+
+  }
+  
+  .sectionSignIn__btnSignIn:hover{
+    color:  var(--white);
+    background-color: var(--very-light-gray);
+    transition: all 0.2s;
+  }
+
+  .sectionSignIn__sublinkNotAccount{
+    transition: all 0.2s;   
+  }
+
+  .sectionSignIn__sublinkNotAccount:hover{
+    color: var(--hover-white-dark-light);
+    transition: all 0.2s;   
+  }
+
+  .sectionSignIn__linkNotAccount, .sectionSignIn__sublinkNotAccount{
+    width: fit-content;
+    margin: 0 auto;
+    font-size: 1.8rem;
+    color: var(--black);
+  }
+
+  
+
+
+
+
+
+
+.sectionSignIn__orContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 1%;
+}
+
+.sectionSignIn__leftLineOr {
+    width: 33%;
+    border-bottom: 1px solid #a8a8a8;
+}
+
+.sectionSignIn__spanOr {
+    font-weight: 100;
+    color: #a8a8a8;
+    padding: 0px 1%;
+} 
+
+.sectionSignIn__rightLineOr {
+    width: 33%;
+    border-bottom: 1px solid #a8a8a8;
+}
+
+.loading-div {
+  width: 50px;
+  margin: auto;
+  display: none;
+}
+
+.loading-div img {
+  height: 50px;
+  width: 50px;
+}
+
+#div_erros_login {
+  padding-top: 30px;
+  display: none;
+  justify-content: center;
+  font-size: 2.25rem;
+  color: var(--red);
+}
+
+/* .alerta_erro{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card_erro {
+  display: none;
+  background-color: #fff;
+  color: black;
+  width: 230px;
+  position: fixed;
+  border-radius: 4px;
+  border: #e6005a 3px solid;
+  padding: 10px;
+  margin-right: 10%;
+}
+
+.card_erro #mensagem_erro{
+  font-weight: 500;
+  font-size: 20px;
+}
+
+
+.alerta_erro{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card_erro {
+  display: none;
+  background-color: #fff;
+  color: black;
+  width: 230px;
+  position: fixed;
+  border-radius: 4px;
+  border: #e6005a 3px solid;
+  padding: 10px;
+  margin-right: 10%;
+}
+
+.card_erro #mensagem_erro{
+  font-weight: 500;
+  font-size: 20px;
+}
+ */
+
+
+
+
+
+
+
 
 
   .bgFooter{
@@ -309,25 +482,9 @@
   
      
   }
+
+
   
-  
-  .sectionSignIn__PasswordBtn{
-    border: none;
-    background: none;
-    cursor: pointer;
-  }
-
-  .sectionSignIn__linkForgotPassword{
-    width: fit-content;
-    font-size: 1.8rem;
-    color: var(--hover-white-dark);
-  }
-
-  .sectionSignIn__linkBtnsContainer{
-    display: flex;
-    flex-direction: column; 
-  }
-
 
 
 

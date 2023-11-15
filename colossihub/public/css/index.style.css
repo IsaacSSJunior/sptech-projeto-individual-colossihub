@@ -133,6 +133,7 @@ header::before {
   background-color: transparent;
   border: 1px solid var(--white-dark);
   color: var(--white-dark);
+  transition: all 0.3s;
 }
 
 /* Hover, botão de login*/
@@ -140,6 +141,7 @@ header::before {
     background-color: var(--white-dark);
     border: none;
     color: var(--very-light-gray);
+    transition: all 0.3s;
 }
 
 /* botão de 'cadastrar'*/
@@ -147,11 +149,13 @@ header::before {
   background-color: var(--white-dark);
   border: none;
   color: var(--very-light-gray);
+  transition: all 0.3s;
 }
 
 /* Hover, botão de 'cadastrar'*/
 .header_btnSignUp:hover{
   background-color: var(--hover-very-white-dark);
+  transition: all 0.3s;
 }
 
 .bgMessage{

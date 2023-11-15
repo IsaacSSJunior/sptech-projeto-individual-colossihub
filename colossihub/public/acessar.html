@@ -5,20 +5,25 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id"
+    content="299396619158-vsheupgsisdgqs8uda2sibu2l8vnerem.apps.googleusercontent.com">
 
   <!-- CSS -->
   <link rel="stylesheet" href="./css/acessar.style.css">
   <link rel="shortcut icon" href="./assets/img/shortcut-icon.png" type="image/x-icon">
 
   <!-- Scripts -->
-  <script src="./js/sessao.js"></script>
+  <script src="./js/sessionTools.script.js"></script>
   <script src="https://kit.fontawesome.com/eb311d3d23.js" crossorigin="anonymous"></script>
+  <script src="https://accounts.google.com/gsi/client" async></script>
+  <script src="https://unpkg.com/jwt-decode@3.1.2/build/jwt-decode.js"></script>
 
   <title> COLOSSIHUB | Acessar </title>
   <link rel="icon" href="./assets/icon/favicon2.ico">
 </head>
 
-<body onload="MudaFrase()">
+<body>
   <header>
     <div class="header__container">
       <span onclick="location.reload();" class="header__boxLogo">
@@ -48,7 +53,7 @@
             </a>
           </li>
         </ul>
-        <ul class="header__ulBtns ul--header">
+        <ul class="header__ulBtns ul--header" id="ul_btns">
           <li>
             <a href="acessar.html">
               <button class="header_btnSignIn btns--header header--box--btns" type="button">Acessar</button>
@@ -86,34 +91,42 @@
         </div>
       </div>
       <div class="sectionSignIn__formContainer">
-        <div class="sectionSignIn__emailContainer">
-          <label class="sectionSignIn__emailLabel">Endereço de e-mail:</label>
-          <input type="email" class="sectionSignIn__emailInput" placeholder="Digite seu email...">
+        <div class="sectionSignIn__emailContainer container--input--basis">
+          <span class="sectionSignIn__emailSpan">Endereço de e-mail:</span>
+          <input type="email" class="sectionSignIn__emailInput input--basis" placeholder="Digite seu email..." id="input_email">
         </div>
-        <div class="sectionSignIn__passwordContainer">
-          <label class="sectionSignIn__passwordLabel">Senha:</label>
+        <div class="sectionSignIn__passwordContainer container--input--basis">
+          <span class="sectionSignIn__passwordSpan">Senha: <a href="" class="sectionSignIn__linkForgotPassword">Esqueceu sua senha?</a></span> 
           <div class="sectionSignIn__inputPasswordContainer">
-            <input type="password" class="sectionSignIn__passwordInput" id="input_senha" placeholder="Digite sua senha...">
+            <input type="password" class="sectionSignIn__passwordInput input--basis" id="input_senha"
+              placeholder="Digite sua senha...">
             <div class="sectionSignIn__ContainerPasswordBtn">
               <button onclick="MostraEscondeSenha()" class="sectionSignIn__PasswordBtn" id="btn_senha">
-                <i class="fa-regular fa-eye fa-xl" style="color: var(--hover-white-dark);"></i>
+                <i class="fa-regular fa-eye fa-xl" style="color: var(--very-light-gray);"></i>
               </button>
             </div>
           </div>
         </div>
-        <a href="" class="sectionSignIn__linkForgotPassword">Esqueceu sua senha?</a>
+        
       </div>
       <div class="sectionSignIn__linkBtnsContainer">
-        <button class="sectionSignIn__btnSignIn">ENTRAR NA CONTA</button>
-        <a href="" class="sectionSignIn__linkNotAccount">Não tem uma conta? <u>Criar Conta</u></a>
+        <button class="sectionSignIn__btnSignIn btn--basis" onclick="Entrar()">ENTRAR NA CONTA</button>
+        <span href="" class="sectionSignIn__linkNotAccount">Não tem uma conta?
+          <a href="./cadastrar.html" class="sectionSignIn__sublinkNotAccount">Criar Conta</a></span>
         <div class="sectionSignIn__orContainer">
           <div class="sectionSignIn__leftLineOr"></div>
           <span class="sectionSignIn__spanOr">OU</span>
           <div class="sectionSignIn__rightLineOr"></div>
         </div>
-        <button class="sectionSignIn__btnSignInGoogle">ENTRAR COM GOOGLE</button>
+        <div class="btn--basis">
+          <div id="buttonDiv"></div>
+        </div>
       </div>
     </section>
+    <div id="div_erros_login"></div>
+    <div id="div_aguardar" class="loading-div">
+      <img src="./assets/img/loading.gif" id="loading-gif">
+  </div>
   </main>
   <footer>
     <article class="bgFooter"></article>
@@ -123,16 +136,18 @@
 </html>
 <script>
 
-  function MostraEscondeSenha(){
+
+
+  function MostraEscondeSenha() {
     var input = input_senha
     var btn = btn_senha
 
-    if(input.type == "password"){
+    if (input.type == "password") {
       input.type = 'text'
-      btn.innerHTML = '<i class="fa-regular fa-eye-slash fa-xl" style="color: var(--hover-white-dark);"></i>'
-    }else{
+      btn.innerHTML = '<i class="fa-regular fa-eye-slash fa-xl" style="color: var(--very-light-gray);"></i>'
+    } else {
       input.type = 'password'
-      btn.innerHTML = '<i class="fa-regular fa-eye fa-xl" style="color: var(--hover-white-dark);"></i>'
+      btn.innerHTML = '<i class="fa-regular fa-eye fa-xl" style="color: var(--very-light-gray);"></i>'
 
     }
   }
@@ -169,6 +184,103 @@
 
 
   }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    MudaFrase();
+  });
+
+  function handleCredentialResponse(response) {
+    const data = jwt_decode(response.credential)
+    console.log(data)
+
+  }
+
+  window.onload = function () {
+    google.accounts.id.initialize({
+      client_id: "299396619158-2ooksliug4pr429q4jmh47pe12eashvi.apps.googleusercontent.com",
+      callback: handleCredentialResponse
+    });
+    google.accounts.id.renderButton(
+      document.getElementById("buttonDiv"),
+      {
+        type:"standard",
+        shape:"rectangular",
+        theme:"filled_black",
+        text:"signin_with",
+        size:"large",
+        logo_alignment:"left",
+        width:"400px"
+
+        }  // customization attributes
+      );
+  google.accounts.id.prompt(); // also display the One Tap dialog
+    }
+
+      function Entrar() {
+        aguardar();
+
+        var emailVar = input_email.value;
+        var senhaVar = input_senha.value;
+
+        if (emailVar == "" || senhaVar == "") {
+            finalizarAguardar('Algum campo está vazio!');
+            return false;
+        }
+
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json()
+    
+                .then(json => {
+
+                    console.log(JSON.stringify(json));
+                    console.log(json[0].idUsuario);
+                    sessionStorage.ID_USUARIO = json[0].idUsuario;
+                    sessionStorage.EMAIL_USUARIO = json[0].emailUsuario;
+                    sessionStorage.NOME_USUARIO = json[0].nomeUsuario;
+
+
+          
+
+                    setTimeout(function () {
+                        window.location = "./index.html";
+                    }, 2000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
 
 
 

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <script src="https://accounts.google.com/gsi/client" async></script>
+  <script src="https://unpkg.com/jwt-decode@3.1.2/build/jwt-decode.js"></script>
+  <script>
+
+    function handleCredentialResponse(response) {
+      const data = jwt_decode(response.credential)
+      console.log(data)
+    }
+    window.onload = function () {
+      google.accounts.id.initialize({
+        client_id: "299396619158-2ooksliug4pr429q4jmh47pe12eashvi.apps.googleusercontent.com",
+        callback: handleCredentialResponse
+      });
+      google.accounts.id.renderButton(
+        document.getElementById("buttonDiv"),
+        {
+          theme: "outline",
+          size: "large",
+          type: "standard",
+          shape: "rectangular",
+          theme: "filled_black",
+          text: "continue_with",
+          size: "large",
+          logo_alignment: "left"
+
+        }  // customization attributes
+      );
+      google.accounts.id.prompt(); // also display the One Tap dialog
+    }
+  </script>
+
+</head>
+
+<body>
+  <div id="buttonDiv"></div>
+
+</body>
+
+</html>
