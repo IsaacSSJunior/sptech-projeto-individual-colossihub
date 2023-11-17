@@ -99,14 +99,6 @@
 </html>
 <script>
 
-function ConfiguracaoLayoutSessao(){
-    var ul = document.getElementById('ul_btns')
-
-    if(sessionStorage.ID_USUARIO != null && sessionStorage.EMAIL_USUARIO != null && sessionStorage.NOME_USUARIO != null  ){
-      ul.innerHTML = `LOGADO`
-    }
-  }
-
   function Listar() {
 
     fetch("/forum/listar", {
@@ -180,7 +172,7 @@ function ConfiguracaoLayoutSessao(){
         tbody.innerHTML += `
       <tr>
         <td>
-          <a class="sectionForums_hrefForum" href="foruns.html/?idForum=${resultado.idForum}">
+          <a class="sectionForums_hrefForum" href="foruns.html?idForum=${resultado.idForum}">
             <div class="sectionForums__card" style="background-image: url('${resultado.imagemForum}');">
               <div class="sectionForums__imgCard"></div>
               <div class="sectionForums__leftSideCard">
@@ -207,6 +199,15 @@ function ConfiguracaoLayoutSessao(){
     }
 
   }
+
+  function ConfiguracaoLayoutSessao(){
+    var ul = document.getElementById('ul_btns')
+
+    if(sessionStorage.ID_USUARIO != null && sessionStorage.EMAIL_USUARIO != null && sessionStorage.NOME_USUARIO != null  ){
+      ul.innerHTML = `LOGADO`
+    }
+  }
+
 
 
 

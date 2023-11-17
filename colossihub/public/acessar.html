@@ -16,8 +16,8 @@
   <!-- Scripts -->
   <script src="./js/sessionTools.script.js"></script>
   <script src="https://kit.fontawesome.com/eb311d3d23.js" crossorigin="anonymous"></script>
-  <script src="https://accounts.google.com/gsi/client" async></script>
-  <script src="https://unpkg.com/jwt-decode@3.1.2/build/jwt-decode.js"></script>
+  <!-- <script src="https://accounts.google.com/gsi/client" async></script>
+  <script src="https://unpkg.com/jwt-decode@3.1.2/build/jwt-decode.js"></script> -->
 
   <title> COLOSSIHUB | Acessar </title>
   <link rel="icon" href="./assets/icon/favicon2.ico">
@@ -93,10 +93,12 @@
       <div class="sectionSignIn__formContainer">
         <div class="sectionSignIn__emailContainer container--input--basis">
           <span class="sectionSignIn__emailSpan">Endereço de e-mail:</span>
-          <input type="email" class="sectionSignIn__emailInput input--basis" placeholder="Digite seu email..." id="input_email">
+          <input type="email" class="sectionSignIn__emailInput input--basis" placeholder="Digite seu email..."
+            id="input_email">
         </div>
         <div class="sectionSignIn__passwordContainer container--input--basis">
-          <span class="sectionSignIn__passwordSpan">Senha: <a href="" class="sectionSignIn__linkForgotPassword">Esqueceu sua senha?</a></span> 
+          <span class="sectionSignIn__passwordSpan">Senha: <a href="" class="sectionSignIn__linkForgotPassword">Esqueceu
+              sua senha?</a></span>
           <div class="sectionSignIn__inputPasswordContainer">
             <input type="password" class="sectionSignIn__passwordInput input--basis" id="input_senha"
               placeholder="Digite sua senha...">
@@ -107,26 +109,26 @@
             </div>
           </div>
         </div>
-        
       </div>
       <div class="sectionSignIn__linkBtnsContainer">
+        <div id="div_erros_login"></div>
+        <div id="div_aguardar" class="sectionSignIn__loadingDiv">
+          <img src="./assets/img/loading.gif" id="loading-gif">
+        </div>
         <button class="sectionSignIn__btnSignIn btn--basis" onclick="Entrar()">ENTRAR NA CONTA</button>
-        <span href="" class="sectionSignIn__linkNotAccount">Não tem uma conta?
-          <a href="./cadastrar.html" class="sectionSignIn__sublinkNotAccount">Criar Conta</a></span>
         <div class="sectionSignIn__orContainer">
           <div class="sectionSignIn__leftLineOr"></div>
           <span class="sectionSignIn__spanOr">OU</span>
           <div class="sectionSignIn__rightLineOr"></div>
         </div>
-        <div class="btn--basis">
+        <span href="" class="sectionSignIn__linkNotAccount">Não tem uma conta?
+          <a href="./cadastrar.html" class="sectionSignIn__sublinkNotAccount">Criar Conta</a></span>
+        <!-- <div class="btn--basis">
           <div id="buttonDiv"></div>
-        </div>
-      </div>
+        </div> -->
+
     </section>
-    <div id="div_erros_login"></div>
-    <div id="div_aguardar" class="loading-div">
-      <img src="./assets/img/loading.gif" id="loading-gif">
-  </div>
+    </div>
   </main>
   <footer>
     <article class="bgFooter"></article>
@@ -136,7 +138,72 @@
 </html>
 <script>
 
+  function Entrar() {
+    div_erros_login.innerHTML = ''
+    aguardar();
 
+
+    var emailVar = input_email.value;
+    var senhaVar = input_senha.value;
+
+    if (emailVar == "" || senhaVar == "") {
+      finalizarAguardar('Algum campo está vazio!');
+      return false;
+    }
+
+    console.log("FORM LOGIN: ", emailVar);
+    console.log("FORM SENHA: ", senhaVar);
+
+    fetch("/usuarios/autenticar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        emailServer: emailVar,
+        senhaServer: senhaVar
+      })
+    }).then(function (resposta) {
+      console.log("ESTOU NO THEN DO entrar()!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json()
+
+          .then(json => {
+
+            console.log(JSON.stringify(json));
+            console.log(json);
+            sessionStorage.ID_USUARIO = json.id;
+            sessionStorage.EMAIL_USUARIO = json.email;
+            sessionStorage.NOME_USUARIO = json.nome;
+
+
+
+
+            setTimeout(function () {
+              window.location = "./index.html";
+            }, 2000); // apenas para exibir o loading
+
+          });
+
+      } else {
+
+        console.log("Houve um erro ao tentar realizar o login!");
+
+        resposta.text().then(texto => {
+          console.error(texto);
+          finalizarAguardar(texto);
+        });
+      }
+
+    }).catch(function (erro) {
+      console.log(erro);
+    })
+
+    return false;
+  }
 
   function MostraEscondeSenha() {
     var input = input_senha
@@ -189,97 +256,34 @@
     MudaFrase();
   });
 
-  function handleCredentialResponse(response) {
-    const data = jwt_decode(response.credential)
-    console.log(data)
+  // function handleCredentialResponse(response) {
+  //   const data = jwt_decode(response.credential)
+  //   console.log(data)
 
-  }
+  // }
 
-  window.onload = function () {
-    google.accounts.id.initialize({
-      client_id: "299396619158-2ooksliug4pr429q4jmh47pe12eashvi.apps.googleusercontent.com",
-      callback: handleCredentialResponse
-    });
-    google.accounts.id.renderButton(
-      document.getElementById("buttonDiv"),
-      {
-        type:"standard",
-        shape:"rectangular",
-        theme:"filled_black",
-        text:"signin_with",
-        size:"large",
-        logo_alignment:"left",
-        width:"400px"
+  // window.onload = function () {
+  //   google.accounts.id.initialize({
+  //     client_id: "299396619158-2ooksliug4pr429q4jmh47pe12eashvi.apps.googleusercontent.com",
+  //     callback: handleCredentialResponse
+  //   });
+  //   google.accounts.id.renderButton(
+  //     document.getElementById("buttonDiv"),
+  //     {
+  //       type:"standard",
+  //       shape:"rectangular",
+  //       theme:"filled_black",
+  //       text:"signin_with",
+  //       size:"large",
+  //       logo_alignment:"left",
+  //       width:"400px"
 
-        }  // customization attributes
-      );
-  google.accounts.id.prompt(); // also display the One Tap dialog
-    }
-
-      function Entrar() {
-        aguardar();
-
-        var emailVar = input_email.value;
-        var senhaVar = input_senha.value;
-
-        if (emailVar == "" || senhaVar == "") {
-            finalizarAguardar('Algum campo está vazio!');
-            return false;
-        }
-
-        console.log("FORM LOGIN: ", emailVar);
-        console.log("FORM SENHA: ", senhaVar);
-
-        fetch("/usuarios/autenticar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                emailServer: emailVar,
-                senhaServer: senhaVar
-            })
-        }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
-
-            if (resposta.ok) {
-                console.log(resposta);
-
-                resposta.json()
-    
-                .then(json => {
-
-                    console.log(JSON.stringify(json));
-                    console.log(json[0].idUsuario);
-                    sessionStorage.ID_USUARIO = json[0].idUsuario;
-                    sessionStorage.EMAIL_USUARIO = json[0].emailUsuario;
-                    sessionStorage.NOME_USUARIO = json[0].nomeUsuario;
+  //       }  // customization attributes
+  //     );
+  // google.accounts.id.prompt(); // also display the One Tap dialog
+  //   }
 
 
-          
-
-                    setTimeout(function () {
-                        window.location = "./index.html";
-                    }, 2000); // apenas para exibir o loading
-
-                });
-
-            } else {
-
-                console.log("Houve um erro ao tentar realizar o login!");
-
-                resposta.text().then(texto => {
-                    console.error(texto);
-                    finalizarAguardar(texto);
-                });
-            }
-
-        }).catch(function (erro) {
-            console.log(erro);
-        })
-
-        return false;
-    }
 
 
 

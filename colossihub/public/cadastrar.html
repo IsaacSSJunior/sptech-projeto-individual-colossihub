@@ -16,8 +16,8 @@
     <!-- Scripts -->
     <script src="./js/sessionTools.script.js"></script>
     <script src="https://kit.fontawesome.com/eb311d3d23.js" crossorigin="anonymous"></script>
-    <script src="https://accounts.google.com/gsi/client" async></script>
-    <script src="https://unpkg.com/jwt-decode@3.1.2/build/jwt-decode.js"></script>
+    <!-- <script src="https://accounts.google.com/gsi/client" async></script>
+    <script src="https://unpkg.com/jwt-decode@3.1.2/build/jwt-decode.js"></script> -->
 
     <title> COLOSSIHUB | Cadastrar </title>
     <link rel="icon" href="./assets/icon/favicon2.ico">
@@ -103,25 +103,25 @@
                     <input type="email" class="sectionSignIn__emailInput input--basis" placeholder="Digite seu email..."
                         id="input_email">
                 </div>
-                <div class="sectionSignIn__passwordContainer container--input--basis">
-                    <span class="sectionSignIn__passwordSpan">Senha:</span>
-                    <div class="sectionSignIn__inputPasswordContainer">
-                        <input type="password" class="sectionSignIn__passwordInput input--basis" id="input_senha"
+                <div class="sectionSignIn__passwordsContainer container--input--basis">
+                    <span class="sectionSignIn__passwordsSpan">Senha:</span>
+                    <div class="sectionSignIn__inputPasswordsContainer">
+                        <input type="password" class="sectionSignIn__passwordsInput input--basis" id="input_senha"
                             placeholder="Digite sua senha...">
-                        <div class="sectionSignIn__ContainerPasswordBtn">
-                            <button onclick="MostraEscondeSenha()" class="sectionSignIn__PasswordBtn" id="btn_senha">
+                        <div class="sectionSignIn__ContainerPasswordsBtn">
+                            <button onclick="MostraEscondeSenha()" class="sectionSignIn__PasswordsBtn" id="btn_senha">
                                 <i class="fa-regular fa-eye fa-xl" style="color: var(--very-light-gray);"></i>
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class="sectionSignIn__passwordConfirmContainer container--input--basis">
-                    <span class="sectionSignIn__passwordConfirmSpan">Confirmar Senha:</span>
-                    <div class="sectionSignIn__inputPasswordConfirmContainer">
-                        <input type="password" class="sectionSignIn__passwordConfirmInput input--basis"
-                            id="input_confirmar_senha" placeholder="Digite sua senha...">
-                        <div class="sectionSignIn__ContainerPasswordConfirmBtn">
-                            <button onclick="MostraEscondeConfirmaSenha()" class="sectionSignIn__PasswordConfirmBtn"
+                <div class="sectionSignIn__passwordsContainer container--input--basis">
+                    <span class="sectionSignIn__passwordsSpan">Confirmar Senha:</span>
+                    <div class="sectionSignIn__inputPasswordsContainer">
+                        <input type="password" class="sectionSignIn__passwordsInput input--basis"
+                            id="input_confirmar_senha" placeholder="Digite sua senha novamente...">
+                        <div class="sectionSignIn__ContainerPasswordsBtn">
+                            <button onclick="MostraEscondeConfirmaSenha()" class="sectionSignIn__PasswordsBtn"
                                 id="btn_confirmar_senha">
                                 <i class="fa-regular fa-eye fa-xl" style="color: var(--very-light-gray);"></i>
                             </button>
@@ -129,24 +129,24 @@
                     </div>
                 </div>
             </div>
-            <div class="div_erros_login"></div>
             <div class="sectionSignIn__linkBtnsContainer">
+                <div id="div_erros_login"></div>
+                <div id="div_aguardar" class="sectionSignIn__loadingDiv">
+                  <img src="./assets/img/loading.gif" id="loading-gif">
+                </div>
                 <button class="sectionSignIn__btnSignIn btn--basis" onclick="Cadastrar()">CADASTRAR CONTA</button>
-                <span href="" class="sectionSignIn__linkYesAccount">Já tem uma conta?
-                    <a href="./acessar.html" class="sectionSignIn__sublinkYesAccount">Entrar na Conta</a></span>
                 <div class="sectionSignIn__orContainer">
                     <div class="sectionSignIn__leftLineOr"></div>
                     <span class="sectionSignIn__spanOr">OU</span>
                     <div class="sectionSignIn__rightLineOr"></div>
                 </div>
-                <div class="btn--basis">
+                <span href="" class="sectionSignIn__linkYesAccount">Já tem uma conta?
+                    <a href="./acessar.html" class="sectionSignIn__sublinkYesAccount">Entrar na Conta</a></span>
+                <!-- <div class="btn--basis">
                     <div id="buttonDiv"></div>
-                </div>
+                </div> -->
             </div>
         </section>
-        <div id="div_aguardar" class="loading-div">
-            <img src="./assets/img/loading.gif" id="loading-gif">
-        </div>
     </main>
     <footer>
         <article class="bgFooter"></article>
@@ -155,10 +155,11 @@
 
 </html>
 <script>
-    
-      function Cadastrar() {
+
+    function Cadastrar() {
+        div_erros_login.innerHTML = ''
         aguardar()
-        
+    
 
         //Recupere o valor da nova input pelo nome do id
         // Agora vá para o método fetch logo abaixo
@@ -167,20 +168,20 @@
         var senhaVar = input_senha.value;
         var confirmacaoSenhaVar = input_confirmar_senha.value;
 
-        if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == ""  ) {
+        if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "") {
             finalizarAguardar("Há álgum campo vazio.");
             return false;
-    
-        } else if (nomeVar.length <= 5) {
-            finalizarAguardar("O nome informado é muito curto.");
-            return false;
 
-        } else if (emailVar.indexOf('@') == -1) {
-            finalizarAguardar("O email informado não possuí '@' (arroba).")
+        } else if (emailVar.indexOf('@') == -1 || emailVar.indexOf('.com') == -1 ) {
+            finalizarAguardar("O email informado não é válido.")
             return false;
 
         } else if (senhaVar != confirmacaoSenhaVar) {
             finalizarAguardar("A senhas informadas são diferentes")
+            return false;
+
+        } else if (nomeVar.length <= 3) {
+            finalizarAguardar("O nome informado é muito curto.");
             return false;
 
         } else {
@@ -204,7 +205,7 @@
                     console.log("resposta: ", resposta);
 
                     if (resposta.ok) {
-                        
+
                         finalizarAguardar("Cadastro realizado com sucesso! Redirecionando para tela de acesso");
 
                         setTimeout(() => {
@@ -258,26 +259,26 @@
     function MudaFrase() {
         const frases = [
 
-            "Desafie os titãs e entre na lenda.",
-            "No reino dos colossos, sua jornada começa.",
-            "Bem-vindo de volta, valente caçador de colossos.",
-            "Sob o sol proibido, sua saga continua.",
-            "A solidão do herói é preenchida pelo eco dos colossos.",
-            "Seu destino está entrelaçado com as sombras gigantes.",
-            "A coragem molda o caminho do verdadeiro guerreiro.",
-            "Desbrave as terras esquecidas e faça história.",
-            "Cada vitória contra os colossos é uma conquista única.",
-            "O eco das batalhas ressoa em seu retorno.",
-            "Na fronteira do impossível, sua jornada se renova.",
-            "Os colossos aguardam. Você está pronto para enfrentá-los?",
-            "Sob o manto dos gigantes, a bravura é sua guia.",
-            "O despertar do herói começa com cada login.",
-            "Cada tela de login é um portal para a grandeza.",
-            "Bem-vindo de volta à Terra Proibida, herói destemido.",
-            "A busca pela redenção continua a cada clique.",
-            "A coragem não conhece limites na terra dos colossos.",
-            "A lenda se desenrola a cada acesso. Prepare-se.",
-            "Sua história se entrelaça com as sombras dos gigantes."
+            "Registre-se e torne-se parte da saga dos colossos.",
+            "Crie sua conta e inicie sua jornada lendária.",
+            "O cadastro é o primeiro passo para a grande aventura.",
+            "Entre para a comunidade dos corajosos caçadores de titãs.",
+            "Cada cadastro é uma promessa de coragem e destemor.",
+            "Faça parte do reino dos colossos, registre-se agora.",
+            "Seu nome será ecoado nas terras proibidas. Cadastre-se.",
+            "A inscrição é a chave para desbloquear o caminho dos heróis.",
+            "O herói começa sua jornada com um simples cadastro.",
+            "Junte-se à resistência. Registre-se e lute contra as sombras.",
+            "A inscrição é o portal para a redenção nas terras esquecidas.",
+            "Sua lenda começa a ser escrita com um simples cadastro.",
+            "Crie sua conta e faça história nos confins proibidos.",
+            "O cadastro é a porta de entrada para a bravura sem limites.",
+            "Seja parte do épico. Registre-se e faça a diferença.",
+            "A terra dos colossos aguarda seu nome. Cadastre-se agora.",
+            "Cada novo membro fortalece a resistência contra as trevas.",
+            "Registre-se para desafiar os gigantes e escrever sua saga.",
+            "Faça sua inscrição e torne-se uma lenda na Terra Proibida.",
+            "A aventura começa com seu cadastro. Torne-se parte da história."
 
         ]
         var indiceAleatorio = Math.floor(Math.random() * frases.length)
@@ -292,34 +293,34 @@
         MudaFrase();
     });
 
-    function handleCredentialResponse(response) {
-        const data = jwt_decode(response.credential)
-        console.log(data)
+    // function handleCredentialResponse(response) {
+    //     const data = jwt_decode(response.credential)
+    //     console.log(data)
 
-    }
+    // }
 
-    window.onload = function () {
-        google.accounts.id.initialize({
-            client_id: "299396619158-2ooksliug4pr429q4jmh47pe12eashvi.apps.googleusercontent.com",
-            callback: handleCredentialResponse
-        });
-        google.accounts.id.renderButton(
-            document.getElementById("buttonDiv"),
-            {
-                type: "standard",
-                shape: "rectangular",
-                theme: "filled_black",
-                text: "signup_with",
-                size: "large",
-                logo_alignment: "left",
-                width: "400px"
+    // window.onload = function () {
+    //     google.accounts.id.initialize({
+    //         client_id: "299396619158-2ooksliug4pr429q4jmh47pe12eashvi.apps.googleusercontent.com",
+    //         callback: handleCredentialResponse
+    //     });
+    //     google.accounts.id.renderButton(
+    //         document.getElementById("buttonDiv"),
+    //         {
+    //             type: "standard",
+    //             shape: "rectangular",
+    //             theme: "filled_black",
+    //             text: "signup_with",
+    //             size: "large",
+    //             logo_alignment: "left",
+    //             width: "400px"
 
-            }  // customization attributes
-        );
-        google.accounts.id.prompt(); // also display the One Tap dialog
-    }
+    //         }  // customization attributes
+    //     );
+    //     google.accounts.id.prompt(); // also display the One Tap dialog
+    // }
 
-  
+
 
 
 

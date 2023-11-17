@@ -27,8 +27,8 @@ body {
   --dark-Grey: #202020;
   --light-gray: #2A2A2A;
   --very-light-gray: rgb(66, 66, 66);
-  --hover-white-dark:#acabab;
-  --hover-white-dark-light:rgb(142, 142, 142);
+  --hover-white-dark: #acabab;
+  --hover-white-dark-light: rgb(142, 142, 142);
   --hover-very-white-dark: #d6d3d3;
   --gray: #e4e0e0;
   --red: rgb(253, 90, 90);
@@ -42,13 +42,16 @@ header {
   height: 120px;
   background-image: url('../assets/img/texture-head.png');
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.01), 0 10px 10px rgba(0, 0, 0, 0.08);
-  
+
 }
 
 header::before {
-  content: ''; /*conteúdo vazio para o pseudoelemento */
-  display: block; /*pseudoelemento um elemento de bloco */
-  position: absolute; /*pseudoelemento em posição absoluta */
+  content: '';
+  /*conteúdo vazio para o pseudoelemento */
+  display: block;
+  /*pseudoelemento um elemento de bloco */
+  position: absolute;
+  /*pseudoelemento em posição absoluta */
   top: 125px;
   left: -10px;
   right: -10px;
@@ -80,7 +83,7 @@ header::before {
   display: flex;
 }
 
-.ul--header{
+.ul--header {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -93,24 +96,24 @@ header::before {
   list-style: none;
 }
 
-.header__linkPage{
+.header__linkPage {
   font-size: 1.60rem;
   text-decoration: none;
   color: var(--white-dark);
 }
 
-.active{
+.active {
   text-decoration: underline;
 }
 
-.header__point{
+.header__point {
   width: auto;
   height: 5.5%;
   cursor: pointer;
   fill: var(--white-dark)
 }
 
-.header__linkPage:hover{
+.header__linkPage:hover {
   text-decoration: underline;
 }
 
@@ -119,11 +122,11 @@ header::before {
   column-gap: 10px;
 }
 
-.header--box--btns{
+.header--box--btns {
   width: 100%;
 }
 
-.btns--header{
+.btns--header {
   cursor: pointer;
   height: 35px;
   width: 120px;
@@ -133,15 +136,15 @@ header::before {
 }
 
 /* botão de login*/
-.header_btnSignIn{
-background-color: transparent;
-border: 1px solid var(--white-dark);
-color: var(--white-dark);
-transition: all 0.3s;
+.header_btnSignIn {
+  background-color: transparent;
+  border: 1px solid var(--white-dark);
+  color: var(--white-dark);
+  transition: all 0.3s;
 }
 
 /* Hover, botão de login*/
-.header_btnSignIn:hover{
+.header_btnSignIn:hover {
   background-color: var(--white-dark);
   border: none;
   color: var(--very-light-gray);
@@ -149,20 +152,20 @@ transition: all 0.3s;
 }
 
 /* botão de 'cadastrar'*/
-.header_btnSignUp{
-background-color: var(--white-dark);
-border: none;
-color: var(--very-light-gray);
-transition: all 0.3s;
+.header_btnSignUp {
+  background-color: var(--white-dark);
+  border: none;
+  color: var(--very-light-gray);
+  transition: all 0.3s;
 }
 
 /* Hover, botão de 'cadastrar'*/
-.header_btnSignUp:hover{
-background-color: var(--hover-very-white-dark);
-transition: all 0.3s;
+.header_btnSignUp:hover {
+  background-color: var(--hover-very-white-dark);
+  transition: all 0.3s;
 }
 
-.bgMessage{
+.bgMessage {
   position: relative;
   padding-top: 120px;
   height: 380px;
@@ -171,26 +174,28 @@ transition: all 0.3s;
   justify-content: center;
   background-image: url('../assets/img/bg-removebg.png');
 
-   
+
 }
-.bgMessage__container{
+
+.bgMessage__container {
   margin: 0 auto;
   width: 1128px;
   text-align: center;
   padding: 0 20px;
-  
+
 }
 
-.bgMessage__title, .bgMessage__title u{
+.bgMessage__title,
+.bgMessage__title u {
   font-size: 2.85rem;
 }
 
-.bgMessage__subTitle{
+.bgMessage__subTitle {
   font-size: 2rem;
   color: var(--hover-white-dark);
 }
 
-.bgMessage__bgMandala{
+.bgMessage__bgMandala {
   position: absolute;
   top: 170px;
   height: 150px;
@@ -202,69 +207,68 @@ transition: all 0.3s;
 
 }
 
-main{
+main {
   margin: 0 auto;
   max-width: 1128px;
   padding: 80px 20px 0;
 }
 
-.sectionSignIn{
+.sectionSignIn {
   display: flex;
   flex-direction: column;
   align-items: center;
-  row-gap: 35px;
+  row-gap: 20px;
 }
 
-.sectionSignIn__title{
+.sectionSignIn__title {
   display: flex;
   align-items: center;
   column-gap: 20px;
 }
 
-.sectionSignIn__leftMandala img, .sectionSignIn__rightMandala img{
+.sectionSignIn__leftMandala img,
+.sectionSignIn__rightMandala img {
   width: 100%;
 }
 
-.sectionSignIn__leftMandala{
+.sectionSignIn__leftMandala {
   flex-grow: 2;
 }
 
-.sectionSignIn__span{
+.sectionSignIn__span {
   font-size: 3rem;
 }
 
-.sectionSignIn__rightMandala{
+.sectionSignIn__rightMandala {
   flex-grow: 2;
 }
 
 
-.sectionSignIn__formContainer, .sectionSignIn__linkBtnsContainer{
+.sectionSignIn__formContainer,
+.sectionSignIn__linkBtnsContainer {
   width: 400px;
 }
 
-.sectionSignIn__formContainer{
+.sectionSignIn__formContainer {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   row-gap: 20px;
 }
 
-.container--input--basis{
+.container--input--basis {
   display: flex;
   flex-direction: column;
   row-gap: 5px;
 }
 
-.sectionSignIn__emailSpan, .sectionSignIn__passwordSpan{
+.sectionSignIn__emailSpan,
+.sectionSignIn__passwordsSpan,
+.sectionSignIn__nameSpan {
   font-size: 2rem;
 }
 
-.sectionSignIn__passwordSpan{
-  display: flex;
-  justify-content: space-between;
-}
-
-.input--basis{
+.input--basis {
   height: 40px;
   border: 1px solid var(--hover-white-dark);
   font-size: 1.50rem;
@@ -272,21 +276,22 @@ main{
   transition: all 0.20s;
 }
 
-.input--basis:focus{
+.input--basis:focus {
   outline: var(--hover-very-white-dark);
   background-color: var(--gray);
   transition: all 0.20s;
 }
 
-.sectionSignIn__inputPasswordContainer{
+.sectionSignIn__inputPasswordsContainer {
   display: flex;
 
 }
-.sectionSignIn__passwordInput{
+
+.sectionSignIn__passwordsInput {
   flex-grow: 10;
 }
 
-.sectionSignIn__ContainerPasswordBtn{
+.sectionSignIn__ContainerPasswordsBtn {
   flex-grow: 1;
   display: flex;
   justify-content: center;
@@ -296,12 +301,12 @@ main{
   border-top: 1px;
   border-right: 1px;
   border-bottom: 1px;
-  border-style:solid;
+  border-style: solid;
   border-color: var(--hover-white-dark);
 }
 
 
-.sectionSignIn__PasswordBtn{
+.sectionSignIn__PasswordsBtn {
   width: 20px;
   height: 20px;
   border: none;
@@ -309,26 +314,15 @@ main{
   cursor: pointer;
 }
 
-.sectionSignIn__linkForgotPassword{
-  width: fit-content;
-  font-size: 1.8rem;
-  color: var(--hover-white-dark);
-  transition: all 0.2s;
-}
 
-.sectionSignIn__linkForgotPassword:hover{
-  color: var(--black);
-  transition: all 0.2s;
-}
-
-.sectionSignIn__linkBtnsContainer{
+.sectionSignIn__linkBtnsContainer {
   display: flex;
   flex-direction: column;
   align-items: stretch;
   row-gap: 15px;
 }
 
-.btn--basis{
+.btn--basis {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -337,44 +331,38 @@ main{
   font-size: 1.50rem;
 }
 
-.sectionSignIn__btnSignIn{
-  color:  var(--white);
+.sectionSignIn__btnSignIn {
+  color: var(--white);
   background-color: var(--dark-Grey);
   border: none;
   transition: all 0.2s;
 
 }
 
-.sectionSignIn__btnSignIn:hover{
-  color:  var(--white);
+.sectionSignIn__btnSignIn:hover {
+  color: var(--white);
   background-color: var(--very-light-gray);
   transition: all 0.2s;
 }
 
-.sectionSignIn__sublinkNotAccount{
-  transition: all 0.2s;   
+.sectionSignIn__sublinkYesAccount {
+  transition: all 0.2s;
 }
 
-.sectionSignIn__sublinkNotAccount:hover{
+.sectionSignIn__sublinkYesAccount:hover {
   color: var(--hover-white-dark-light);
-  transition: all 0.2s;   
+  transition: all 0.2s;
 }
 
-.sectionSignIn__linkNotAccount, .sectionSignIn__sublinkNotAccount{
+.sectionSignIn__linkYesAccount,
+.sectionSignIn__sublinkYesAccount {
   width: fit-content;
   margin: 0 auto;
   font-size: 1.8rem;
   color: var(--black);
 }
 
-
-
-
-
-
-
-
-.sectionSignIn__orContainer{
+.sectionSignIn__orContainer {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -391,87 +379,33 @@ main{
   font-weight: 100;
   color: #a8a8a8;
   padding: 0px 1%;
-} 
+}
 
 .sectionSignIn__rightLineOr {
   width: 33%;
   border-bottom: 1px solid #a8a8a8;
 }
 
-.loading-div {
-width: 50px;
-margin: auto;
-display: none;
+.sectionSignIn__loadingDiv {
+  width: 50px;
+  margin: auto;
+  display: none;
 }
 
-.loading-div img {
-height: 50px;
-width: 50px;
+.sectionSignIn__loadingDiv img {
+  height: 50px;
+  width: 50px;
 }
 
 #div_erros_login {
-padding-top: 30px;
-display: none;
-justify-content: center;
-font-size: 2.25rem;
-color: var(--red);
-}
-
-/* .alerta_erro{
-display: flex;
-justify-content: flex-end;
-}
-
-.card_erro {
-display: none;
-background-color: #fff;
-color: black;
-width: 230px;
-position: fixed;
-border-radius: 4px;
-border: #e6005a 3px solid;
-padding: 10px;
-margin-right: 10%;
-}
-
-.card_erro #mensagem_erro{
-font-weight: 500;
-font-size: 20px;
+  display: none;
+  justify-content: center;
+  font-size: 2.25rem;
+  color: var(--red);
 }
 
 
-.alerta_erro{
-display: flex;
-justify-content: flex-end;
-}
-
-.card_erro {
-display: none;
-background-color: #fff;
-color: black;
-width: 230px;
-position: fixed;
-border-radius: 4px;
-border: #e6005a 3px solid;
-padding: 10px;
-margin-right: 10%;
-}
-
-.card_erro #mensagem_erro{
-font-weight: 500;
-font-size: 20px;
-}
-*/
-
-
-
-
-
-
-
-
-
-.bgFooter{
+.bgFooter {
   position: relative;
   height: 300px;
   display: flex;
@@ -480,11 +414,5 @@ font-size: 20px;
   background-image: url('../assets/img/bg-footer.png');
 
 
-   
+
 }
-
-
-
-
-
-
