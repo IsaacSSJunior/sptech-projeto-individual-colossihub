@@ -23,7 +23,7 @@
     <link rel="icon" href="./assets/icon/favicon2.ico">
 </head>
 
-<body>
+<body onload="validarSessaoAcessos()">
     <header>
         <div class="header__container">
             <span onclick="location.reload();" class="header__boxLogo">
@@ -33,23 +33,15 @@
                 <ul class="header__ulLinks ul--header">
                     <li>
                         <a class="header__linkPage" href="./index.html">
-                            Forums
+                            Fóruns
                         </a>
                     </li>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="header__point">
                         <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"></path>
                     </svg>
                     <li>
-                        <a class="header__linkPage" href="./ultimasInteracoes.html">
-                            Últimas interações
-                        </a>
-                    </li>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="header__point">
-                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"></path>
-                    </svg>
-                    <li>
-                        <a class="header__linkPage" href="./sobreColossiHub.html">
-                            Sobre "ColossiHub"
+                        <a class="header__linkPage" href="./colossiHubEstatisticas.html">
+                            ColossiHub Estatísticas
                         </a>
                     </li>
                 </ul>
@@ -82,6 +74,11 @@
     </article>
 
     <main>
+        <div class="main__cardSucess" id="cardSucess">
+            <div class="main__contentSucess">
+                <span class="main__mensageSucess" id="mensageSucess"></span>
+            </div>
+        </div>
         <section class="sectionSignIn">
             <div class="sectionSignIn__title"><!-- Título sessão-->
                 <div class="sectionSignIn__leftMandala">
@@ -131,10 +128,8 @@
             </div>
             <div class="sectionSignIn__linkBtnsContainer">
                 <div id="div_erros_login"></div>
-                <div id="div_aguardar" class="sectionSignIn__loadingDiv">
-                  <img src="./assets/img/loading.gif" id="loading-gif">
-                </div>
-                <button class="sectionSignIn__btnSignIn btn--basis" onclick="Cadastrar()">CADASTRAR CONTA</button>
+                <button class="sectionSignIn__btnSignIn btn--basis" id="btn_signup" onclick="Cadastrar()">CADASTRAR
+                    CONTA</button>
                 <div class="sectionSignIn__orContainer">
                     <div class="sectionSignIn__leftLineOr"></div>
                     <span class="sectionSignIn__spanOr">OU</span>
@@ -158,8 +153,11 @@
 
     function Cadastrar() {
         div_erros_login.innerHTML = ''
+        btn_signup.innerHTML = `<div id="div_aguardar" class="sectionSignIn__loadingDiv">
+        <img src="./assets/img/loading.gif" id="loading-gif">
+        </div>`
         aguardar()
-    
+
 
         //Recupere o valor da nova input pelo nome do id
         // Agora vá para o método fetch logo abaixo
@@ -170,18 +168,22 @@
 
         if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "") {
             finalizarAguardar("Há álgum campo vazio.");
+            btn_signup.innerHTML = 'CADASTRAR CONTA'
             return false;
 
-        } else if (emailVar.indexOf('@') == -1 || emailVar.indexOf('.com') == -1 ) {
+        } else if (emailVar.indexOf('@') == -1 || emailVar.indexOf('.com') == -1) {
             finalizarAguardar("O email informado não é válido.")
+            btn_signup.innerHTML = 'CADASTRAR CONTA'
             return false;
 
         } else if (senhaVar != confirmacaoSenhaVar) {
             finalizarAguardar("A senhas informadas são diferentes")
+            btn_signup.innerHTML = 'CADASTRAR CONTA'
             return false;
 
         } else if (nomeVar.length <= 3) {
             finalizarAguardar("O nome informado é muito curto.");
+            btn_signup.innerHTML = 'CADASTRAR CONTA'
             return false;
 
         } else {
@@ -206,13 +208,21 @@
 
                     if (resposta.ok) {
 
-                        finalizarAguardar("Cadastro realizado com sucesso! Redirecionando para tela de acesso");
+                        setTimeout(function () {
+                            finalizarAguardar()
+                            btn_signup.innerHTML = `CADASTRAR NA CONTA`
+                        }, 1000);
 
-                        setTimeout(() => {
+
+                        setTimeout(function () {
+                            AbreCardSucesso(`Cadastrado com êxito! Redirecionando para tela de acesso.`)
+                        }, 1000);
+
+
+                        setTimeout(function () {
                             window.location = "./acessar.html";
-                        }, "2000");
+                        }, 3000); // transição de tela
 
-                        finalizarAguardar();
 
 
                     } else {
@@ -222,6 +232,7 @@
                 .catch(function (resposta) {
                     console.log(`#ERRO: ${resposta}`);
                     finalizarAguardar();
+                    btn_signup.innerHTML = 'CADASTRAR CONTA'
                 });
         }
 
@@ -319,6 +330,17 @@
     //     );
     //     google.accounts.id.prompt(); // also display the One Tap dialog
     // }
+
+    function AbreCardSucesso(mensagem) {
+        cardSucess.style = 'display: block;'
+        mensageSucess.innerText = `${mensagem}`
+
+    }
+
+    function FechaCardSucesso() {
+        cardSucess.style = 'display: none;'
+    }
+
 
 
 

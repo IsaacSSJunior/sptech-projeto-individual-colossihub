@@ -29,7 +29,7 @@ function autenticar(req, res) {
                 } else if (resultadoAutenticar.length == 0) {
                     res.status(403).send("Email e/ou senha inválido(s)");
                 } else {
-                    res.status(403).send("Mais de um usuário com o mesmo login e senha!");
+                    res.status(403).send("Registros duplicados, acesso negado.");
                 }
             }
             ).catch(
@@ -83,7 +83,9 @@ function cadastrar(req, res) {
     }
 }
 
+
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
 }

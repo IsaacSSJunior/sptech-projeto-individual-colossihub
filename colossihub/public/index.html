@@ -11,14 +11,14 @@
   <link rel="shortcut icon" href="./assets/img/shortcut-icon.png" type="image/x-icon">
 
   <!-- Scripts -->
-  <script src="./js/sessao.script.js"></script>
+  <script src="./js/sessionTools.script.js"></script>
   <script src="https://kit.fontawesome.com/eb311d3d23.js" crossorigin="anonymous"></script>
 
   <title> COLOSSIHUB | Fóruns </title>
   <link rel="icon" href="./assets/icon/favicon2.ico">
 </head>
 
-<body onload="Listar()">
+<body onload="Listar(), ConfiguracaoLayoutBtnsCabecalho()">
   <header>
     <div class="header__container">
       <span onclick="location.reload();" class="header__boxLogo">
@@ -27,28 +27,20 @@
       <nav class="header__nav">
         <ul class="header__ulLinks ul--header">
           <li>
-            <a class="header__linkPage active" href="./index.html">
-              Forums
+            <a class="header__linkPage  active" href="./index.html">
+              Fóruns
             </a>
           </li>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="header__point">
             <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"></path>
           </svg>
           <li>
-            <a class="header__linkPage" href="./ultimasInteracoes.html">
-              Últimas interações
-            </a>
-          </li>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="header__point">
-            <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"></path>
-          </svg>
-          <li>
-            <a class="header__linkPage" href="./sobreColossiHub.html">
-              Sobre "ColossiHub"
+            <a class="header__linkPage" href="./colossiHubEstatisticas.html">
+              ColossiHub Estatísticas
             </a>
           </li>
         </ul>
-        <ul class="header__ulBtns ul--header">
+        <ul class="header__ulBtns ul--header" id="ul_sessao">
           <li>
             <a href="acessar.html">
               <button class="header_btnSignIn btns--header header--box--btns" type="button">Acessar</button>
@@ -92,8 +84,8 @@
     </section>
   </main>
   <footer>
-
   </footer>
+
 </body>
 
 </html>
@@ -172,7 +164,7 @@
         tbody.innerHTML += `
       <tr>
         <td>
-          <a class="sectionForums_hrefForum" href="foruns.html?idForum=${resultado.idForum}">
+          <a class="sectionForums_hrefForum" href="topicosForum.html?idForum=${resultado.idForum}">
             <div class="sectionForums__card" style="background-image: url('${resultado.imagemForum}');">
               <div class="sectionForums__imgCard"></div>
               <div class="sectionForums__leftSideCard">
@@ -200,13 +192,14 @@
 
   }
 
-  function ConfiguracaoLayoutSessao(){
+  function ConfiguracaoLayoutSessao() {
     var ul = document.getElementById('ul_btns')
 
-    if(sessionStorage.ID_USUARIO != null && sessionStorage.EMAIL_USUARIO != null && sessionStorage.NOME_USUARIO != null  ){
+    if (sessionStorage.ID_USUARIO != null && sessionStorage.EMAIL_USUARIO != null && sessionStorage.NOME_USUARIO != null) {
       ul.innerHTML = `LOGADO`
     }
   }
+
 
 
 

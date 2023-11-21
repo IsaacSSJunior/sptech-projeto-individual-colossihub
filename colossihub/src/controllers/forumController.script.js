@@ -7,6 +7,24 @@ function listar(req, res) {
     });
   }
 
+  function listarPorIdForum(req, res) {
+    var idF = req.params.idForum;
+
+    forumModel.listarPorIdForum(idF)
+    
+    .then((resultado) => {
+
+      res.status(200).json({
+        nome: resultado[0].nomeForum,
+        descricao: resultado[0].descricaoForum,
+        imagem: resultado[0].imagemForum
+
+    });
+
+    });
+  }
+
   module.exports = {
     listar,
+    listarPorIdForum
   };
