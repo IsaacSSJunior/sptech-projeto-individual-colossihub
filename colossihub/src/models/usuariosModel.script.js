@@ -22,9 +22,20 @@ function cadastrar(nome, email, senha) {
     return database.executar(instrucao);
 }
 
-
+function listarEnvolvimento(){
+    console.log("ACESSEI O USUARIO MODEL ")
+    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
+    //  e na ordem de inserção dos dados.
+    var instrucao = `
+    SELECT nomeUsuario, COUNT(distinct idTopico) AS numeroTopicos, COUNT(distinct idComentario) AS numeroComentarios FROM Usuario JOIN Topico ON idUsuario = topico_fkUsuario LEFT JOIN Comentario ON idUsuario = comentario_fkUsuario
+	GROUP BY nomeUsuario ORDER BY numeroTopicos DESC, numeroComentarios DESC LIMIT 5;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
 
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    listarEnvolvimento,
 };

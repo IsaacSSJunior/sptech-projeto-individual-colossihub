@@ -2,6 +2,8 @@ CREATE DATABASE colossihub;
 
 USE colossihub;
 
+
+
 -- drop database colossihub;
 
 CREATE TABLE Forum (
@@ -17,6 +19,12 @@ INSERT INTO Forum (nomeForum,descricaoForum,imagemForum) VALUES
 	('Guild Game: Guias & Dicas', 'Troque glitches, segredos & estratégias em batalhas para o BTG e Speedrun’s .', 'https://hdqwalls.com/wallpapers/shadow-of-the-colossus-8k-ao.jpg'),
     ('Lore & Theory: História & Teorias', 'Mergulhe na lore - história de SOTC, desvende segredos escondidos & compartilhe suas teorias e narrativas.', 'https://images2.alphacoders.com/429/4290.jpg'),
     ('News: Notícias, Atualizações & Curiosidades', 'Informe-se sobre notícias e atualizações relacionadas a Shadow of the Colossus e à equipe de desenvolvimento.', 'https://wallpapercave.com/wp/wp10371371.jpg');
+
+
+SELECT nomeUsuario, COUNT(distinct idTopico) AS numeroTopicos, COUNT(distinct idComentario) AS numeroComentarios FROM Usuario JOIN Topico ON idUsuario = topico_fkUsuario LEFT JOIN Comentario ON idUsuario = comentario_fkUsuario
+	GROUP BY nomeUsuario ORDER BY numeroTopicos DESC, numeroComentarios DESC LIMIT 5;
+    
+SELECT nomeUsuarioHistoricoAcesso AS nomeUsuario FROM HistoricoAcesso ORDER BY idHistoricoAcesso DESC LIMIT 1;
 
 
 CREATE TABLE Usuario (
@@ -62,6 +70,7 @@ CONSTRAINT FOREIGN KEY (HistoricoAcesso_fkUsuario) REFERENCES Usuario(idUsuario)
 ); 
 
 DESCRIBE HistoricoAcesso;
+
 
 INSERT INTO HistoricoAcesso (nomeUsuarioHistoricoAcesso, HistoricoAcesso_fkUsuario) VALUES 
 	('zakdubail3_', 1),
@@ -193,5 +202,21 @@ SELECT idTopico, tituloTopico, COUNT(idComentario) AS totalComentarios, nomeUsua
 FROM Topico 
 JOIN Usuario  ON idUsuario = topico_fkUsuario 
 LEFT JOIN Comentario ON comentario_fkTopico = idTopico
-WHERE topico_fkForum = 3
+WHERE topico_fkForum = 1
 GROUP BY idTopico, nomeUsuario, dataTopico, tituloTopico;
+
+SELECT T.idTopico, T.tituloTopico, COALESCE(C.totalComentarios, 0) AS totalComentarios, U.nomeUsuario, T.dataTopico
+FROM Topico T
+JOIN Usuario U ON U.idUsuario = T.topico_fkUsuario
+LEFT JOIN (
+    SELECT comentario_fkTopico, COUNT(idComentario) AS totalComentarios
+    FROM Comentario
+    GROUP BY comentario_fkTopico
+) C ON C.comentario_fkTopico = T.idTopico
+WHERE T.topico_fkForum = 2
+ORDER BY T.idTopico;
+
+SELECT COUNT(*) AS total_comentarios
+FROM Comentario
+WHERE comentario_fkForum = 2;
+

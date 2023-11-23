@@ -18,7 +18,7 @@
   <link rel="icon" href="./assets/icon/favicon2.ico">
 </head>
 
-<body onload="Listar(), ConfiguracaoLayoutBtnsCabecalho()">
+<body onload="ListarIndex(), ConfiguracaoLayoutBtnsCabecalho()">
   <header>
     <div class="header__container">
       <span onclick="location.reload();" class="header__boxLogo">
@@ -91,95 +91,38 @@
 </html>
 <script>
 
-  function Listar() {
-
-    fetch("/forum/listar", {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        resposta.json().then((foruns) => {
-          const resultados = [];
-
-          // Mapeia os fóruns e cria uma promessa para obter comentários e tópicos de cada fórum
-          const promessasComentariosETopicos = foruns.map((forum) => {
-            const resultado = {
-              idForum: forum.idForum,
-              nomeForum: forum.nomeForum,
-              descricaoForum: forum.descricaoForum,
-              imagemForum: forum.imagemForum,
-              numeroComentarios: 0,
-              numeroTopicos: 0,
-            };
-
-            resultados.push(resultado);
-
-            // Retorna a promessa da obtenção de comentários e tópicos
-            return Promise.all([
-              obterComentarios(forum.idForum, resultado),
-              obterTopicos(forum.idForum, resultado),
-            ]);
-          });
-
-          // Espera todas as promessas serem resolvidas
-          Promise.all(promessasComentariosETopicos)
-            .then(() => {
-              // Atualiza o HTML após o término do loop
-              atualizarHTML(resultados);
-            })
-            .catch((erro) => {
-              console.error(`Erro ao obter comentários e tópicos: ${erro}`);
-            });
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-
-    function obterComentarios(idForum, resultado) {
-      return fetch(`/comentario/listar/${idForum}`, {
-        method: "GET",
-      })
-        .then((respostaComentarios) => respostaComentarios.json())
-
-        .then((comentarios) => {
-          resultado.numeroComentarios = comentarios.length;
-        });
-    }
-
-    function obterTopicos(idForum, resultado) {
-      return fetch(`/topico/listar/${idForum}`, {
-        method: "GET",
-      })
-        .then((respostaTopicos) => respostaTopicos.json())
-
-        .then((topicos) => {
-          resultado.numeroTopicos = topicos.length;
-        });
-    }
-
-    function atualizarHTML(resultados) {
+    function ListarIndex() {
       const tbody = document.querySelector('#tbody');
 
-      resultados.forEach((resultado) => {
-        tbody.innerHTML += `
+      fetch("/forum/listar", {
+        method: "GET",
+      })
+
+        .then(function (resposta) {
+          console.log(resposta)
+          resposta.json()
+          
+          .then((all) => {
+            all.forEach((a) => {
+              tbody.innerHTML += `
       <tr>
         <td>
-          <a class="sectionForums_hrefForum" href="topicosForum.html?idForum=${resultado.idForum}">
-            <div class="sectionForums__card" style="background-image: url('${resultado.imagemForum}');">
+          <a class="sectionForums_hrefForum" href="topicosForum.html?idForum=${a.idForum}">
+            <div class="sectionForums__card" style="background-image: url('${a.imagemForum}');">
               <div class="sectionForums__imgCard"></div>
               <div class="sectionForums__leftSideCard">
-                <span class="sectionForums__nameForum">${resultado.nomeForum}</span>
+                <span class="sectionForums__nameForum">${a.nomeForum}</span>
                 <hr class="sectionForums__hr">
-                <span class="sectionForums__descForum">${resultado.descricaoForum}</span>
+                <span class="sectionForums__descForum">${a.descricaoForum}</span>
               </div>
               <div class="sectionForums__rightSideCard">
                 <div class="sectionForums__containerTopics text--config-data-forums">
                   <span class="sectionForums__spanTopics text--config-data-forums">Tópicos</span>
-                  <u class="sectionForums_numberTopics text--config-data-forums">${resultado.numeroTopicos}</u>
+                  <u class="sectionForums_numberTopics text--config-data-forums">${a.numeroTopicos}</u>
                 </div>
                 <div class="sectionForums__containerPost text--config-data-forums">
                   <span class="sectionForums__spanPost text--config-data-forums">Comentários</span>
-                  <u class="sectionForums_numberPost text--config-data-forums">${resultado.numeroComentarios}</u>
+                  <u class="sectionForums_numberPost text--config-data-forums">${a.numeroComentarios}</u>
                 </div>
               </div>
             </div>
@@ -187,18 +130,48 @@
         </td>
       </tr>
       <tr>`;
-      });
+            });
+          });
+        })
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        });
+
     }
 
-  }
+  // function ConsultaHistoricoAcesso() {
 
-  function ConfiguracaoLayoutSessao() {
-    var ul = document.getElementById('ul_btns')
+  //   const urlParametro = new URLSearchParams(window.location.search);
+  //   const idUrl = urlParametro.get('idForum');
 
-    if (sessionStorage.ID_USUARIO != null && sessionStorage.EMAIL_USUARIO != null && sessionStorage.NOME_USUARIO != null) {
-      ul.innerHTML = `LOGADO`
-    }
-  }
+
+  //   if (validarSessao()) {
+  //     fetch(`/forum/listar/${idUrl}`, {
+  //       method: "GET",
+  //     })
+  //       .then(function (resposta) {
+  //         resposta.json()
+
+  //           .then((Forum) => {
+
+  //             p_titulo_forum.innerHTML = `${Forum.nome}`
+  //             p_desc_forum.innerHTML = `${Forum.descricao}`
+  //             article_img.style = `background-image: url('${Forum.imagem}');`
+  //             article_bg_img.style = `background-image: url('${Forum.imagem}');`
+
+  //           });
+  //       })
+  //       .catch(function (resposta) {
+  //         console.log(`#ERRO: ${resposta}`);
+  //       });
+  //   }
+
+
+
+
+  // }
+
+
 
 
 

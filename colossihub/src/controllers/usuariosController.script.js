@@ -1,4 +1,6 @@
 var usuarioModel = require("../models/usuariosModel.script");
+var historicoAcessoModel = require("../models/historicoAcessoModel.script");
+
 
 function autenticar(req, res) {
     var email = req.body.emailServer;
@@ -18,13 +20,42 @@ function autenticar(req, res) {
 
                 if (resultadoAutenticar.length == 1) {
 
-                    res.json({
-                        id: resultadoAutenticar[0].idUsuario,
-                        email: resultadoAutenticar[0].emailUsuario,
-                        nome: resultadoAutenticar[0].nomeUsuario,
-                        senha: resultadoAutenticar[0].senhaUsuario,
-                    });
-                    
+                    historicoAcessoModel.listar(resultadoAutenticar[0].idUsuario)
+
+                        .then(function (resultadoHistorico) {
+                            console.log(`\nResultados encontrados historico acesso: ${resultadoHistorico.length}`);
+                            console.log(`Resultados: ${JSON.stringify(resultadoHistorico)}`); // transforma JSON em String
+
+                            if (resultadoHistorico.length == 0) {
+
+                                historicoAcessoModel.inserir(resultadoAutenticar[0].idUsuario, resultadoAutenticar[0].nomeUsuario)
+
+                                    .then(function (resultadoInserirHistorico) {
+                                        console.log(`\nInserção historico acesso: ${resultadoInserirHistorico.length}`);
+                                        console.log(`Inserção: ${JSON.stringify(resultadoInserirHistorico)}`); // transforma JSON em String
+
+                            })
+
+                                    res.json({
+                                        id: resultadoAutenticar[0].idUsuario,
+                                        email: resultadoAutenticar[0].emailUsuario,
+                                        nome: resultadoAutenticar[0].nomeUsuario,
+                                        senha: resultadoAutenticar[0].senhaUsuario,
+                                    });
+
+                            } else {
+                                res.json({
+                                    id: resultadoAutenticar[0].idUsuario,
+                                    email: resultadoAutenticar[0].emailUsuario,
+                                    nome: resultadoAutenticar[0].nomeUsuario,
+                                    senha: resultadoAutenticar[0].senhaUsuario,
+                                });
+                            }
+                        }
+                        )
+
+
+
 
                 } else if (resultadoAutenticar.length == 0) {
                     res.status(403).send("Email e/ou senha inválido(s)");
@@ -63,7 +94,7 @@ function cadastrar(req, res) {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
         usuarioModel.cadastrar(nome, email, senha)
-        
+
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -83,9 +114,17 @@ function cadastrar(req, res) {
     }
 }
 
+function listarEnvolvimento(req,res){
+    usuarioModel.listarEnvolvimento().then((resultado) => {
+        res.status(200).json(resultado);
+        console.log(resultado)
+      });
+}
+
 
 
 module.exports = {
     autenticar,
     cadastrar,
+    listarEnvolvimento,
 }

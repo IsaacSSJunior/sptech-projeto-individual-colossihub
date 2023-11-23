@@ -1,7 +1,16 @@
 var database = require('../database/config.js')
 
 function listar() {
-  var query = `SELECT * FROM Forum`;
+  var query = `
+  SELECT idForum,
+  nomeForum, 
+  descricaoForum,
+  imagemForum,
+  COUNT(distinct idTopico) AS numeroTopicos,
+  COUNT(idComentario) AS numeroComentarios
+  FROM Forum JOIN Topico ON idForum = topico_fkForum
+  LEFT JOIN Comentario ON idTopico = comentario_fkTopico
+	GROUP BY idForum,nomeForum, descricaoForum, imagemForum;`;
 
   return database.executar(query);
 }
@@ -13,8 +22,22 @@ function listarPorIdForum(idForum) {
   return database.executar(query);
 }
 
+function listarEstatisticas(){
+  var query = `
+  SELECT
+  nomeForum, 
+  COUNT(distinct idTopico) AS numeroTopicos,
+  COUNT(idComentario) AS numeroComentarios
+  FROM Forum JOIN Topico ON idForum = topico_fkForum
+  LEFT JOIN Comentario ON idTopico = comentario_fkTopico
+	GROUP BY idForum,nomeForum, descricaoForum, imagemForum;`;
+
+  return database.executar(query);
+}
+
 module.exports = {
   listar,
-  listarPorIdForum
+  listarPorIdForum,
+  listarEstatisticas
 
 };

@@ -7,6 +7,12 @@ function listar(req, res) {
     });
   }
 
+  function listarEstatisticas(req, res) {
+    forumModel.listarEstatisticas().then((resultado) => {
+      res.status(200).json(resultado);
+    });
+  }
+
   function listarPorIdForum(req, res) {
     var idF = req.params.idForum;
 
@@ -26,5 +32,6 @@ function listar(req, res) {
 
   module.exports = {
     listar,
-    listarPorIdForum
+    listarPorIdForum,
+    listarEstatisticas
   };

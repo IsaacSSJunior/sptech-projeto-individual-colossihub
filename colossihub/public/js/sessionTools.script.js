@@ -5,7 +5,9 @@ function validarSessao() {
 
     if (id == null && email == null && nome == null) {
         window.location = "../index.html"
+        return false
     }
+    return true
 }
 
 function validarSessaoAcessos() {
@@ -15,7 +17,10 @@ function validarSessaoAcessos() {
 
     if (id != null && email != null && nome != null) {
         window.location = "../index.html"
+        return false
     }
+
+    return true
 }
 
 

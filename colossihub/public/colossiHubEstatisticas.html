@@ -13,162 +13,337 @@
     <!-- Scripts -->
     <script src="./js/sessionTools.script.js"></script>
     <script src="https://kit.fontawesome.com/eb311d3d23.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
 
-    <title> COLOSSIHUB | Sobre </title>
+    <title> COLOSSIHUB | Estatísticas </title>
     <link rel="icon" href="./assets/icon/favicon2.ico">
 </head>
 
-<body onload="ConfiguracaoLayoutBtnsCabecalho()">
-    
-<header>
-    <div class="header__container">
-        <span onclick="location.reload();" class="header__boxLogo">
-            <img src="./assets/img/logo-light-colossihub.png" alt="img_logo">
-        </span>
-        <nav class="header__nav">
-            <ul class="header__ulLinks ul--header">
-                <li>
-                    <a class="header__linkPage" href="./index.html">
-                        Fóruns
-                    </a>
-                </li>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="header__point">
-                    <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"></path>
-                </svg>
-                <li>
-                    <a class="header__linkPage active" href="./colossiHubEstatisticas.html">
-                        ColossiHub Estatísticas
-                    </a>
-                </li>
-            </ul>
-            <ul class="header__ulBtns ul--header" id="ul_sessao">
-                <li>
-                    <a href="acessar.html">
-                        <button class="header_btnSignIn btns--header header--box--btns" type="button">Acessar</button>
-                    </a>
-                </li>
-                <li>
-                    <a href="cadastrar.html">
-                        <button class="header_btnSignUp btns--header header--box--btns" type="button">Cadastrar</button>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</header>
+<body
+    onload="ConfiguracaoLayoutBtnsCabecalho(), listarHistoricoAcesso(), listarEstatisticasForuns(), listarEnvolvimento()">
 
-<section class="section_header"><!-- Sessão 'sub-cabeçalho'-->
-    <div class="flex-container_section-header"><!--'flex-container', sessão cabeçalho-->
-
-        <div class="left_section-header"><!--sessão esquerda-->
-            <article>
-                <h1>Plataforma para divulgação & busca de desaparecidos.</h1>
-                <span> Policiais cadastram denúncias de desaparecimento do acompanhante, que atualiza, adiciona &
-                    recebe pistas de usuários.</span>
-            </article>
+    <header>
+        <div class="header__container">
+            <span onclick="location.reload();" class="header__boxLogo">
+                <img src="./assets/img/logo-light-colossihub.png" alt="img_logo">
+            </span>
+            <nav class="header__nav">
+                <ul class="header__ulLinks ul--header">
+                    <li>
+                        <a class="header__linkPage" href="./index.html">
+                            Fóruns
+                        </a>
+                    </li>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="header__point">
+                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"></path>
+                    </svg>
+                    <li>
+                        <a class="header__linkPage active" href="./colossiHubEstatisticas.html">
+                            ColossiHub Estatísticas
+                        </a>
+                    </li>
+                </ul>
+                <ul class="header__ulBtns ul--header" id="ul_sessao">
+                    <li>
+                        <a href="acessar.html">
+                            <button class="header_btnSignIn btns--header header--box--btns"
+                                type="button">Acessar</button>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="cadastrar.html">
+                            <button class="header_btnSignUp btns--header header--box--btns"
+                                type="button">Cadastrar</button>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-            <a name="sobre-nos"></a>
+    </header>
+
+    <article class="bgMessage" id="article_img">
+        <div class="bgMessage__img" id="article_bg_img"></div>
+        <div class="bgMessage__bgMandala"></div>
+
+        <div class="bgMessage__container">
+            <p class="bgMessage__title" id="p_titulo_forum"><u>Métricas</u> de Engajamento na <u>Comunidade</u> de
+                ColossiHub!</p>
+            <br>
+            <p class="bgMessage__subTitle" id="p_desc_forum">Esta seção oferece informações sobre o envolvimento dos
+                usuários na comunidade & dados de fóruns, tópicos e comentários.</p>
         </div>
 
 
-<main><!-- Tag semântica '<main>'-->
-    </section>
 
+
+    </article>
 
     <section class="section_about"><!-- Sessão 'sobre nós'-->
         <div class="section_title"><!-- Título sessão-->
-            <svg width="15" height="25" viewBox="0 0 19 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="19" height="34" rx="9.5" fill="#00B7EA" />
-            </svg>
-            <span>Sobre nós</span>
+
+        </div>
+        <div style="display: flex; column-gap: 15px;">
+            <div class="sectionForums__titlePostTopic">Quantidade de tópicos & comentários por Fórum.</div>
+            <div class="sectionForums__titlePostTopic">Usuários com maior envolvimento.
+            </div>
         </div>
         <div class="article_cards"><!-- container - cards, 'sobre nós'-->
             <article class="card_transparent wolrd">
-                <div class="img_card">
-                    <img src="img/svg_wolrd.svg" alt="">
-                </div>
-                <div class="text-cards">
-                    <h1 class="textCien">A dor de milhares</h1>
-                    <p>O <b>desaparecimento</b> é um problema alarmante. Em <b>2021</b>, o <b>Brasil</b> registrou <b>
-                            65.225 pessoas desaparecidas</b>, uma <b>média</b> de <b> 203 casos diários</b>,
-                        contabilizando <b>11</b> desaparecidos a <b>hora!</b></p>
+                <div class="graph">
+                    <canvas id="canvas_chartBar1"></canvas>
                 </div>
             </article>
 
             <article class="card_transparent search">
-                <div class="img_card">
-                    <img src="img/svg_search.svg" alt="">
-                </div>
-                <div class="text-cards">
-                    <h1 class="textCien">Buscar é a solução.</h1>
-                    <p><b>Familiares não descansam</b> até saber o <b>paradeiro</b> do seu <b>ente querido</b> – se é
-                        que chegam a saber. O seu <b>pesar</b> pela <b>perda</b> é <b>agravado</b>, por meios de
-                        <b>busca não eficientes</b>.
-                    </p>
+                <div class="graph">
+                    <canvas id="canvas_chartBar2"></canvas>
                 </div>
             </article>
-        </div>
-        <div class="systemAbout">
-            <div class="img_logo-design">
-                <img src="img/logo-design.svg" alt="">
-            </div>
-            <a name="como-funciona"></a>
-            <p>
-                Pensando em uma <b>busca eficiente</b>, Onde todas as <b>informações</b> sobre <b> desaparecimentos</b>
-                estão em <b>um só lugar</b>, para que as <b>pessoas</b> possam <b>acessar</b> facilmente esses
-                <b>dados</b> e <b>ajudar</b> nas <b>investigações</b>, De origem <b>confiável</b> e de maneira rápida e
-                <b>simples</b>, junto a uma <b>interface agradável</b> e de fácil manuseio. Elaboramos o <b>“Anjos
-                    Perdidos”</b>.
-            </p>
         </div>
     </section>
 
     <section class="section_howFunction"><!-- sessão 'como funciona?'-->
         <div class="section_title"><!-- Título sessão-->
-            <svg width="15" height="25" viewBox="0 0 19 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="19" height="34" rx="9.5" fill="#00B7EA" />
-            </svg>
-            <span>Como Funciona?</span>
         </div>
 
+        <div class="sectionForums__titlePostTopic" style="width: 100%;" id="div_usuario_envolvimento">
+        </div>
         <div class="explain_cards"><!-- container - cards, 'como funciona'-->
-            <article class="card_transparent cardExplain userCommon">
-                <div class="img_card imgUser-explain">
-                    <img src="img/logo-userCommon.svg" alt="">
-                </div>
-                <div class="text-cards explainTextUser">
-                    <h1 class="textCien">Usuário Comum</h1>
-                    <p class="textCien">Um usuário comum fornece pistas sobre casos de desaparecimento aos
-                        acompanhantes!</p>
-                </div>
-            </article>
 
-            <article class="card_transparent cardExplain family">
-                <div class="img_card imgUser-explain">
-                    <img src="img/logo-family.svg" alt="">
-                </div>
-                <div class="text-cards explainTextUser">
-                    <h1 class="textBlue">Acompanhante</h1>
-                    <p class="textBlue">Um acompanhante compartilha dados do seu ente querido, após cadastrado na rede
-                        pela autoridade!</p>
-                </div>
-            </article>
-
-            <article class="card_transparent cardExplain authority">
-                <div class="img_card imgUser-explain">
-                    <img src="img/logo-authority.svg" alt="">
-                </div>
-                <div class="text-cards explainTextUser nameGreen">
-                    <h1 class="textGreen">Autoridade</h1>
-                    <p class="textGreen">Uma autoridade cadastra a denúncia do desaparecido e o acompanhante, o
-                        atualizando sobre a investigação!</p>
-                </div>
-            </article>
         </div>
     </section>
-</main>
+    </main>
 
 
 </body>
 
 </html>
+<script>
+    function plotarGrafico(dadosEstatisticas, dadosEnvolvimento) {
+        const grafico1 = document.getElementById('canvas_chartBar1')
+        const grafico2 = document.getElementById('canvas_chartBar2')
+
+        console.log('iniciando plotagem do gráfico...');
+
+        labels1 = []
+        labels2 = []
+
+        let dados1 = {
+            labels: labels1,
+            datasets: [{
+                label: 'Tópicos',
+                data: [],
+                borderWidth: 2,
+                borderColor: '#CDCDCD',
+                backgroundColor: '#424242'
+
+
+            },
+
+            {
+                label: 'Comentários',
+                data: [],
+                borderWidth: 2,
+                borderColor: '#CDCDCD',
+                backgroundColor: '#CFD1C1'
+
+            }]
+        };
+
+        let dados2 = {
+            labels: labels2,
+            datasets: [{
+                label: 'Tópicos',
+                data: [],
+                borderWidth: 2,
+                borderColor: '#CDCDCD',
+                backgroundColor: '#424242'
+
+
+            },
+
+            {
+                label: 'Comentários',
+                data: [],
+                borderWidth: 2,
+                borderColor: '#CDCDCD',
+                backgroundColor: '#CFD1C1'
+
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcões')
+        console.log(dadosEstatisticas, dadosEnvolvimento)
+
+        for (i = 0; i < dadosEstatisticas.length; i++) {
+            var registro1 = dadosEstatisticas[i];
+            labels1.push(registro1.nomeForum);
+            dados1.datasets[0].data.push(registro1.numeroTopicos);
+            dados1.datasets[1].data.push(registro1.numeroComentarios);
+        }
+
+        for (i = 0; i < dadosEnvolvimento.length; i++) {
+            var registro2 = dadosEnvolvimento[i];
+            labels2.push(registro2.nomeUsuario);
+            dados2.datasets[0].data.push(registro2.numeroTopicos);
+            dados2.datasets[1].data.push(registro2.numeroComentarios);
+        }
+
+        new Chart(grafico1, {
+            type: 'bar',
+            data: dados1,
+
+
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        new Chart(grafico2, {
+            type: 'bar',
+            data: dados2,
+
+
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+
+
+
+    }
+
+    function listarEnvolvimento() {
+        return fetch("/usuarios/listarEnvolvimento", {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                return resposta.json();
+            })
+            .catch(function (erro) {
+                console.log(`#ERRO: ${erro}`);
+                throw erro; // Propaga o erro para a próxima parte encadeada da Promise
+            });
+    }
+
+
+    function listarEstatisticasForuns() {
+        return fetch("/forum/listar", {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                return resposta.json();
+            })
+            .catch(function (erro) {
+                console.log(`#ERRO: ${erro}`);
+                throw erro; // Propaga o erro para a próxima parte encadeada da Promise
+            });
+    }
+
+    function listarHistoricoAcesso() {
+        fetch("/historicoAcesso/listar", {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                console.log(resposta);
+                return resposta.json(); // Retorna a Promise resultante da conversão para JSON
+            })
+            .then(function (usuario) {
+                div_usuario_envolvimento.innerHTML = `Último acesso primário de usuário: ${usuario[0].nomeUsuario}`;
+            })
+            .catch(function (erro) {
+                console.log(`#ERRO: ${erro}`);
+            });
+    }
+
+    Promise.all([listarEstatisticasForuns(), listarEnvolvimento()])
+        .then(function ([dadosEstatisticas, dadosEnvolvimento]) {
+            plotarGrafico(dadosEstatisticas, dadosEnvolvimento);
+        })
+        .catch(function (erro) {
+            console.log(`Ocorreu um erro: ${erro}`);
+        });
+
+    // function token() {
+
+    //     // Gerar um UUID v4 aleatório
+    //     const uuid = uuidv4();
+
+    //     console.log(`UUID gerado: ${uuid}`);
+
+    // }
+
+    // function plotarGrafico(resposta, idAquario) {
+
+    //     console.log('iniciando plotagem do gráfico...');
+
+    //     // Criando estrutura para plotar gráfico - labels
+    //     let labels = [];
+
+    //     // Criando estrutura para plotar gráfico - dados
+    //     let dados = {
+    //         labels: labels,
+    //         datasets: [{
+    //             label: 'Umidade',
+    //             data: [],
+    //             fill: false,
+    //             borderColor: 'rgb(75, 192, 192)',
+    //             tension: 0.1
+    //         },
+    //         {
+    //             label: 'Temperatura',
+    //             data: [],
+    //             fill: false,
+    //             borderColor: 'rgb(199, 52, 52)',
+    //             tension: 0.1
+    //         }]
+    //     };
+
+    //     console.log('----------------------------------------------')
+    //     console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+    //     console.log(resposta)
+
+    //     // Inserindo valores recebidos em estrutura para plotar o gráfico
+    //     for (i = 0; i < resposta.length; i++) {
+    //         var registro = resposta[i];
+    //         labels.push(registro.momento_grafico);
+    //         dados.datasets[0].data.push(registro.umidade);
+    //         dados.datasets[1].data.push(registro.temperatura);
+    //     }
+
+    //     console.log('----------------------------------------------')
+    //     console.log('O gráfico será plotado com os respectivos valores:')
+    //     console.log('Labels:')
+    //     console.log(labels)
+    //     console.log('Dados:')
+    //     console.log(dados.datasets)
+    //     console.log('----------------------------------------------')
+
+    //     // Criando estrutura para plotar gráfico - config
+    //     const config = {
+    //         type: 'line',
+    //         data: dados,
+    //     };
+
+    //     // Adicionando gráfico criado em div na tela
+    //     let myChart = new Chart(
+    //         document.getElementById(`myChartCanvas${idAquario}`),
+    //         config
+    //     );
+
+    //     setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
+    // }
+
+
+</script>

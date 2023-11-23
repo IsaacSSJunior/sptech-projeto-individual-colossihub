@@ -1,12 +1,5 @@
 var database = require('../database/config.js')
 
-function listar(idFor) {
-
-  var query = `SELECT * FROM Topico WHERE topico_fkForum = ${idFor};`;
-
-  return database.executar(query);
-}
-
 function listarTopicosForum(idForum) {
 
   var query = `SELECT idTopico, tituloTopico, COUNT(idComentario) AS totalComentarios, nomeUsuario, dataTopico 
@@ -30,7 +23,6 @@ function publicar(titulo, descricao, idForum, idUsuario) {
 }
 
 module.exports = {
-  listar,
   listarTopicosForum,
   publicar
 };

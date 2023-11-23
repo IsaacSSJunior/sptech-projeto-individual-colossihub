@@ -163,7 +163,7 @@
                 respostaTopicos.json().then((topicos) => {
                     topicos.forEach((t) => {
                         // Data fornecida (assumindo que seja a data de postagem de um conteúdo)
-                        const dataPublicacao = moment(t.dataTopico);
+                         const dataPublicacao = moment(t.dataTopico);
 
                         // Data e hora atuais
                         const hoje = moment();

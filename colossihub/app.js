@@ -10,6 +10,7 @@ var app = express();
 
 var indexRouter = require('./src/routes/index.script');
 var usuarioRouter = require('./src/routes/usuarios.script');
+var historiAcessoRouter = require('./src/routes/historicoAcesso.script');
 var forumRouter = require('./src/routes/forum.script')
 var topicoRouter = require('./src/routes/topico.script')
 var comentarioRouter = require('./src/routes/comentario.script')
@@ -22,6 +23,7 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
+app.use("/historicoAcesso", historiAcessoRouter)
 app.use("/forum",forumRouter);
 app.use("/topico",topicoRouter);
 app.use("/comentario", comentarioRouter);

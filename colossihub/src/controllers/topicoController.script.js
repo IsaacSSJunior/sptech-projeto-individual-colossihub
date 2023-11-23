@@ -1,14 +1,6 @@
 var topicoModel = require("../models/topicoModel.script");
 
 
-function listar(req, res) {
-  var idF = req.params.idForum;
-
-  topicoModel.listar(idF).then((resultado) => {
-    res.status(200).json(resultado);
-  });
-}
-
 function listarTopicosForum(req, res) {
   var idF = req.params.idForum;
 
@@ -55,7 +47,6 @@ function publicar(req, res) {
 
 
 module.exports = {
-  listar,
   listarTopicosForum,
   publicar
 };

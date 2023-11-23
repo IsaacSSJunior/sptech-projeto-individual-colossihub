@@ -27,7 +27,7 @@ body {
     --white-dark: #F3F3F3;
     --dark-Grey: #202020;
     --light-gray: #2A2A2A;
-    --very-light-gray: rgb(66, 66, 66);
+    --very-light-gray: #424242;
     --hover-white-dark: #acabab;
     --hover-very-white-dark: #d6d3d3;
     --gray: #e4e0e0;
@@ -244,6 +244,14 @@ header::before {
 
 }
 
+.graph{
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 90%;
+    height: 100%;
+}
+
 main {
     margin: 0 auto;
     max-width: 1128px;
@@ -329,28 +337,45 @@ main {
 }
 
 /*Texto - título sessão*/
-.section_title>span {
-    font-size: 1.5rem;
+.section_title span {
+    font-size: 2.5rem;
     font-weight: 500;
 }
 
 /*Container cards, sessão 'sobre nós'*/
 .article_cards {
     display: flex;
-    flex-direction: column;
-    row-gap: 65px;
+    column-gap: 15px;
+    
 }
 
 /* Classe comum, cards trasparentes*/
 .card_transparent {
     width: 100%;
-    height: 250px;
+    height: 350px;
     display: flex;
     justify-content: center;
     align-items: center;
     column-gap: 20px;
-    border-radius: 20px;
+    background-color: var(--grayk);
+    border-left: 1px dashed var(--dark-Grey);
+    border-right: 1px dashed var(--dark-Grey);
 }
+
+.sectionForums__titlePostTopic{
+    position: relative;
+    padding: 0 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    width: 50%;
+    background-image: url('../assets/img/texture-head.png');
+    font-size: 1.7rem;
+    font-weight: 600;
+    color:  var(--white);   
+}
+
 
 /* container - img cards trasparentes*/
 .img_card {
@@ -410,14 +435,9 @@ main {
 }
 
 
-/* cards trasparente, 'A dor de milhares'*/
-.wolrd {
-    border: 1px solid #00B7EA;
-}
 
 /* cards trasparente, 'Buscar é a solução'*/
 .search {
-    border: 1px solid #00B7EA;
     flex-direction: row-reverse;
 }
 
@@ -456,7 +476,7 @@ main {
 /* Sessão 'como funciona?' */
 .section_howFunction {
     margin: 0 auto;
-    max-width: 1128px;
+    max-width: 100vw;
 }
 
 
@@ -464,14 +484,14 @@ main {
 /* Container - cards de usuário*/
 .explain_cards {
     display: flex;
+    justify-content: center;
     flex-direction: row;
-    row-gap: 20px;
+    column-gap: 20px;
 }
 
 /* cards dos usuários*/
 .cardExplain {
     padding: 20px;
-    margin: 0 10px;
     height: auto;
     justify-content: left;
     flex-direction: column;
@@ -479,20 +499,6 @@ main {
     row-gap: 25px;
 }
 
-/* card do usuário comum*/
-.userCommon {
-    border: 3px solid #00B7EA;
-}
-
-/* card do familiar*/
-.family {
-    border: 3px solid #2065AA;
-}
-
-/* card da autoridade*/
-.authority {
-    border: 3px solid #104C5D;
-}
 
 /* container -  textos explicativos, card usuários*/
 .explainTextUser {
