@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/foruns.style.css">
+    <link rel="stylesheet" href="./css/comentariosTopico.css">
+    <link rel="shortcut icon" href="./assets/img/shortcut-icon.png" type="image/x-icon">
+
+    <!-- Scripts -->
+    <script src="./js/sessionTools.script.js"></script>
+    <script src="https://kit.fontawesome.com/eb311d3d23.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    <title> COLOSSIHUB | Fóruns </title>
+    <link rel="icon" href="./assets/icon/favicon2.ico">
+</head>
+
+<body onload="ListarInformacoesForum(), obterDadosTopico(), obterDadosComentarios(), ConfiguracaoLayoutBtnsCabecalho(), ConfiguracaoLayoutPostarComentarios()">
+    <header>
+        <div class="header__container">
+            <span onclick="location.reload();" class="header__boxLogo">
+                <img src="./assets/img/logo-light-colossihub.png" alt="img_logo">
+            </span>
+            <nav class="header__nav">
+                <ul class="header__ulLinks ul--header">
+                    <li>
+                        <a class="header__linkPage active" href="./index.html">
+                            Fóruns
+                        </a>
+                    </li>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="header__point">
+                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"></path>
+                    </svg>
+                    <li>
+                        <a class="header__linkPage" href="./colossiHubEstatisticas.html">
+                            ColossiHub Estatísticas
+                        </a>
+                    </li>
+                </ul>
+                <ul class="header__ulBtns ul--header" id="ul_sessao">
+
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <article class="bgMessage" id="article_img">
+        <div class="bgMessage__img" id="article_bg_img"></div>
+        <div class="bgMessage__bgMandala"></div>
+
+        <div class="bgMessage__container">
+            <p class="bgMessage__title" id="p_titulo_forum"></u></p>
+            <br>
+            <p class="bgMessage__subTitle" id="p_desc_forum"></p>
+        </div>
+
+    </article>
+
+    <main>
+        <section class="sectionForums" style="row-gap: 0;">
+            <div class="sectionForums__postTopic" id="div_postarTopico">
+                <div class="sectionForums__titlePostTopic" id="div_titulo_topico" style="font-size: 2.75rem;">
+                </div>
+                <hr>
+
+                <div class="sectionForums__containerInfoUserTopic"
+                    style="padding: 10px 15px 0.5px; background-image: url('./assets/img/texture-head.png');color: var(--white);font-size: 1.35rem;">
+                    <span class="sectionForums__UserTopic" style="text-decoration: underline;font-size: 1.55rem;"
+                        id="span_nome_topico_usuario"></span>
+                    -
+                    <span class="sectionForums__timeTopic" style="font-size: 1.55rem;"
+                        id="span_tempo_decorrido_topico"></span>
+                </div>
+                <div class="sectionForums__form" style="padding: 0;">
+                    <div class="sectionForums__boxForm" id="div_desc_topico" style="padding: 0;">
+                        <span style="font-size: 1.8rem;" id="span_descricao_topico"></span>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <table class="sectionForums__tableCards"><!-- container - cards, 'sobre nós'-->
+                <tbody id="tbody">
+
+                </tbody>
+            </table>
+            <div id="div_postar_comentario">
+
+            </div>
+        </section>
+    </main>
+    <footer>
+
+    </footer>
+</body>
+
+</html>
+<script>
+
+    function ListarInformacoesForum() {
+
+        const urlParametro = new URLSearchParams(window.location.search);
+        const idUrl = urlParametro.get('idForum');
+
+        fetch(`/forum/listar/${idUrl}`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json()
+
+                    .then((Forum) => {
+
+                        p_titulo_forum.innerHTML = `${Forum.nome}`
+                        p_desc_forum.innerHTML = `${Forum.descricao}`
+                        article_img.style = `background-image: url('${Forum.imagem}');`
+                        article_bg_img.style = `background-image: url('${Forum.imagem}');`
+
+                    });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+
+
+
+
+
+
+    }
+
+    function obterDadosTopico() {
+
+        const urlParametro = new URLSearchParams(window.location.search);
+        const idTopico = urlParametro.get('idTopico');
+
+        fetch(`/topico/listarTopico/${idTopico}`, {
+            method: "GET",
+        })
+
+            .then(function (respostaTopico) {
+                respostaTopico.json()
+
+                    .then((t) => {
+
+                        // Data fornecida (assumindo que seja a data de postagem de um conteúdo)
+                        const dataPublicacao = moment(t.data);
+
+                        // Data e hora atuais
+                        const hoje = moment();
+
+                        // Calculando a diferença em dias, semanas, meses e anos
+                        const diffDays = hoje.diff(dataPublicacao, 'days');
+                        const diffWeeks = hoje.diff(dataPublicacao, 'weeks');
+                        const diffMonths = hoje.diff(dataPublicacao, 'months');
+                        const diffYears = hoje.diff(dataPublicacao, 'years');
+
+                        let tempoDecorrido = '';
+                        if (diffDays === 0) {
+                            tempoDecorrido = 'Hoje';
+                        } else if (diffDays === 1) {
+                            tempoDecorrido = 'Ontem';
+                        } else if (diffDays < 7) {
+                            tempoDecorrido = `Há ${diffDays} dias`;
+                        } else if (diffWeeks < 4) {
+                            tempoDecorrido = `Há ${diffWeeks} semanas`;
+                        } else if (diffMonths < 12) {
+                            tempoDecorrido = `Há ${diffMonths} meses`;
+                        } else {
+                            tempoDecorrido = `Há ${diffYears} anos`;
+                        }
+
+
+                        div_titulo_topico.innerHTML = t.titulo
+                        span_nome_topico_usuario.innerHTML = t.nome
+                        span_tempo_decorrido_topico.innerHTML = tempoDecorrido
+                        span_descricao_topico.innerHTML = t.descricao
+                        div_desc_topico.innerHTML =`
+                        <div class="sectionForums__tr"
+                            style="height: 40px; display: flex; justify-content: flex-start; align-items: center; padding: 0 15px; background-image: url('./assets/img/texture-head.png') ">
+
+                            <div class="sectionForums__td" style="text-align:left;font-size:1.50rem;color: var(--white)">
+                                ${t.descricao}
+                            </div>
+
+
+
+                        </div>`
+
+
+                    });
+            })
+
+        // });
+
+    }
+
+    function obterDadosComentarios() {
+
+        const urlParametro = new URLSearchParams(window.location.search);
+        const idTopico = urlParametro.get('idTopico');
+
+        fetch(`/comentario/listarCometario/${idTopico}`, {
+            method: "GET",
+        })
+
+            .then(function (respostaComentarios) {
+                respostaComentarios.json()
+                    .then((comentarios) => {
+                        comentarios.forEach((c) => {
+                            const dataPublicacao = moment(c.dataComentario);
+                            const hoje = moment();
+                            const diffDays = hoje.diff(dataPublicacao, 'days');
+                            const diffWeeks = hoje.diff(dataPublicacao, 'weeks');
+                            const diffMonths = hoje.diff(dataPublicacao, 'months');
+                            const diffYears = hoje.diff(dataPublicacao, 'years');
+
+                            let tempoDecorrido = '';
+                            if (diffDays === 0) {
+                                tempoDecorrido = 'Hoje';
+                            } else if (diffDays === 1) {
+                                tempoDecorrido = 'Ontem';
+                            } else if (diffDays < 7) {
+                                tempoDecorrido = `Há ${diffDays} dias`;
+                            } else if (diffWeeks < 4) {
+                                tempoDecorrido = `Há ${diffWeeks} semanas`;
+                            } else if (diffMonths < 12) {
+                                tempoDecorrido = `Há ${diffMonths} meses`;
+                            } else {
+                                tempoDecorrido = `Há ${diffYears} anos`;
+                            }
+
+                            tbody.innerHTML += `
+                            
+                    <div class="sectionForums__tr" onclick="irParaTopico(${c.idComentario})" style="height: 80px; padding: 0 15px; display: flex; justify-content: flex-start; align-items: center">
+                        
+                        <div class="sectionForums__td" style="text-align:left;">
+
+                            <u style="font-size:1.35rem;">${c.nomeUsuario}</u> - ${tempoDecorrido} <br> ${c.descricao}  
+                            
+                        </div>
+                        
+                        
+              
+                    </div>
+                    <hr>
+                `;
+                        });
+                    })
+                    .catch((error) => {
+                        console.error('Erro ao processar os comentários:', error);
+                    });
+            })
+            .catch((error) => {
+                console.error('Erro ao obter os comentários:', error);
+            });
+
+        // });
+
+    }
+
+
+    // function limparFormulario() {
+    //     document.getElementById("form_postagem").reset();
+    // }
+
+    // function PostaTopico() {
+    //     const urlParametro = new URLSearchParams(window.location.search);
+    //     const idUrl = urlParametro.get('idForum');
+    //     var idUsuario = sessionStorage.ID_USUARIO;
+
+
+    //     var corpo = {
+    //         titulo: form_postagem.titulo.value,
+    //         descricao: form_postagem.descricao.value
+    //     }
+
+    //     if (corpo.titulo == "" || corpo.descricao == "") {
+
+    //     } else {
+
+    //     }
+
+    //     fetch(`/topico/publicar/${idUrl}/${idUsuario}`, {
+    //         method: "post",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify(corpo)
+    //     }).then(function (resposta) {
+
+    //         console.log("resposta: ", resposta);
+
+    //         if (resposta.ok) {
+    //             window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
+    //             window.location.reload()
+    //             limparFormulario();
+    //         } else if (resposta.status == 404) {
+    //             window.alert("Deu 404!");
+    //         } else {
+    //             throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+    //         }
+    //     }).catch(function (resposta) {
+    //         console.log(`#ERRO: ${resposta}`);
+    //     });
+
+    //     return false;
+
+    // }
+
+
+
+</script>

@@ -13,6 +13,18 @@ function listarTopicosForum(idForum) {
 
 }
 
+function listarTopicoPeloId(idTopico) {
+  console.log("ACESSEI O TOPICO MODEL \n \n\t\t >> Se aqui der erro de, funçaõ listarTopicoPeloId ");
+
+  var query = `
+  SELECT idTopico, tituloTopico, descricaoTopico, dataTopico, topico_fkUsuario, nomeUsuario 
+  FROM Topico JOIN Usuario ON topico_fkUsuario = idUsuario
+  WHERE idTopico = ${idTopico};`
+
+  return database.executar(query);
+
+}
+
 function publicar(titulo, descricao, idForum, idUsuario) {
   console.log("ACESSEI O TOPICO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function publicar(): ", titulo, descricao, idForum, idUsuario);
   var instrucao = `
@@ -24,5 +36,6 @@ function publicar(titulo, descricao, idForum, idUsuario) {
 
 module.exports = {
   listarTopicosForum,
+  listarTopicoPeloId,
   publicar
 };

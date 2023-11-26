@@ -13,6 +13,25 @@ function listarTopicosForum(req, res) {
   });
 }
 
+function listarTopicoPeloId(req, res) {
+    var idT = req.params.idTopico;
+  
+    topicoModel.listarTopicoPeloId(idT)
+    
+    .then((resultado) => {
+      console.log(resultado)
+      res.status(200).json({
+        id: resultado[0].idTopico,
+        titulo: resultado[0].tituloTopico,
+        descricao: resultado[0].descricaoTopico,
+        data: resultado[0].dataTopico,
+        t_fkUsuario: resultado[0].topico_fkUsuario,
+        nome: resultado[0].nomeUsuario
+      });
+  
+    });
+  }
+
 function publicar(req, res) {
   var titulo = req.body.titulo;
   var descricao = req.body.descricao;
@@ -46,7 +65,10 @@ function publicar(req, res) {
 }
 
 
+
+
 module.exports = {
   listarTopicosForum,
-  publicar
+  publicar,
+  listarTopicoPeloId
 };

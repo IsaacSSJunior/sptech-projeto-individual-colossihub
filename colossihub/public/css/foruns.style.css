@@ -42,23 +42,19 @@ header {
     width: 100vw;
     height: 120px;
     background-image: url('../assets/img/texture-head.png');
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.01), 0 10px 10px rgba(0, 0, 0, 0.08);
-
-}
-
-header::before {
+  }
+  
+  header::before {
     content: '';
-    /*conteúdo vazio para o pseudoelemento */
     display: block;
-    /*pseudoelemento um elemento de bloco */
     position: absolute;
-    /*pseudoelemento em posição absoluta */
-    top: 125px;
+    top: 120px;
     left: -10px;
     right: -10px;
-    border: 3.5px solid var(--dark-Grey);
+    border: 3.5px solid #00000075 ;
+  
+  }
 
-}
 
 
 .header__container {
@@ -358,6 +354,35 @@ main {
 
 }
 
+.sectionForums_notPostTopic a{
+    font-size: 2.5rem;
+    color: var(--white);
+
+}
+
+.sectionForums_notPostTopic{
+    position: relative;
+    font-size: 2.5rem;
+    padding: 5px;
+    text-align: center;
+    background-image: url(../assets/img/texture-head.png);
+    color: var(--white);
+    transition: all 0.2s;
+}
+
+.sectionForums_notPostTopic::before {
+    z-index: -1;
+    content: '';
+    display: block;
+    position: absolute;
+    top:15px;
+    left: 0.5px;
+    right: 0.5px;
+    border: 22.5px solid #00000075 ;
+  
+  }
+  
+
 .sectionForums__spanForm{
     color:  var(--dark-Grey);
     font-size: 1.60rem;
@@ -557,3 +582,4 @@ main {
     color: var(--white-dark);
     font-size: 1.8rem;
 }
+

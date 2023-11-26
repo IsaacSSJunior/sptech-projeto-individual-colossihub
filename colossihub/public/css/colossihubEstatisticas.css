@@ -42,23 +42,21 @@ header {
     width: 100vw;
     height: 120px;
     background-image: url('../assets/img/texture-head.png');
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.01), 0 10px 10px rgba(0, 0, 0, 0.08);
-
-}
-
-header::before {
+    
+    
+  
+  }
+  
+  header::before {
     content: '';
-    /*conteúdo vazio para o pseudoelemento */
     display: block;
-    /*pseudoelemento um elemento de bloco */
     position: absolute;
-    /*pseudoelemento em posição absoluta */
-    top: 125px;
+    top: 120px;
     left: -10px;
     right: -10px;
-    border: 3.5px solid var(--dark-Grey);
-
-}
+    border: 3.5px solid #00000075 ;
+  
+  }
 
 
 .header__container {

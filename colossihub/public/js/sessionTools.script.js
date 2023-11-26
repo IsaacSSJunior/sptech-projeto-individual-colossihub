@@ -78,3 +78,58 @@ function ConfiguracaoLayoutBtnsCabecalho() {
     }
 }
 
+function ConfiguracaoLayoutPostarTopicos() {
+    var divPostarTopico = document.getElementById('div_postarTopico')
+    var id = sessionStorage.ID_USUARIO;
+    var email = sessionStorage.EMAIL_USUARIO;
+    var nome = sessionStorage.NOME_USUARIO;
+
+
+    if (id != null && email != null && nome != null) {
+        divPostarTopico.innerHTML = `<div class="sectionForums__titlePostTopic" id="div_titulo_novo_topico"></div>
+        <form  class="sectionForums__form" id="form_postagem" method="post" onsubmit="return PostaTopico()">
+            <div class="sectionForums__boxForm">
+                <span class="sectionForums__spanForm">Título:</span>
+                <input name="titulo" id="titulo" maxlength="100" type="text" class="sectionForums__formInput" placeholder="Digite o título do tópico...">
+            </div>
+            <div class="sectionForums__boxForm">
+                <span class="sectionForums__spanForm">Corpo:</span>
+                <textarea name="descricao" id="textarea_descricao" maxlength="900" rows="5" class="sectionForums__formTextArea" placeholder="Digite a descrição do tópico..."></textarea>
+            </div>
+            <div class="sectionForums__btnsForm">
+                <button class="sectionForums__btnSubmit btn--basis--form">Enviar</button>
+                <input class="sectionForums__btnReset btn--basis--form" type="reset" value="Limpar">
+            </div>
+        </form>`
+    }else{
+        divPostarTopico.innerHTML = `<div class="sectionForums_notPostTopic">Realize seu <a href="./acessar.html">Acesso</a>
+       para postar tópicos...</div>`
+    }
+}
+
+function ConfiguracaoLayoutPostarComentarios() {
+    var divPostarTopico = document.getElementById('div_postar_comentario')
+    var id = sessionStorage.ID_USUARIO;
+    var email = sessionStorage.EMAIL_USUARIO;
+    var nome = sessionStorage.NOME_USUARIO;
+
+
+    if (id != null && email != null && nome != null) {
+        divPostarTopico.innerHTML = `
+        <form  class="sectionForums__form" id="form_postagem" method="post" onsubmit="return PostaTopico()" style="padding: 10px 15px;border-left: 1px dashed var(--hover-white-dark);
+        border-right: 1px dashed var(--hover-white-dark);>
+            <div class="sectionForums__boxForm">
+                <span class="sectionForums__spanForm">Comentar como ${nome}:</span>
+                <textarea name="descricao" id="textarea_descricao" maxlength="900" rows="5" class="sectionForums__formTextArea" placeholder="Digite a descrição do comentário..."></textarea>
+            </div>
+            <div class="sectionForums__btnsForm" style="padding: 0;">
+                <button class="sectionForums__btnSubmit btn--basis--form">Enviar</button>
+                <input class="sectionForums__btnReset btn--basis--form" type="reset" value="Limpar">
+            </div>
+        </form>`
+    }else{
+        divPostarTopico.innerHTML = `<div class="sectionForums_notPostTopic">Realize seu <a href="./acessar.html">Acesso</a>
+       para postar comentários...</div>`
+    }
+}
+

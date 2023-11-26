@@ -9,6 +9,18 @@ function listar(req, res) {
     });
   }
 
+  function listarComentarioPeloIdTopico(req, res) {
+    var idTopico = req.params.idTopico;
+
+    comentarioModel.listarComentarioPeloIdTopico(idTopico)
+    
+    .then((resultado) => {
+      console.log(resultado)
+      res.status(200).json(resultado);
+    });
+  }
+
   module.exports = {
     listar,
+    listarComentarioPeloIdTopico,
   };

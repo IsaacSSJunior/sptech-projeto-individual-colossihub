@@ -2,9 +2,7 @@ CREATE DATABASE colossihub;
 
 USE colossihub;
 
-
-
--- drop database colossihub;
+drop database colossihub;
 
 CREATE TABLE Forum (
 idForum INT PRIMARY KEY AUTO_INCREMENT,
@@ -18,14 +16,10 @@ DESCRIBE Forum;
 INSERT INTO Forum (nomeForum,descricaoForum,imagemForum) VALUES 
 	('Guild Game: Guias & Dicas', 'Troque glitches, segredos & estratégias em batalhas para o BTG e Speedrun’s .', 'https://hdqwalls.com/wallpapers/shadow-of-the-colossus-8k-ao.jpg'),
     ('Lore & Theory: História & Teorias', 'Mergulhe na lore - história de SOTC, desvende segredos escondidos & compartilhe suas teorias e narrativas.', 'https://images2.alphacoders.com/429/4290.jpg'),
-    ('News: Notícias, Atualizações & Curiosidades', 'Informe-se sobre notícias e atualizações relacionadas a Shadow of the Colossus e à equipe de desenvolvimento.', 'https://wallpapercave.com/wp/wp10371371.jpg');
+    ('News: Notícias, Atualizações & Curiosidades', 'Informe-se sobre notícias e atualizações relacionadas a Shadow of the Colossus e à equipe de desenvolvimento.', 'https://wallpapercave.com/wp/wp10371371.jpg'),
+    ('Off Topic: Comunicação livre', 'Ambiente para discussões & conversas fora do escopo de ColossiHub.', 'https://images3.alphacoders.com/210/21089.jpg');
 
-
-SELECT nomeUsuario, COUNT(distinct idTopico) AS numeroTopicos, COUNT(distinct idComentario) AS numeroComentarios FROM Usuario JOIN Topico ON idUsuario = topico_fkUsuario LEFT JOIN Comentario ON idUsuario = comentario_fkUsuario
-	GROUP BY nomeUsuario ORDER BY numeroTopicos DESC, numeroComentarios DESC LIMIT 5;
-    
-SELECT nomeUsuarioHistoricoAcesso AS nomeUsuario FROM HistoricoAcesso ORDER BY idHistoricoAcesso DESC LIMIT 1;
-
+SELECT * FROM Forum;
 
 CREATE TABLE Usuario (
 idUsuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -96,7 +90,6 @@ INSERT INTO HistoricoAcesso (nomeUsuarioHistoricoAcesso, HistoricoAcesso_fkUsuar
 
 SELECT * FROM HistoricoAcesso;
 
-
 CREATE TABLE Topico (
 idTopico INT PRIMARY KEY AUTO_INCREMENT,
 tituloTopico VARCHAR (225),
@@ -144,10 +137,15 @@ INSERT INTO Topico (tituloTopico, descricaoTopico, topico_fkForum, topico_fkUsua
     ('Análise de pistas e teasers', 'Vamos analisar pistas e teasers divulgados sobre o próximo jogo de UEDA rpzd', 3, 10),
     ('Possíveis influências e inspirações', 'Discussão sobre possíveis influências e inspirações para o próximo jogo de UEDA.', 3, 12),
     ('Especulações sobre o enredo', 'Teorias sobre o enredo do novo jogo.', 3, 14),
-    ('Mecânicas de jogo do novo game', 'Ideias de mecânicas e gameplay no próximo título.', 3, 18);
+    ('Mecânicas de jogo do novo game', 'Ideias de mecânicas e gameplay no próximo título.', 3, 18),
+    
+     -- Fórum 4: Off Topic: Comunicação livre
+	('Álgum Mod que transforma o personagem em um bebê tamanho gigante? ksksk','Juroo, vi isso em um vídeo da Gringa, tem q ter mn ksksks', 4, 12),
+    ('Fiquie sabendo que UEDA Curte Star Wars? Me contem tudo ksks','Se o Baby Yoda não aparecer na sequencia de UEDA é um pecado agora em ksksks', 4, 19);
+     
+
 
 SELECT * FROM Topico;
-
 
 CREATE TABLE Comentario (
 idComentario INT PRIMARY KEY AUTO_INCREMENT,
@@ -160,7 +158,6 @@ CONSTRAINT FOREIGN KEY (comentario_fkForum) REFERENCES Forum(idForum),
 CONSTRAINT FOREIGN KEY (comentario_fkTopico) REFERENCES Topico(idTopico),
 CONSTRAINT FOREIGN KEY (comentario_fkUsuario) REFERENCES Usuario(idUsuario)
 );
-
 
 DESCRIBE Comentario;
 
@@ -193,30 +190,10 @@ INSERT INTO Comentario (descricao, comentario_fkForum, comentario_fktopico, come
     ('A análise de pistas pode revelar muito sobre a direção que UEDA está tomando.', 3, 26, 3),
     ('É interessante especular sobre as influências por trás do trabalho de UEDA.', 3, 27, 16),
     ('A história é um dos pontos fortes de UEDA, estou curioso para ver suas novas criações.', 3, 28, 9),
-    ('Espero que UEDA mantenha a tradição de mecânicas de jogo únicas e envolventes.', 3, 29, 19);
+    ('Espero que UEDA mantenha a tradição de mecânicas de jogo únicas e envolventes.', 3, 29, 19),
+    ('Pprt? Preciso de um ngc desse cara, procurar aqui kskk.', 4, 30, 11);
 
 	
 SELECT * FROM Comentario;
 
-SELECT idTopico, tituloTopico, COUNT(idComentario) AS totalComentarios, nomeUsuario, dataTopico 
-FROM Topico 
-JOIN Usuario  ON idUsuario = topico_fkUsuario 
-LEFT JOIN Comentario ON comentario_fkTopico = idTopico
-WHERE topico_fkForum = 1
-GROUP BY idTopico, nomeUsuario, dataTopico, tituloTopico;
-
-SELECT T.idTopico, T.tituloTopico, COALESCE(C.totalComentarios, 0) AS totalComentarios, U.nomeUsuario, T.dataTopico
-FROM Topico T
-JOIN Usuario U ON U.idUsuario = T.topico_fkUsuario
-LEFT JOIN (
-    SELECT comentario_fkTopico, COUNT(idComentario) AS totalComentarios
-    FROM Comentario
-    GROUP BY comentario_fkTopico
-) C ON C.comentario_fkTopico = T.idTopico
-WHERE T.topico_fkForum = 2
-ORDER BY T.idTopico;
-
-SELECT COUNT(*) AS total_comentarios
-FROM Comentario
-WHERE comentario_fkForum = 2;
 
