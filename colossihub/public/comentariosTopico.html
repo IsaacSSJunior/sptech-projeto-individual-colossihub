@@ -20,7 +20,8 @@
     <link rel="icon" href="./assets/icon/favicon2.ico">
 </head>
 
-<body onload="ListarInformacoesForum(), obterDadosTopico(), obterDadosComentarios(), ConfiguracaoLayoutBtnsCabecalho(), ConfiguracaoLayoutPostarComentarios()">
+<body
+    onload="ListarInformacoesForum(), obterDadosTopico(), obterDadosComentarios(), ConfiguracaoLayoutBtnsCabecalho(), ConfiguracaoLayoutPostarComentarios()">
     <header>
         <div class="header__container">
             <span onclick="location.reload();" class="header__boxLogo">
@@ -62,9 +63,25 @@
     </article>
 
     <main>
+        <div class="main__cardSucess" id="cardSucess">
+            <div class="main__contentSucess">
+              <span class="main__mensageSucess" id="mensageSucess"></span>
+            </div>
+          </div>
+          <div class="main__cardDeleteTopic">
+            <div class="main__contentSucess">
+                <span class="main__mensageSucess" id="mensageSucess"></span>
+              </div>
+          </div>
+          <div class="bg_cardsModel"></div>
         <section class="sectionForums" style="row-gap: 0;">
             <div class="sectionForums__postTopic" id="div_postarTopico">
-                <div class="sectionForums__titlePostTopic" id="div_titulo_topico" style="font-size: 2.75rem;">
+                <div class="sectionForums__titlePostTopic" style="display: flex; justify-content: space-between;">
+                    <div id="div_titulo_topico" style="font-size: 2.75rem;"></div>
+                    <div style="display: none; align-items: center; column-gap: 15px;" id="div_edit_delete_topico">
+                        <i class="fa-solid fa-pencil fa-2xs" style="color: #ffffff; font-size: 20px;"></i>
+                        <i class="fa-solid fa-trash-can fa-2xs" style="color: #ffffff; font-size: 20px;"></i>
+                    </div>
                 </div>
                 <hr>
 
@@ -102,6 +119,17 @@
 </html>
 <script>
 
+    function AbreCardSucesso(mensagem) {
+        cardSucess.style = 'display: block'
+        mensageSucess.innerText = `${mensagem}`
+
+    }
+
+    function FechaCardSucesso() {
+        cardSucess.style = 'display: none'
+    }
+
+
     function ListarInformacoesForum() {
 
         const urlParametro = new URLSearchParams(window.location.search);
@@ -138,6 +166,7 @@
 
         const urlParametro = new URLSearchParams(window.location.search);
         const idTopico = urlParametro.get('idTopico');
+        const idUsuario = sessionStorage.ID_USUARIO
 
         fetch(`/topico/listarTopico/${idTopico}`, {
             method: "GET",
@@ -147,6 +176,10 @@
                 respostaTopico.json()
 
                     .then((t) => {
+
+                        if (t.t_fkUsuario == idUsuario) {
+                            div_edit_delete_topico.style.display = "flex"
+                        }
 
                         // Data fornecida (assumindo que seja a data de postagem de um conteúdo)
                         const dataPublicacao = moment(t.data);
@@ -180,7 +213,7 @@
                         span_nome_topico_usuario.innerHTML = t.nome
                         span_tempo_decorrido_topico.innerHTML = tempoDecorrido
                         span_descricao_topico.innerHTML = t.descricao
-                        div_desc_topico.innerHTML =`
+                        div_desc_topico.innerHTML = `
                         <div class="sectionForums__tr"
                             style="height: 40px; display: flex; justify-content: flex-start; align-items: center; padding: 0 15px; background-image: url('./assets/img/texture-head.png') ">
 
@@ -198,6 +231,55 @@
 
         // });
 
+    }
+
+    // function EditarTopico() {
+    //     fetch(`/avisos/editar/${sessionStorage.getItem("ID_POSTAGEM_EDITANDO")}`, {
+    //         method: "PUT",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify({
+    //             descricao: textarea_descricao.value
+    //         })
+    //     }).then(function (resposta) {
+
+    //         if (resposta.ok) {
+    //             window.alert("Post atualizado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+    //             window.location = "/dashboard/mural.html"
+    //         } else if (resposta.status == 404) {
+    //             window.alert("Deu 404!");
+    //         } else {
+    //             throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+    //         }
+    //     }).catch(function (resposta) {
+    //         console.log(`#ERRO: ${resposta}`);
+    //     });
+    // }
+
+    function DeletarTopico() {
+
+        const urlParametro = new URLSearchParams(window.location.search);
+        const idT = urlParametro.get('idTopico');
+
+        fetch(`/topico/deletar/${idT}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                finalizarAguardar("Topico deletado com sucesso " + sessionStorage.getItem("NOME_USUARIO") + "!");
+                window.location = "topicosForum.html"
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a exclusão do tópico! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
     }
 
     function obterDadosComentarios() {

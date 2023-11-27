@@ -17,12 +17,20 @@ var sql = require('mssql');
 //     }
 // }
 
-// CONEXÃO DO MYSQL WORKBENCH
+// CONEXÃO DO MYSQL WORKBENCH - CASA
+// var mySqlConfig = {
+//     host: "localhost",
+//     database: "colossihub",
+//     user: "root",
+//     password: "159357",
+// };
+
+// CONEXÃO DO MYSQL WORKBENCH - SPTECH
 var mySqlConfig = {
     host: "localhost",
     database: "colossihub",
-    user: "root",
-    password: "159357",
+    user: "aluno",
+    password: "sptech",
 };
 
 function executar(instrucao) {

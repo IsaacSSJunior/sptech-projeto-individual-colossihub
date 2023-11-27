@@ -14,5 +14,9 @@ router.post("/publicar/:idForum/:idUsuario", function (req, res) {
     topicoController.publicar(req, res);
 });
 
+router.delete("/deletar/:idTopico", function (req, res) {
+    topicoController.deletar(req, res);
+});
+
 module.exports = router;
 

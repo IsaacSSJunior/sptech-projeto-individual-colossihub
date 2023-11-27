@@ -86,7 +86,26 @@ function ConfiguracaoLayoutPostarTopicos() {
 
 
     if (id != null && email != null && nome != null) {
-        divPostarTopico.innerHTML = `<div class="sectionForums__titlePostTopic" id="div_titulo_novo_topico"></div>
+        divPostarTopico.innerHTML = `
+
+        <div>
+        <div class="sectionForums__titlePostTopic" id="div_titulo_novo_topico"></div>       
+        <div class="main__cardSucess" id="cardSucess">
+            <div class="main__contentSucess">
+                <span class="main__mensageSucess" id="mensageSucess"></span>
+            </div>
+        </div>
+    </div>
+        <div style="display: none; position:absolute; width: 100%; height: 100%; background-color: #000000a3" id="div_bg_postar_topico">
+            <div id="div_aguardar" class="sectionSignIn__loadingDiv" style="    
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;">
+                <img src="./assets/img/loading.gif" id="loading-gif" style="widht: 50px; height: 50px">
+            </div>
+        </div>
         <form  class="sectionForums__form" id="form_postagem" method="post" onsubmit="return PostaTopico()">
             <div class="sectionForums__boxForm">
                 <span class="sectionForums__spanForm">Título:</span>

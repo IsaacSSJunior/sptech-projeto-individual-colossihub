@@ -261,6 +261,42 @@ main {
     padding: 80px 20px 0;
 }
 
+#div_postarTopico{
+    position: relative;
+}
+
+.main__cardSucess {
+    display: none;
+    z-index: 1;
+    width: 400px;
+    height: 30px;
+    background-color: var(--blue);
+    border-radius: 2.5px;
+    position: absolute;
+    left: 80%;
+    top: 10.5%;
+    transform: translate(-50%,-50%);
+  
+  }
+  
+  .main__contentSucess {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  
+  }
+  
+  .main__mensageSucess {
+    text-align: center;
+    font-size: 1.50em;
+    font-weight: 200;
+    color: var(--white);
+  
+  
+  
+  }
+
 .sectionForums {
     display: flex;
     flex-direction: column;

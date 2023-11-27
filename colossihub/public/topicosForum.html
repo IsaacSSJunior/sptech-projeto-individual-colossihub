@@ -19,7 +19,8 @@
     <link rel="icon" href="./assets/icon/favicon2.ico">
 </head>
 
-<body onload="ListarInformacoesForum(), obterTopicos(), ConfiguracaoLayoutBtnsCabecalho(), ConfiguracaoLayoutPostarTopicos()">
+<body
+    onload="ListarInformacoesForum(), obterTopicos(), ConfiguracaoLayoutBtnsCabecalho(), ConfiguracaoLayoutPostarTopicos()">
     <header>
         <div class="header__container">
             <span onclick="location.reload();" class="header__boxLogo">
@@ -72,9 +73,9 @@
                     <img src="./assets/img/mandala-right-titles.png" alt="">
                 </div>
             </div>
-            
-            <div class="sectionForums__postTopic" id="div_postarTopico">
-                
+
+            <div class="sectionForums__postTopic" id="div_postarTopico" style="position: relative;">
+
             </div>
 
             <table class="sectionForums__tableCards"><!-- container - cards, 'sobre nós'-->
@@ -97,7 +98,18 @@
 </html>
 <script>
 
-    
+    function AbreCardSucesso(mensagem) {
+        cardSucess.style = 'display: block'
+        mensageSucess.innerText = `${mensagem}`
+
+    }
+
+    function FechaCardSucesso() {
+        cardSucess.style = 'display: none'
+    }
+
+
+
     const urlParametro = new URLSearchParams(window.location.search);
     const idUrl = urlParametro.get('idForum');
 
@@ -118,7 +130,7 @@
                         p_desc_forum.innerHTML = `${Forum.descricao}`
                         article_img.style = `background-image: url('${Forum.imagem}');`
                         article_bg_img.style = `background-image: url('${Forum.imagem}');`
-                        div_titulo_novo_topico.innerHTML = `Novo Tópico - ${Forum.nome}` 
+                        div_titulo_novo_topico.innerHTML = `Novo Tópico - ${Forum.nome}`
 
                     });
             })
@@ -152,38 +164,38 @@
 
             .then(function (respostaTopicos) {
                 respostaTopicos.json()
-                
-                .then((topicos) => {
-                    topicos.forEach((t) => {
-                        // Data fornecida (assumindo que seja a data de postagem de um conteúdo)
-                         const dataPublicacao = moment(t.dataTopico);
 
-                        // Data e hora atuais
-                        const hoje = moment();
+                    .then((topicos) => {
+                        topicos.forEach((t) => {
+                            // Data fornecida (assumindo que seja a data de postagem de um conteúdo)
+                            const dataPublicacao = moment(t.dataTopico);
 
-                        // Calculando a diferença em dias, semanas, meses e anos
-                        const diffDays = hoje.diff(dataPublicacao, 'days');
-                        const diffWeeks = hoje.diff(dataPublicacao, 'weeks');
-                        const diffMonths = hoje.diff(dataPublicacao, 'months');
-                        const diffYears = hoje.diff(dataPublicacao, 'years');
+                            // Data e hora atuais
+                            const hoje = moment();
 
-                        let tempoDecorrido = '';
-                        if (diffDays === 0) {
-                            tempoDecorrido = 'Hoje';
-                        } else if (diffDays === 1) {
-                            tempoDecorrido = 'Ontem';
-                        } else if (diffDays < 7) {
-                            tempoDecorrido = `Há ${diffDays} dias`;
-                        } else if (diffWeeks < 4) {
-                            tempoDecorrido = `Há ${diffWeeks} semanas`;
-                        } else if (diffMonths < 12) {
-                            tempoDecorrido = `Há ${diffMonths} meses`;
-                        } else {
-                            tempoDecorrido = `Há ${diffYears} anos`;
-                        }
+                            // Calculando a diferença em dias, semanas, meses e anos
+                            const diffDays = hoje.diff(dataPublicacao, 'days');
+                            const diffWeeks = hoje.diff(dataPublicacao, 'weeks');
+                            const diffMonths = hoje.diff(dataPublicacao, 'months');
+                            const diffYears = hoje.diff(dataPublicacao, 'years');
+
+                            let tempoDecorrido = '';
+                            if (diffDays === 0) {
+                                tempoDecorrido = 'Hoje';
+                            } else if (diffDays === 1) {
+                                tempoDecorrido = 'Ontem';
+                            } else if (diffDays < 7) {
+                                tempoDecorrido = `Há ${diffDays} dias`;
+                            } else if (diffWeeks < 4) {
+                                tempoDecorrido = `Há ${diffWeeks} semanas`;
+                            } else if (diffMonths < 12) {
+                                tempoDecorrido = `Há ${diffMonths} meses`;
+                            } else {
+                                tempoDecorrido = `Há ${diffYears} anos`;
+                            }
 
 
-                        tbody.innerHTML += `
+                            tbody.innerHTML += `
                                     
                                     <tr class="sectionForums__tr " onclick="irParaTopico(${t.idTopico})">
                                     <td class="sectionForums__td">${t.tituloTopico}</td>
@@ -194,8 +206,8 @@
                                     
                                     
                                     `
+                        });
                     });
-                });
             })
 
         // });
@@ -214,7 +226,9 @@
     function PostaTopico() {
         // const urlParametro = new URLSearchParams(window.location.search);
         // const idUrl = urlParametro.get('idForum');
+        div_bg_postar_topico.style = "display: block"
         var idUsuario = sessionStorage.ID_USUARIO;
+        var nomeUsuario = sessionStorage.NOME_USUARIO;
 
 
         var corpo = {
@@ -239,13 +253,23 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
-                window.location.reload()
+
+                div_bg_postar_topico.style = "display: none"
+                
+                setTimeout(function () {
+                    AbreCardSucesso("Tópico realizado com sucesso " + nomeUsuario + "!");
+                }, 500); // apenas para exibir o loading
+
+
+                setTimeout(function () {
+                    window.location.reload()
+                }, 2000); // transição de tela
+                
                 limparFormulario();
             } else if (resposta.status == 404) {
-                window.alert("Deu 404!");
+                console.log("Deu 404!");
             } else {
-                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+                throw ("Houve um erro ao tentar realizar a postagem do tópico! Código da resposta: " + resposta.status);
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
@@ -254,6 +278,8 @@
         return false;
 
     }
+
+
 
 
 

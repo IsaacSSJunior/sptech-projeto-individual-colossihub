@@ -25,3 +25,11 @@
     border: 22.5px solid #00000075 ;
   
   }
+
+  i{
+    cursor: pointer;
+  }
+
+  i:hover{
+    filter: opacity(0.7);
+  }
