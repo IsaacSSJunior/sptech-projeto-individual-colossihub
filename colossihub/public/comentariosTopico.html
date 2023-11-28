@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="./css/foruns.style.css">
     <link rel="stylesheet" href="./css/comentariosTopico.css">
     <link rel="shortcut icon" href="./assets/img/shortcut-icon.png" type="image/x-icon">
 
@@ -19,7 +18,7 @@
     <title> COLOSSIHUB | Fóruns </title>
     <link rel="icon" href="./assets/icon/favicon2.ico">
 </head>
-
+<div class="main__bgCardsModel" id="div_fundo"></div> 
 <body
     onload="ListarInformacoesForum(), obterDadosTopico(), obterDadosComentarios(), ConfiguracaoLayoutBtnsCabecalho(), ConfiguracaoLayoutPostarComentarios()">
     <header>
@@ -61,26 +60,48 @@
         </div>
 
     </article>
-
+    
     <main>
+        
         <div class="main__cardSucess" id="cardSucess">
             <div class="main__contentSucess">
               <span class="main__mensageSucess" id="mensageSucess"></span>
             </div>
           </div>
-          <div class="main__cardDeleteTopic">
-            <div class="main__contentSucess">
-                <span class="main__mensageSucess" id="mensageSucess"></span>
-              </div>
+          <div class="main__cardDeleteTopic" id="cardDelete">
+            <div style="display: none; position:absolute; width: 500px; height: 150px; background-color: #000000a3" id="div_bg_postar_topico">
+                <div id="div_aguardar" class="sectionSignIn__loadingDiv" style="    
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;">
+                    <img src="./assets/img/loading.gif" id="loading-gif" style="width: 50px; height: 50px">
+                </div>
+            </div>
+            <div class="main__contentDeleteTopic">
+                <span class="main__mensageDeleteTopic">
+                    <span style="font-size: 2rem; color: var(--dark-Grey);" id="span_titulo_delete_topico">
+                        EXCLUIR TÓPICO
+                    </span> 
+                    <span style="font-size: 1.35rem; color: var(--dark-Grey);">Tem certeza de que deseja excluir este tópico? Esta ação não pode ser desfeita.</span>
+                    <div class="sectionForums__btnsForm" style="display: flex;
+                    justify-content: center; padding: 0;">
+                        <button class="sectionForums__btnSubmit btn--basis--form" onclick="DeletarTopico()">Exluir</button>
+                        <button class="sectionForums__btnReset btn--basis--form" onclick="FechaCardDelete()">Cancelar</button>
+                    </div>
+                </span>
+            </div>
           </div>
-          <div class="bg_cardsModel"></div>
+          
+         
         <section class="sectionForums" style="row-gap: 0;">
             <div class="sectionForums__postTopic" id="div_postarTopico">
                 <div class="sectionForums__titlePostTopic" style="display: flex; justify-content: space-between;">
                     <div id="div_titulo_topico" style="font-size: 2.75rem;"></div>
                     <div style="display: none; align-items: center; column-gap: 15px;" id="div_edit_delete_topico">
                         <i class="fa-solid fa-pencil fa-2xs" style="color: #ffffff; font-size: 20px;"></i>
-                        <i class="fa-solid fa-trash-can fa-2xs" style="color: #ffffff; font-size: 20px;"></i>
+                        <i class="fa-solid fa-trash-can fa-2xs" style="color: #ffffff; font-size: 20px;" onclick="AbreCardDelete()"></i>
                     </div>
                 </div>
                 <hr>
@@ -127,6 +148,18 @@
 
     function FechaCardSucesso() {
         cardSucess.style = 'display: none'
+    }
+
+    function AbreCardDelete() {
+
+        cardDelete.style.display = 'block'
+        div_fundo.style.display = 'block'
+
+    }
+
+    function FechaCardDelete() {
+        cardDelete.style.display = 'none'
+        div_fundo.style.display = 'none'
     }
 
 
@@ -258,9 +291,11 @@
     // }
 
     function DeletarTopico() {
-
+        div_bg_postar_topico.style.display = "block"
         const urlParametro = new URLSearchParams(window.location.search);
         const idT = urlParametro.get('idTopico');
+        const idF = urlParametro.get('idForum');
+        
 
         fetch(`/topico/deletar/${idT}`, {
             method: "DELETE",
@@ -270,10 +305,41 @@
         }).then(function (resposta) {
 
             if (resposta.ok) {
-                finalizarAguardar("Topico deletado com sucesso " + sessionStorage.getItem("NOME_USUARIO") + "!");
-                window.location = "topicosForum.html"
+
+                setTimeout(function () {
+                    div_bg_postar_topico.style.display = "none"
+                }, 2000); // apenas para exibir o loading
+
+            
+                setTimeout(function () {
+                    AbreCardSucesso("Topico deletado com sucesso " + sessionStorage.getItem("NOME_USUARIO") + "!");
+                }, 1000); // apenas para exibir o loading
+
+
+                setTimeout(function () {
+                    window.location = `topicosForum.html?idForum=${idF}`
+                }, 3000); // transição de tela
+
+                
+                
             } else if (resposta.status == 404) {
-                window.alert("Deu 404!");
+
+                setTimeout(function () {
+                    AbreCardSucesso("Deu 404")
+                    cardSucess.style.backgroundColor = "#fd5a5a"
+                    
+                }, 1000); // apenas para exibir o loading
+
+                setTimeout(function () {
+                    div_bg_postar_topico.style = "display: none"
+                }, 2000); // apenas para exibir o loading
+
+                setTimeout(function () {
+                    cardSucess.style.backgroundColor = "#3a8fff"
+                    FechaCardSucesso()
+                }, 4000); // apenas para exibir o loading
+
+
             } else {
                 throw ("Houve um erro ao tentar realizar a exclusão do tópico! Código da resposta: " + resposta.status);
             }
@@ -319,7 +385,7 @@
 
                             tbody.innerHTML += `
                             
-                    <div class="sectionForums__tr" onclick="irParaTopico(${c.idComentario})" style="height: 80px; padding: 0 15px; display: flex; justify-content: flex-start; align-items: center">
+                    <div class="sectionForums__tr" style="height: 80px; padding: 0 15px; display: flex; justify-content: flex-start; align-items: center">
                         
                         <div class="sectionForums__td" style="text-align:left;">
 
@@ -347,53 +413,96 @@
     }
 
 
-    // function limparFormulario() {
-    //     document.getElementById("form_postagem").reset();
-    // }
+    function limparFormulario() {
+        document.getElementById("form_postagem").reset();
+    }
 
-    // function PostaTopico() {
-    //     const urlParametro = new URLSearchParams(window.location.search);
-    //     const idUrl = urlParametro.get('idForum');
-    //     var idUsuario = sessionStorage.ID_USUARIO;
+    function PostaComentario() {
+        div_bg_postar_comentario.style.display = "block"
+        const urlParams = new URLSearchParams(window.location.search);
+        const idF = urlParams.get('idForum');
+        const idT = urlParams.get('idTopico');
+        var idU = sessionStorage.ID_USUARIO;
+        var nomeUsuario = sessionStorage.NOME_USUARIO
 
 
-    //     var corpo = {
-    //         titulo: form_postagem.titulo.value,
-    //         descricao: form_postagem.descricao.value
-    //     }
+        var corpo = { descricao: form_postagem.descricao.value}
 
-    //     if (corpo.titulo == "" || corpo.descricao == "") {
+        if (corpo.descricao == "") {
+            setTimeout(function () {
+                    AbreCardSucesso("Escreva uma descrição para o comentário.")
+                    cardSucess.style.backgroundColor = "#fd5a5a"
+                    
+                }, 1000); // apenas para exibir o loading
 
-    //     } else {
+                setTimeout(function () {
+                    div_bg_postar_comentario.style.display = "none" 
+                }, 1000); // apenas para exibir o loading
 
-    //     }
+                setTimeout(function () {
+                    FechaCardSucesso()
+                    cardSucess.style.backgroundColor = "#3a8fff"
+                }, 3000); // apenas para exibir o loading
+        } else{ 
 
-    //     fetch(`/topico/publicar/${idUrl}/${idUsuario}`, {
-    //         method: "post",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify(corpo)
-    //     }).then(function (resposta) {
+        fetch(`/comentario/publicar/${idF}/${idT}/${idU}`, {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(corpo)
+        })
+        
+        .then(function (resposta) {
 
-    //         console.log("resposta: ", resposta);
+            console.log("resposta: ", resposta);
 
-    //         if (resposta.ok) {
-    //             window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
-    //             window.location.reload()
-    //             limparFormulario();
-    //         } else if (resposta.status == 404) {
-    //             window.alert("Deu 404!");
-    //         } else {
-    //             throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-    //         }
-    //     }).catch(function (resposta) {
-    //         console.log(`#ERRO: ${resposta}`);
-    //     });
+            if (resposta.ok) {
+                
+                setTimeout(function () {
+                    div_bg_postar_comentario.style = "display: none"
+                }, 2000); // apenas para exibir o loading
 
-    //     return false;
 
-    // }
+                setTimeout(function () {
+                    AbreCardSucesso("Comentário realizado com sucesso " + nomeUsuario + "!");
+                }, 1000); // apenas para exibir o loading
+
+
+                setTimeout(function () {
+                    window.location.reload()
+                }, 3000); // transição de tela
+
+
+            } else if (resposta.status == 404) {
+                
+                setTimeout(function () {
+                    AbreCardSucesso("Deu 404.")
+                    cardSucess.style.backgroundColor = "#fd5a5a"
+                    
+                }, 1000); // apenas para exibir o loading
+
+                setTimeout(function () {
+                    div_bg_postar_comentario.style.display = "none" 
+                }, 1000); // apenas para exibir o loading
+
+                setTimeout(function () {
+                    FechaCardSucesso()
+                    cardSucess.style.backgroundColor = "#3a8fff"
+                }, 3000); // apenas para exibir o loading
+
+            } else {
+                console.log("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+    }
+
+        return false;
+
+    }
 
 
 

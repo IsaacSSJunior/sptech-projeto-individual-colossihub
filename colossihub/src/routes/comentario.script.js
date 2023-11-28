@@ -11,4 +11,7 @@ router.get("/listarCometario/:idTopico", function (req,res) {
     comentarioController.listarComentarioPeloIdTopico(req,res)
 });
 
+router.post("/publicar/:idForum/:idTopico/:idUsuario", function (req,res) {
+    comentarioController.publicar(req,res)
+});
 module.exports = router;

@@ -33,3 +33,661 @@
   i:hover{
     filter: opacity(0.7);
   }
+
+  .main__cardDeleteTopic {
+    display: none;
+    z-index: 5;
+    width: 500px;
+    height: 150px;
+    background-color: var(--white);
+    border-radius: 2.5px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+  
+  }
+  
+  .main__contentDeleteTopic {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  
+  }
+  
+  .main__mensageDeleteTopic {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 10px;
+    font-weight: 200;
+  
+  
+  
+  }
+
+  .main__bgCardsModel{
+    display: none;
+    z-index: 3;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: #1c1c1c61;
+    backdrop-filter: blur(5px);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Caslon Antique', 'Segoe UI', Arial, Helvetica, sans-serif;
+    font-size: 12.5px;
+}
+
+html {
+    cursor: url("../assets/img/cursor-alt-pointer-mouse.svg"), auto;
+    scroll-behavior: smooth;
+    height: 100%;
+}
+
+body {
+    overflow-x: hidden;
+    height: 100%;
+    background-color: #F3F3F3;
+
+}
+
+:root {
+    --trasparent: #00000011;
+    --sub-trasparent: #ffffff11;
+    --white: #ffffff;
+    --black: #000000;
+    --white-dark: #F3F3F3;
+    --dark-Grey: #202020;
+    --light-gray: #2A2A2A;
+    --very-light-gray: rgb(66, 66, 66);
+    --hover-white-dark: #acabab;
+    --hover-very-white-dark: #d6d3d3;
+    --gray: #e4e0e0;
+    --red: #fd5a5a;
+    --blue: #3a8fff;
+}
+
+header {
+    position: fixed;
+    z-index: 2;
+    padding: 18.5px 25px;
+    width: 100vw;
+    height: 120px;
+    background-image: url('../assets/img/texture-head.png');
+  }
+  
+  header::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 120px;
+    left: -10px;
+    right: -10px;
+    border: 3.5px solid #00000075 ;
+  
+  }
+
+
+
+.header__container {
+    margin: 0 auto;
+    height: 100%;
+    width: 1128px;
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+}
+
+.header__boxLogo {
+    cursor: pointer;
+    height: 100%;
+    width: 21.5%;
+    display: flex;
+    justify-content: center;
+}
+
+.header__nav {
+    height: 100%;
+    width: 78.5%;
+    display: flex;
+}
+
+.ul--header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+}
+
+.header__ulLinks {
+    width: 70%;
+    column-gap: 20px;
+    list-style: none;
+}
+
+.header__linkPage {
+    font-size: 1.60rem;
+    text-decoration: none;
+    color: var(--white-dark);
+}
+
+.active {
+    text-decoration: underline;
+}
+
+.header__point {
+    width: auto;
+    height: 5.5%;
+    cursor: pointer;
+    fill: var(--white-dark)
+}
+
+.header__linkPage:hover {
+    text-decoration: underline;
+}
+
+.header__ulBtns {
+    width: 30%;
+    column-gap: 10px;
+}
+
+.header--box--btns {
+    width: 100%;
+}
+
+.btns--header {
+    cursor: pointer;
+    height: 35px;
+    width: 120px;
+    font-weight: 500;
+    font-size: 1.70rem;
+
+}
+
+/* botão de login*/
+.header_btnSignIn {
+    background-color: transparent;
+    border: 1px solid var(--white-dark);
+    color: var(--white-dark);
+    transition: all 0.3s;
+}
+
+/* Hover, botão de login*/
+.header_btnSignIn:hover {
+    background-color: var(--white-dark);
+    border: none;
+    color: var(--very-light-gray);
+    transition: all 0.3s;
+}
+
+/* botão de 'cadastrar'*/
+.header_btnSignUp {
+    background-color: var(--white-dark);
+    border: none;
+    color: var(--very-light-gray);
+    transition: all 0.3s;
+}
+
+/* Hover, botão de 'cadastrar'*/
+.header_btnSignUp:hover {
+    background-color: var(--hover-very-white-dark);
+    transition: all 0.3s;
+}
+
+
+.header__containerNameSession{
+    padding: 5px 10px;
+    border: none;
+    background-color: var(--sub-trasparent);
+    border-radius: 2.5px;
+    font-size: 1.60rem;
+    color: var(--white);
+    
+  
+  }
+  
+  .header__btnProfile{
+    width: auto;
+    display: flex;
+    border: none;
+    background: none;
+    border-radius: 2.5px;
+    align-items: center;
+    justify-content: flex-start;
+    column-gap: 10px;
+    transition: all 0.2s;
+  }
+  
+  .header__btnProfile:hover{
+    background-color: var(--sub-trasparent);
+    transition: all 0.2s;
+  }
+  
+  .header__containerFaUser{
+    background-color: var(--sub-trasparent);
+    border-radius: 2.5px;
+    padding: 10.5px 14.5px;
+  }
+  
+
+.bgMessage {
+    position: relative;
+    padding-top: 120px;
+    height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+}
+
+.bgMessage__img {
+    position: absolute;
+    padding-top: 120px;
+    height: 300px;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    filter: brightness(0.65);
+    border-bottom: 5px solid #000000;
+}
+
+.bgMessage__container {
+    z-index: 1;
+    margin: 0 auto;
+    width: 1128px;
+    text-align: center;
+    padding: 0 20px;
+
+}
+
+.bgMessage__title,
+.bgMessage__title u {
+    font-size: 4rem;
+    color: var(--white);
+}
+
+.bgMessage__subTitle {
+    font-size: 2.80rem;
+    color: var(--hover-very-white-dark);
+}
+
+.bgMessage__bgMandala {
+    position: absolute;
+    top: 170px;
+    height: 150px;
+    width: 300px;
+    filter: brightness(2);
+    background-image: url('../assets/img/mandala-bg-message.png');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-size: cover;
+}
+
+main {
+    margin: 0 auto;
+    max-width: 1128px;
+    padding: 80px 20px 0;
+}
+
+#div_postarTopico{
+    position: relative;
+}
+
+.main__cardSucess {
+    display: none;
+    z-index: 5;
+    width: 500px;
+    height: 60px;
+    background-color: var(--blue);
+    border-radius: 2.5px;
+    position: fixed;
+    left: 50%;
+    top: 25px;
+    transform: translate(-50%,-50%);
+  
+  }
+  
+  .main__contentSucess {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  
+  }
+  
+  .main__mensageSucess {
+    text-align: center;
+    font-size: 1.80em;
+    font-weight: 200;
+    color: var(--white);
+  
+  
+  
+  }
+
+.sectionForums {
+    display: flex;
+    flex-direction: column;
+    row-gap: 45px;
+    
+}
+
+.sectionForums__title {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+}
+
+.sectionForums__leftMandala {
+    flex-grow: 2;
+}
+
+.sectionForums__leftMandala img,
+.sectionForums__rightMandala img {
+    width: 100%;
+}
+
+.sectionForums__span {
+    font-size: 3rem;
+}
+
+.sectionForums__rightMandala {
+    flex-grow: 2;
+}
+
+
+.sectionForums__postTopic {
+    display: flex;
+    flex-direction: column;
+    border-left: 1px dashed var(--hover-white-dark) ;
+    border-right: 1px dashed var(--hover-white-dark) ;
+    
+
+}
+
+
+
+.sectionForums__labelForm{
+    font-size: 1.5rem;
+    color: var(--white);
+
+}
+
+
+
+.sectionForums__form{
+    background: var(--gray);
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+   
+}
+
+.sectionForums__titlePostTopic{
+    position: relative;
+    padding: 0 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 60px;
+    background-image: url('../assets/img/texture-head.png');
+    font-size: 2.0rem;
+    font-weight: 600;
+    color:  var(--white);   
+}
+
+.sectionForums__titlePostTopicLine{
+    position: relative;
+    padding: 0 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 35px;
+    background-color: #595959;
+    border-top: 1px solid var(--white);
+    font-size: 1.3rem;
+    color: var(--white);
+}
+
+.sectionForums__boxForm{
+    padding: 0px 15px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+
+}
+
+.sectionForums_notPostTopic a{
+    font-size: 2.5rem;
+    color: var(--white);
+
+}
+
+.sectionForums_notPostTopic{
+    position: relative;
+    font-size: 2.5rem;
+    padding: 5px;
+    text-align: center;
+    background-image: url(../assets/img/texture-head.png);
+    color: var(--white);
+    transition: all 0.2s;
+}
+
+.sectionForums_notPostTopic::before {
+    z-index: -1;
+    content: '';
+    display: block;
+    position: absolute;
+    top:15px;
+    left: 0.5px;
+    right: 0.5px;
+    border: 22.5px solid #00000075 ;
+  
+  }
+  
+
+.sectionForums__spanForm{
+    color:  var(--dark-Grey);
+    font-size: 1.60rem;
+}
+
+.sectionForums__formInput{
+    height: 30px;
+}
+
+.sectionForums__formTextArea{
+    height: 60px;
+}
+
+
+.sectionForums__formInput, .sectionForums__formTextArea{
+    border: none;
+    border: 1px solid var(--hover-white-dark);
+    font-size: 1.50rem;
+    padding: 10px;
+    transition: all 0.20s;
+}
+
+.sectionForums__btnsForm{
+    padding-left: 15px;
+    display: flex;
+    column-gap: 10px;
+
+}
+
+.btn--basis--form{
+    cursor: pointer;
+    height: 25px;
+    width: 120px;
+    font-weight: 500;
+    font-size: 1.30rem;
+}
+/* botão de login*/
+.sectionForums__btnSubmit {
+    background-color: var(--dark-Grey);
+    border: 1px solid var(--white);
+    color: var(--white);
+    transition: all 0.3s;
+ 
+}
+
+/* Hover, botão de login*/
+.sectionForums__btnSubmit:hover {
+    background-color: var(--hover-very-white-dark);
+    border: 1px solid var(--dark-Grey);
+    color: var(--dark-Grey);
+    transition: all 0.3s;
+
+}
+
+/* botão de 'cadastrar'*/
+.sectionForums__btnReset {
+    background-color: transparent;
+    border: 1px solid var(--dark-Grey);
+    color: var(--dark-Grey);
+    transition: all 0.3s;
+}
+
+/* Hover, botão de 'cadastrar'*/
+.sectionForums__btnReset:hover {
+    background-color: var(--hover-very-white-dark);
+    transition: all 0.3s;
+}
+
+
+
+.sectionForums__tableCards {
+    width: 100%;
+    border-left: 1px dashed var(--hover-white-dark) ;
+    border-right: 1px dashed var(--hover-white-dark) ;
+
+}
+
+.sectionForums__thead{
+    height: 60px;
+
+}
+
+.sectionForums__tr{
+    height: 45px;
+    background-color: var(--gray);
+    transition: all 0.2s;
+}
+
+.sectionForums__td{
+    font-size: 1.50rem;
+    text-align: center;
+}
+
+.dark{
+    background-color: var(--light-gray);
+}
+
+.sectionForums__th{
+    background-image: url('../assets/img/texture-head.png');
+    font-size: 2.0rem;
+    color:  var(--white);   
+}
+
+.sectionForums_hrefForum {
+    text-decoration: none;
+}
+
+.sectionForums__card {
+    position: relative;
+    margin: 20px;
+    padding: 30px 20px;
+    height: 250px;
+    border: 1.5px solid var(--light-gray);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.sectionForums__card:hover .sectionForums__imgCard {
+    height: 250px;
+    transition: all 0.35s;
+    opacity: 1;
+
+}
+
+.sectionForums__imgCard {
+    z-index: 0;
+    position: absolute;
+    height: 250px;
+    width: 100%;
+    background: linear-gradient(to right, var(--black), var(--trasparent));
+    opacity: 0.65;
+    left: 50%;
+    transform: translate(-50%);
+    transition: all 0.35s;
+}
+
+.sectionForums__nameForum {
+    font-size: 4rem;
+    color: var(--white);
+}
+
+.sectionForums__hr {
+    width: 100%;
+    border: 0;
+    height: 1px;
+    /* background: linear-gradient(to right, var(--white), var(--trasparent));
+     */
+     background: var(--dark-Grey);
+}
+
+.sectionForums__leftSideCard,
+.sectionForums__rightSideCard {
+    z-index: 1;
+}
+
+.sectionForums__leftSideCard {
+    flex-grow: 2;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.sectionForums__descForum {
+    font-size: 1.5rem;
+    color: var(--white);
+}
+
+.sectionForums__rightSideCard {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    column-gap: 25px;
+}
+
+.sectionForums__containerTopics,
+.sectionForums__containerPost {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 5px;
+}
+
+
+.text--config-data-forums {
+    color: var(--white-dark);
+    font-size: 1.8rem;
+}
+

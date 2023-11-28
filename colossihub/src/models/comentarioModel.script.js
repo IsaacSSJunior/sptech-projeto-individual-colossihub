@@ -21,7 +21,27 @@ function listar(idForum) {
     return database.executar(query);
   }
 
+  function deletar(idTopico) {
+    console.log("ACESSEI O COMENTARIO MODEL - função deletar \n \n\t\t");
+    var instrucao = `
+        DELETE FROM Comentario WHERE comentario_fkTopico = ${idTopico};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+  }
+
+  function publicar(descricao, idForum, idTopico, idUsuario) {
+
+    var query = `INSERT INTO Comentario (descricao, comentario_fkForum, comentario_fktopico, comentario_fkusuario) VALUES 
+                      ('${descricao}', ${idForum}, ${idTopico}, ${idUsuario});`;
+  
+    return database.executar(query);
+  }
+  
+
 module.exports = {
     listar,
     listarComentarioPeloIdTopico,
+    deletar,
+    publicar
 };

@@ -89,13 +89,8 @@ function ConfiguracaoLayoutPostarTopicos() {
         divPostarTopico.innerHTML = `
 
         <div>
-        <div class="sectionForums__titlePostTopic" id="div_titulo_novo_topico"></div>       
-        <div class="main__cardSucess" id="cardSucess">
-            <div class="main__contentSucess">
-                <span class="main__mensageSucess" id="mensageSucess"></span>
-            </div>
+            <div class="sectionForums__titlePostTopic" id="div_titulo_novo_topico"></div>
         </div>
-    </div>
         <div style="display: none; position:absolute; width: 100%; height: 100%; background-color: #000000a3" id="div_bg_postar_topico">
             <div id="div_aguardar" class="sectionSignIn__loadingDiv" style="    
             width: 100%;
@@ -126,6 +121,7 @@ function ConfiguracaoLayoutPostarTopicos() {
     }
 }
 
+
 function ConfiguracaoLayoutPostarComentarios() {
     var divPostarTopico = document.getElementById('div_postar_comentario')
     var id = sessionStorage.ID_USUARIO;
@@ -135,13 +131,28 @@ function ConfiguracaoLayoutPostarComentarios() {
 
     if (id != null && email != null && nome != null) {
         divPostarTopico.innerHTML = `
-        <form  class="sectionForums__form" id="form_postagem" method="post" onsubmit="return PostaTopico()" style="padding: 10px 15px;border-left: 1px dashed var(--hover-white-dark);
-        border-right: 1px dashed var(--hover-white-dark);>
+        <form  class="sectionForums__form" id="form_postagem" method="post" onsubmit="return PostaComentario()" style="border-left: 1px dashed var(--hover-white-dark); position:relative;
+        border-right: 1px dashed var(--hover-white-dark);">
+        <div style="    bottom: 2px;
+        display: none;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #000000a3;" id="div_bg_postar_comentario">
+                <div id="div_aguardar" class="sectionSignIn__loadingDiv" style="    
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;">
+                    <img src="./assets/img/loading.gif" id="loading-gif" style="widht: 50px; height: 50px">
+                </div>
+            </div>
             <div class="sectionForums__boxForm">
                 <span class="sectionForums__spanForm">Comentar como ${nome}:</span>
                 <textarea name="descricao" id="textarea_descricao" maxlength="900" rows="5" class="sectionForums__formTextArea" placeholder="Digite a descrição do comentário..."></textarea>
             </div>
-            <div class="sectionForums__btnsForm" style="padding: 0;">
+            <div class="sectionForums__btnsForm">
                 <button class="sectionForums__btnSubmit btn--basis--form">Enviar</button>
                 <input class="sectionForums__btnReset btn--basis--form" type="reset" value="Limpar">
             </div>

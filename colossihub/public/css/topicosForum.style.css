@@ -267,14 +267,14 @@ main {
 
 .main__cardSucess {
     display: none;
-    z-index: 1;
-    width: 400px;
-    height: 30px;
+    z-index: 5;
+    width: 500px;
+    height: 60px;
     background-color: var(--blue);
     border-radius: 2.5px;
-    position: absolute;
-    left: 80%;
-    top: 10.5%;
+    position: fixed;
+    left: 50%;
+    top: 25px;
     transform: translate(-50%,-50%);
   
   }
@@ -289,7 +289,7 @@ main {
   
   .main__mensageSucess {
     text-align: center;
-    font-size: 1.50em;
+    font-size: 1.80em;
     font-weight: 200;
     color: var(--white);
   

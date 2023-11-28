@@ -18,20 +18,20 @@ var sql = require('mssql');
 // }
 
 // CONEXÃO DO MYSQL WORKBENCH - CASA
-// var mySqlConfig = {
-//     host: "localhost",
-//     database: "colossihub",
-//     user: "root",
-//     password: "159357",
-// };
-
-// CONEXÃO DO MYSQL WORKBENCH - SPTECH
 var mySqlConfig = {
     host: "localhost",
     database: "colossihub",
-    user: "aluno",
-    password: "sptech",
+    user: "root",
+    password: "159357",
 };
+
+// CONEXÃO DO MYSQL WORKBENCH - SPTECH
+// var mySqlConfig = {
+//     host: "localhost",
+//     database: "colossihub",
+//     user: "aluno",
+//     password: "sptech",
+// };
 
 function executar(instrucao) {
     // VERIFICA A VARIÁVEL DE AMBIENTE SETADA EM app.js

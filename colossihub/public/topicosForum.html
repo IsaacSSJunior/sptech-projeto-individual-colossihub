@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="./css/foruns.style.css">
+    <link rel="stylesheet" href="./css/topicosForum.style.css">
     <link rel="shortcut icon" href="./assets/img/shortcut-icon.png" type="image/x-icon">
 
     <!-- Scripts -->
@@ -63,6 +63,11 @@
     </article>
 
     <main>
+        <div class="main__cardSucess" id="cardSucess">
+            <div class="main__contentSucess">
+                <span class="main__mensageSucess" id="mensageSucess"></span>
+            </div>
+        </div>
         <section class="sectionForums">
             <div class="sectionForums__title"><!-- Título sessão-->
                 <div class="sectionForums__leftMandala">
@@ -215,7 +220,7 @@
     }
 
     function irParaTopico(idTopico) {
-        window.location.href = `./ComentariosTopico.html?idForum=${idUrl}&idTopico=${idTopico}`;
+        window.location.href = `comentariosTopico.html?idForum=${idUrl}&idTopico=${idTopico}`;
     }
 
 
@@ -226,7 +231,7 @@
     function PostaTopico() {
         // const urlParametro = new URLSearchParams(window.location.search);
         // const idUrl = urlParametro.get('idForum');
-        div_bg_postar_topico.style = "display: block"
+        div_bg_postar_topico.style.display = "flex"
         var idUsuario = sessionStorage.ID_USUARIO;
         var nomeUsuario = sessionStorage.NOME_USUARIO;
 
@@ -237,10 +242,24 @@
         }
 
         if (corpo.titulo == "" || corpo.descricao == "") {
+            setTimeout(function () {
+                AbreCardSucesso("Há algum campo vazio.")
+                cardSucess.style.backgroundColor = "#fd5a5a"
+
+            }, 1000); // apenas para exibir o loading
+
+            setTimeout(function () {
+                div_bg_postar_topico.style.display = "none"
+            }, 1000); // apenas para exibir o loading
+
+            setTimeout(function () {
+                FechaCardSucesso()
+                cardSucess.style.backgroundColor = "#3a8fff"
+            }, 3000); // apenas para exibir o loading
 
         } else {
 
-        }
+       
 
         fetch(`/topico/publicar/${idUrl}/${idUsuario}`, {
             method: "post",
@@ -248,24 +267,28 @@
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(corpo)
+
         }).then(function (resposta) {
 
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
 
-                div_bg_postar_topico.style = "display: none"
-                
+                setTimeout(function () {
+                    div_bg_postar_topico.style = "display: none"
+                }, 2000); // apenas para exibir o loading
+
+
                 setTimeout(function () {
                     AbreCardSucesso("Tópico realizado com sucesso " + nomeUsuario + "!");
-                }, 500); // apenas para exibir o loading
+                }, 1000); // apenas para exibir o loading
 
 
                 setTimeout(function () {
                     window.location.reload()
-                }, 2000); // transição de tela
+                }, 3000); // transição de tela
+
                 
-                limparFormulario();
             } else if (resposta.status == 404) {
                 console.log("Deu 404!");
             } else {
@@ -274,6 +297,7 @@
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
         });
+    }
 
         return false;
 

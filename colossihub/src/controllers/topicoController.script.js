@@ -1,4 +1,5 @@
 var topicoModel = require("../models/topicoModel.script");
+var comentarioModel = require("../models/comentarioModel.script");
 
 
 function listarTopicosForum(req, res) {
@@ -64,11 +65,62 @@ function publicar(req, res) {
   }
 }
 
+function deletar(req, res) {
+  var idT = req.params.idTopico;
+
+  topicoModel.listarTopicoPeloId(idT)
+  
+  .then((resultado) => {
+    console.log(resultado)
+    res.status(200).json({
+      id: resultado[0].idTopico,
+      titulo: resultado[0].tituloTopico,
+      descricao: resultado[0].descricaoTopico,
+      data: resultado[0].dataTopico,
+      t_fkUsuario: resultado[0].topico_fkUsuario,
+      nome: resultado[0].nomeUsuario
+    });
+
+  });
+}
+
+function deletar(req, res) {
+  var idT = req.params.idTopico;
+
+  comentarioModel.deletar(idT)
+    .then(function (resultadoComentario) {
+      if (resultadoComentario.affectedRows > 0) {
+        return topicoModel.deletar(idT);
+      } else {
+        console.log("Não foram encontrados comentários para excluir para o tópico especificado");
+        return topicoModel.deletar(idT);
+      }
+    })
+    .then(function (resultadoTopico) {
+      if (resultadoTopico && resultadoTopico.affectedRows > 0) {
+        res.status(200).json({ message: "Tópico e comentários excluídos com sucesso" });
+      } else {
+        console.log("Houve um erro ao realizar a exclusão do tópico ou nenhum tópico foi encontrado para excluir");
+        res.status(502).json({ message: "Erro ao excluir o tópico ou nenhum tópico foi encontrado para excluir" });
+      }
+    })
+    .catch(function (erro) {
+      console.log("Houve um erro ao deletar o post: ", erro);
+      res.status(500).json({ message: "Erro interno ao deletar o post" });
+    });
+}
+
+
+
+
+
+
 
 
 
 module.exports = {
   listarTopicosForum,
   publicar,
-  listarTopicoPeloId
+  listarTopicoPeloId,
+  deletar
 };

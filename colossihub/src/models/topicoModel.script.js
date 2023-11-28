@@ -34,8 +34,18 @@ function publicar(titulo, descricao, idForum, idUsuario) {
   return database.executar(instrucao);
 }
 
+function deletar(idTopico) {
+  console.log("ACESSEI O TOPICO MODEL - função deletar \n \n\t\t");
+  var instrucao = `
+      DELETE FROM Topico WHERE idTopico = ${idTopico};
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 module.exports = {
   listarTopicosForum,
   listarTopicoPeloId,
-  publicar
+  publicar,
+  deletar
 };
